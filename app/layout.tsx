@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-
 import "./globals.css";
+import { PageTransition } from "@/components/PageTransition";
 
 import { AnimationProvider } from "@/context/AnimationContext";
-import NavbarWrapper from "@/components/NavbarWrapper";
+import CursorOpen from "@/components/CursorOpen";
+import CursorTopNav from "@/components/CursorTopNav";
+import Header from "@/components/Header";
+import FooterSection from "@/components/sections/FooterSection";
+import CopyrightSection from "@/components/sections/CopyrightSection";
 import SmoothScroll from "@/components/SmoothScroll";
-import PageTransition from "@/components/PageTransition";
+// import PageTransition from "@/components/PageTransition";
+
+import type { ReactNode } from "react";
 
 const montserrat = Montserrat({
     subsets: ["latin"],
@@ -19,20 +25,30 @@ export const metadata: Metadata = {
     description: "",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+    children,
+}: {
+    children: ReactNode;
+}) {
     return (
         <html lang="en" className={montserrat.variable}>
-        <body>
-            <SmoothScroll>
-            {/* <PageTransition> */}
-                <AnimationProvider>
-                    <div id="flash-overlay"></div>
+            <body>
+                <SmoothScroll>
+                    <PageTransition preset="fade" duration={0.5}>
+                        <AnimationProvider>
+                            <div id="flash-overlay"></div>
 
-                    <NavbarWrapper />
-                    {children}
-                </AnimationProvider>
-            {/* </PageTransition> */}
-            </SmoothScroll>
+                            <Header />
+
+                            {children}
+
+                            <CopyrightSection />
+                            <FooterSection />
+                        </AnimationProvider>
+                    </PageTransition>
+                    <CursorOpen />
+                    <CursorTopNav />
+                </SmoothScroll>
             </body>
         </html>
     );

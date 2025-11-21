@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    overflow: hidden;
+}
+
 @theme {
     --breakpoint-sm: 735px;
     --breakpoint-md: 1069px;
@@ -46,6 +55,8 @@
 
 
 :root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 0.1, 1);
   --background: #F5F5F5;
   --foreground: #171717;
   font-family: var(--font-montserrat), sans-serif;
@@ -68,6 +79,10 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+.fp-top-nav a {
+  cursor: none; 
 }
 
 /* .cursor-none, .cursor-none * {
@@ -179,4 +194,116 @@ textarea {
 
 .fp-swiper-work {
     overflow: visible !important;
+}
+
+.fp-swiper-work .swiper-wrapper {
+  transition-timing-function: ease-in-out !important;
+}
+
+/* Testimonials */
+.fp-testimonials-list .item {
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+}
+
+.fp-testimonials-list .item .fp-meta {
+  transition: opacity 0.5s ease;
+}
+
+.fp-testimonials-list .item:hover {
+    width: 300px;
+    height: 500px;
+}
+
+.fp-testimonials-list .item:hover .fp-meta {
+  animation: fadeInMeta 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInMeta {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.fp-sec-hero-home {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pagrindinis kamuolys */
+.gradient-ball {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 90, 0, 0.5),
+    rgba(255, 0, 120, 0.25),
+    rgba(0, 0, 0, 0)
+  );
+  filter: blur(70px);
+  mix-blend-mode: screen;
+}
+
+/* Išblukusi spalvų uodega */
+.gradient-trail {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 60, 0, 0.25),
+    rgba(255, 0, 140, 0.15),
+    rgba(0, 0, 0, 0)
+  );
+  filter: blur(120px);
+  opacity: 0.65;
+  mix-blend-mode: screen;
+  transition: opacity 0.4s ease-out;
+}
+
+.fp-nav-btn {
+  width: 140px;
+}
+
+.fp-nav-btn .fp-arrow {
+  cursor: pointer;
+}
+
+.fp-nav-btn .fp-arrow-left {
+  transform: rotate(180deg);
+}
+
+.fp-line-1 {
+  transform: translateX(0); 
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.fp-arrow-left:hover ~ .fp-line-1 {
+  transform: translateX(-26px);
+}
+
+.fp-nav-btn:has(.fp-arrow-right:hover) .fp-line-1 {
+  transform: translateX(26px);
+}
+
+/* Add this to your global CSS file */
+/* body.hide-native-cursor {
+  cursor: none !important;
+} */
+
+/* Optional: Ensure the slider doesn't force its own cursor */
+.fp-swiper-work .swiper-slide {
+  cursor: none; /* Fallback */
 }

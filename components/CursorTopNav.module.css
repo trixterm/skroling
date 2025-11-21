@@ -1,0 +1,26 @@
+.CursorTopNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  opacity: 0; 
+  transform: scale(0.5);
+
+  width: 26px;
+  height: 26px;
+  background-color: #F5F5F5;
+  border-radius: 50%;
+  
+  margin-top: -13px;
+  margin-left: -13px;
+
+  will-change: transform, opacity;
+  transition: opacity 0.3s ease, transform 0.1s ease;
+}
+
+.CursorTopNav.active {
+    opacity: 0.8;
+    transform: scale(1);
+}

@@ -4,13 +4,15 @@ import gsap from "gsap";
 
 export default function CopyrightSection() {
 
+    const year = new Date().getFullYear();
+
     return (
-        <section className="fp-sec-hero-home flex justify-center items-center h-screen ">
+        <footer className="fp-sec-copyright py-6">
             <div className="container mx-auto">
-                <div className="inner max-w-[700px] mx-auto text-center">
-                    <div className="fp-heading text-6xl font-normal leading-16">Websites that move, react, and engage your use</div>
+                <div className="inner">
+                    <div className="text-[10px]">© {year}. All rights reserved Monty and Kaite</div>
                 </div>
             </div>
-        </section>
+        </footer>
     );
 }

@@ -1,0 +1,43 @@
+.cursorContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.cursorCircle {
+  /* Centering the circle on the mouse coordinates */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+
+  width: 80px;
+  height: 80px;
+  background-color: #F5F5F5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursorText {
+  color: #5A5A5A; /* Dark grey/black text */
+  font-family: var(--font-montserrat);
+  font-size: 12px;
+  font-weight: 500;
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Hide on touch devices (Mobile/Tablet) */
+@media (hover: none) and (pointer: coarse) {
+  .cursorContainer {
+    display: none;
+  }
+}

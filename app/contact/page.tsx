@@ -32,19 +32,19 @@ export default function ContactPage() {
     //   }
     // }
 
-    function send() {
-      sendEmail(); 
-    }
+    // function send() {
+    //   sendEmail(); 
+    // }
 
     return (
       <section className="fp-sec-contact-1 pt-16">
           <div className="container mx-auto px-3">
               <div className="inner max-w-[800px] mx-auto">
                   <h1 className="text-[42px] md:text-[60px] pb-6">Contact</h1>                
-
+x
                   <Image src="/images/book-melisa.png" width={500} height={300} alt="Melissa Book" loading="lazy" layout="repsonsive" />
 
-                  <form className="fp-form fp-form-contact" action={send}>
+                  <form className="fp-form fp-form-contact">
                       <div className="fp-row"><input name="name" required placeholder="Name" className="border p-2" /></div>
                       <div className="fp-row"><input name="email" type="email" required placeholder="Email" className="border p-2" /></div>
                       <div className="fp-row"><textarea name="message" required placeholder="Message" className="border p-2 h-32" /></div>

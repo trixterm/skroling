@@ -19,8 +19,6 @@ export default function HomePage() {
         <ServicesSection />
         <ResultsSection />
         <TestimonialsSection />
-        <CopyrightSection />
-        <FooterSection />
     </main>
   );
 }
