@@ -4,7 +4,7 @@ import CountUpAnimation from "@/components/animations/CountUpAnimation";
 
 export default function ResultsSection() {
   return (
-    <section className="fp-sec-results" data-logo-visibility="hidden">
+    <section className="fp-sec-results relative z-2">
       <div className="container mx-auto">
         <div className="fp-section-heading pb-20">Real results</div>
 

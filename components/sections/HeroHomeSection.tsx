@@ -4,50 +4,76 @@ import { useEffect, useState, useRef, useLayoutEffect, type MouseEvent as ReactM
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register the plugin outside the component to avoid re-registering on renders
+// Saugiai registruojame GSAP papildinį
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function HeroHomeSection() {
+  // Būsenos
   const [isFinished, setIsFinished] = useState(false);
+  const [isMounting, setIsMounting] = useState(true); // Reikalingas, kad sustabdytų transition krovimosi metu
 
+  // Refs elementams ir logikai
   const mousePos = useRef({ x: 0, y: 0 });
   const ballPos = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null); // Added ref for specific targeting
+  const headingRef = useRef<HTMLDivElement>(null);
   const charsRef = useRef<(HTMLSpanElement | null)[]>([]);
   const revealedIndices = useRef<Set<number>>(new Set());
 
   const text = "Websites that move, react, and engage your user";
 
-  // --- GSAP Scroll Animation Logic ---
+  // --- 1. Pirminis patikrinimas (Initial Load Check) ---
   useLayoutEffect(() => {
-    // Safety check
+    // Patikriname, ar vartotojas jau matė animaciją
+    const animationSeen = localStorage.getItem("hero_animation_seen");
+    const currentTheme = localStorage.getItem("theme");
+
+    // Jei animacija jau rodyta ARBA vartotojas pasirinkęs šviesią temą
+    if (animationSeen === "true" || currentTheme === "light") {
+      setIsFinished(true);
+      
+      // Pažymime body elementą (globaliam stiliui)
+      document.body.classList.add("hero-animation-finished");
+
+      if (currentTheme === "light") {
+        document.documentElement.classList.remove("dark");
+      }
+    } else {
+      // Priverstinai uždedame dark klasę startui (animacijos metu fonas turi būti tamsus)
+      document.documentElement.classList.add("dark");
+    }
+
+    // Leidžiame CSS transitions veikti tik po trumpo laiko (kad nebūtų flash efekto)
+    const timer = setTimeout(() => setIsMounting(false), 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // --- 2. GSAP Scroll Animacija (Opacity mažėjimas skrolinant) ---
+  useLayoutEffect(() => {
     if (!containerRef.current || !headingRef.current) return;
 
-    // Create a GSAP context for easy cleanup
     const ctx = gsap.context(() => {
       gsap.to(headingRef.current, {
         opacity: 0,
-        ease: "none", // crucial for scrubbing to feel 1:1 with scroll
+        ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top top",      // Animation starts when top of hero hits top of viewport
+          start: "top top",
           end: "center top",
-          scrub: true,           // Links animation progress directly to scrollbar
-          invalidateOnRefresh: true, // Recalculates on resize
+          scrub: true,
+          invalidateOnRefresh: true,
         },
       });
-    }, containerRef); // Scope selectors to this container
+    }, containerRef);
 
-    return () => ctx.revert(); // Cleanup GSAP instance when component unmounts
+    return () => ctx.revert();
   }, []);
 
-  // --- Existing Reveal Logic (Unchanged) ---
+  // --- 3. Pelės judėjimo sekimas ---
   const handleMove = (e: ReactMouseEvent<HTMLElement>) => {
     if (isFinished || !containerRef.current) return;
-    
     const rect = containerRef.current.getBoundingClientRect();
     mousePos.current = {
       x: e.clientX - rect.left,
@@ -55,14 +81,12 @@ export default function HeroHomeSection() {
     };
   };
 
+  // --- 4. Animacijos logika (Flashlight effect) ---
   useEffect(() => {
-    const currentTheme = localStorage.getItem("theme");
-    if (currentTheme === "light") {
-        setIsFinished(true);
-        document.documentElement.classList.remove("dark");
-        return; 
-    }
+    // Jei komponentas užsikrovė ir jau yra "Finished", neleidžiame ciklo
+    if (isFinished) return;
 
+    // Inicializuojame tarpus kaip "revealed"
     text.split("").forEach((char, index) => {
       if (char === " ") revealedIndices.current.add(index);
     });
@@ -73,6 +97,7 @@ export default function HeroHomeSection() {
     const totalChars = text.length;
     let charRects: { x: number; y: number }[] = [];
     
+    // Suskaičiuojame raidžių pozicijas
     const calculateRects = () => {
         if (!containerRef.current) return;
         const containerRect = containerRef.current.getBoundingClientRect();
@@ -86,15 +111,17 @@ export default function HeroHomeSection() {
         });
     };
 
-    setTimeout(calculateRects, 100);
+    calculateRects();
     window.addEventListener("resize", calculateRects);
 
     const loop = () => {
+      // Jei viskas atidengta -> baigiame
       if (revealedIndices.current.size >= totalChars) {
-        if (!isFinished) finishAnimation();
+        finishAnimation();
         return;
       }
 
+      // Rutulio judėjimo "ease" logika
       const dx = mousePos.current.x - ballPos.current.x;
       const dy = mousePos.current.y - ballPos.current.y;
       ballPos.current.x += dx * 0.1;
@@ -105,6 +132,7 @@ export default function HeroHomeSection() {
         ball.style.transform = `translate(${ballPos.current.x - 150}px, ${ballPos.current.y - 150}px)`;
       }
 
+      // Tikriname susidūrimus su raidėmis
       charRects.forEach((rect, i) => {
         if (revealedIndices.current.has(i)) return;
         const distDx = ballPos.current.x - rect.x;
@@ -127,8 +155,16 @@ export default function HeroHomeSection() {
 
     const finishAnimation = () => {
       setIsFinished(true);
+      
+      // Nustatome į Light mode (pagal jūsų pradinį reikalavimą)
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      
+      // Išsaugome, kad animacija matyta, ir pažymime body
+      localStorage.setItem("hero_animation_seen", "true");
+      document.body.classList.add("hero-animation-finished");
+
+      // Pranešame kitiems komponentams (pvz., ThemeToggle)
       window.dispatchEvent(new Event("storage"));
     };
 
@@ -138,7 +174,12 @@ export default function HeroHomeSection() {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", calculateRects);
     };
-  }, [isFinished]); // Added dependency to ensure safe execution
+  }, [isFinished]); // Priklausomybė isFinished užtikrina, kad efektas nepasileis, jei jau true
+
+  // --- 5. Renderinimas ---
+  
+  // Nustatome transition trukmę (0 užsikraunant, 1000 vėliau)
+  const transitionClass = isMounting ? "duration-0" : "duration-1000";
 
   return (
     <section
@@ -146,13 +187,12 @@ export default function HeroHomeSection() {
       onMouseMove={handleMove}
       className={`
         fp-sec-hero-home flex justify-center items-center h-screen relative overflow-hidden 
-        transition-colors duration-1000 ease-in-out
-        ${isFinished 
-            ? "bg-[#f5f5f5] dark:bg-[#1A1A1A] text-black dark:text-white cursor-auto" 
-            : "bg-[#1A1A1A] text-transparent cursor-none"
-        }
+        transition-colors ease-in-out dark:bg-[#1A1A1A] 
+        ${transitionClass}
+        ${isFinished ? "cursor-auto" : "cursor-none"}
       `}
     >
+      {/* Tracker Ball (Šviesos efektas) */}
       <div
         id="tracker-ball"
         className={`gradient-ball absolute pointer-events-none transition-opacity duration-700 ${
@@ -170,24 +210,27 @@ export default function HeroHomeSection() {
         }}
       />
 
-      <div className="container mx-auto relative z-10 pointer-events-none">
+      <div className="container mx-auto relative pointer-events-none">
         <div className="inner max-w-[800px] mx-auto text-center select-none">
-          {/* Added ref={headingRef} here. 
-             Added will-change-opacity to hint the browser for optimization.
-          */}
+          {/* Antraštė */}
           <div 
             ref={headingRef} 
-            className="fp-heading text-5xl font-semibold leading-tight will-change-opacity"
+            className="fp-heading text-5xl font-semibold leading-tight will-change-opacity z-2 relative"
           >
             {text.split("").map((char, i) => (
               <span
                 key={i}
                 ref={(el) => { charsRef.current[i] = el; }}
-                className={`char transition-colors duration-300 inline-block whitespace-pre ${
-                  isFinished 
-                    ? "text-black dark:text-white" 
-                    : "text-[#333]"
-                }`}
+                className={`
+                  char inline-block whitespace-pre transition-colors duration-300 
+                  ${
+                    isFinished 
+                      // Jei baigta: juoda (light) arba balta (dark)
+                      ? "text-black dark:text-white" 
+                      // Jei animuojama: tamsiai pilka (kad susilietų su juodu fonu)
+                      : "text-[#333]"
+                  }
+                `}
               >
                 {char}
               </span>
@@ -195,7 +238,6 @@ export default function HeroHomeSection() {
           </div>
         </div>
       </div>
-
     </section>
   );
 }

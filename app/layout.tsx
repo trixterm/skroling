@@ -12,6 +12,8 @@ import CopyrightSection from "@/components/sections/CopyrightSection";
 import SmoothScroll from "@/components/SmoothScroll";
 // import PageTransition from "@/components/PageTransition";
 
+import FluidBackground from "@/components/animations/FluidBackground";
+
 import type { ReactNode } from "react";
 
 const montserrat = Montserrat({
@@ -44,11 +46,15 @@ export default function RootLayout({
 
                             <CopyrightSection />
                             <FooterSection />
+                            
                         </AnimationProvider>
                     </PageTransition>
                     <CursorOpen />
                     <CursorTopNav />
                 </SmoothScroll>
+
+                <FluidBackground SPLASH_COLOR={{ r: 0.29, g: 0.29, b: 0.29 }}  />
+
             </body>
         </html>
     );

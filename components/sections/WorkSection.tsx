@@ -32,7 +32,7 @@ export default function WorkSection() {
   }, [controls]);
 
   return (
-    <section className="fp-sec-work pt-28 pb-16">
+    <section className="fp-sec-work pt-28 pb-16 relative z-2">
       <WorkSectionAnimations />
 
       <div className="mx-5">
