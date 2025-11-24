@@ -1,12 +1,10 @@
 @import "tailwindcss";
 
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-body {
-    overflow: hidden;
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @theme {
@@ -18,7 +16,7 @@ body {
 
 @layer components {
     .fp-section-heading {
-        @apply text-[16px] font-semibold text-[#3C3C3C]; 
+        @apply text-[16px] font-semibold text-[#3C3C3C];
     }
 }
 
@@ -53,121 +51,136 @@ body {
     }
 }
 
-
 :root {
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in: cubic-bezier(0.55, 0, 0.1, 1);
-  --background: #F5F5F5;
-  --foreground: #171717;
-  font-family: var(--font-montserrat), sans-serif;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in: cubic-bezier(0.55, 0, 0.1, 1);
+    --background: #F5F5F5;
+    --foreground: #171717;
+    --text-color: #020617;
+    font-family: var(--font-montserrat), sans-serif;
+    
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+        --text-color: #F0F0F0;
+    }
 }
 
+.dark {
+    --text-color: #F0F0F0;
+}
+
+/* .dark a {
+    color: var(--text-color);
+} */
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+    background: var(--background);
+    /* color: var(--foreground); */
+    color: #5A5A5A;
+    transition: background-color 1.2s ease;
+    overflow: hidden;
 }
 
 .fp-top-nav a {
-  cursor: none; 
+    cursor: none;
 }
 
-/* .cursor-none, .cursor-none * {
-  cursor: none !important;
-} */
-
 body.white-mode {
-  animation: flash-blind 0.6s ease-out;
+    animation: flash-blind 0.6s ease-out;
 }
 
 @keyframes flash-blind {
-  0% {
-    filter: brightness(1);
-  }
-  30% {
-    filter: brightness(4);
-  }
-  100% {
-    filter: brightness(1);
-  }
+    0% {
+        filter: brightness(1);
+    }
+    30% {
+        filter: brightness(4);
+    }
+    100% {
+        filter: brightness(1);
+    }
 }
 
-.navbar-transition {
+/* .site-header .fp-logo {
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+    will-change: opacity;
+}
+
+.site-header .fp-logo.is-hidden {
   opacity: 0;
-  transform: translateY(-20px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+  pointer-events: none;
+} */
+
+.navbar-transition {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition:
+        opacity 0.6s ease-out,
+        transform 0.6s ease-out;
 }
 
 .navbar-transition.navbar-show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-body {
-  background-color: #F5F5F5;
-  transition: background-color 1.2s ease;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #flash-overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 0px;
-  height: 0px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 0px;
+    height: 0px;
 
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.9) 40%,
-    rgba(255, 255, 255, 0.75) 60%,
-    rgba(255, 255, 255, 0.3) 85%,
-    rgba(255, 255, 255, 0) 100%
-  );
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0.9) 40%,
+        rgba(255, 255, 255, 0.75) 60%,
+        rgba(255, 255, 255, 0.3) 85%,
+        rgba(255, 255, 255, 0) 100%
+    );
 
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
 
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0);
-  filter: blur(50px);
-  transition:
-    opacity 0.1s ease-out,
-    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.55s ease-out;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    filter: blur(50px);
+    transition:
+        opacity 0.1s ease-out,
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.55s ease-out;
 }
 
 body.white-mode #flash-overlay {
-  opacity: 1;
-  width: 2200px;
-  height: 2200px;
+    opacity: 1;
+    width: 2200px;
+    height: 2200px;
 
-  transform: translate(-50%, -50%) scale(1);
-  filter: blur(0px); /* blur išnyksta, šviesa aštrėja */
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0px);
 }
 
 body.white-mode.flash-done #flash-overlay {
-  opacity: 0;
+    opacity: 0;
 
-  filter: blur(80px); /* soft fade */
-  transition:
-    opacity 0.5s ease-in,
-    filter 0.6s ease-in;
+    filter: blur(80px);
+    transition:
+        opacity 0.5s ease-in,
+        filter 0.6s ease-in;
 }
 
 .fp-form-contact {
@@ -197,17 +210,17 @@ textarea {
 }
 
 .fp-swiper-work .swiper-wrapper {
-  transition-timing-function: ease-in-out !important;
+    transition-timing-function: ease-in-out !important;
 }
 
 /* Testimonials */
 .fp-testimonials-list .item {
-  cursor: pointer;
-  transition: 0.4s ease-in-out;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
 }
 
 .fp-testimonials-list .item .fp-meta {
-  transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
 .fp-testimonials-list .item:hover {
@@ -216,94 +229,119 @@ textarea {
 }
 
 .fp-testimonials-list .item:hover .fp-meta {
-  animation: fadeInMeta 1s ease forwards;
-  animation-delay: 0.3s;
+    animation: fadeInMeta 1s ease forwards;
+    animation-delay: 0.3s;
 }
 
 @keyframes fadeInMeta {
-  from {
-    opacity: 0;
-    visibility: hidden;
-  }
-  to {
-    opacity: 1;
-    visibility: visible;
-  }
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .fp-sec-hero-home {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Pagrindinis kamuolys */
 .gradient-ball {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  pointer-events: none;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 90, 0, 0.5),
-    rgba(255, 0, 120, 0.25),
-    rgba(0, 0, 0, 0)
-  );
-  filter: blur(70px);
-  mix-blend-mode: screen;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 90, 0, 0.5),
+        rgba(255, 0, 120, 0.25),
+        rgba(0, 0, 0, 0)
+    );
+    filter: blur(70px);
+    mix-blend-mode: screen;
 }
 
 /* Išblukusi spalvų uodega */
 .gradient-trail {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  pointer-events: none;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 60, 0, 0.25),
-    rgba(255, 0, 140, 0.15),
-    rgba(0, 0, 0, 0)
-  );
-  filter: blur(120px);
-  opacity: 0.65;
-  mix-blend-mode: screen;
-  transition: opacity 0.4s ease-out;
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 60, 0, 0.25),
+        rgba(255, 0, 140, 0.15),
+        rgba(0, 0, 0, 0)
+    );
+    filter: blur(120px);
+    opacity: 0.65;
+    mix-blend-mode: screen;
+    transition: opacity 0.4s ease-out;
 }
 
 .fp-nav-btn {
-  width: 140px;
+    width: 160px;
 }
 
 .fp-nav-btn .fp-arrow {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .fp-nav-btn .fp-arrow-left {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .fp-line-1 {
-  transform: translateX(0); 
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
+    transform: translateX(0);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
 }
 
 .fp-arrow-left:hover ~ .fp-line-1 {
-  transform: translateX(-26px);
+    transform: translateX(-26px);
 }
 
 .fp-nav-btn:has(.fp-arrow-right:hover) .fp-line-1 {
-  transform: translateX(26px);
+    transform: translateX(26px);
 }
 
-/* Add this to your global CSS file */
-/* body.hide-native-cursor {
-  cursor: none !important;
-} */
-
-/* Optional: Ensure the slider doesn't force its own cursor */
 .fp-swiper-work .swiper-slide {
-  cursor: none; /* Fallback */
+    cursor: none;
+}
+
+/* Swiper Storyline */
+.fp-scroll-gallery .fp-scroll-container {
+    position: relative;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+
+.fp-swiper-storyline .item {
+    scroll-snap-align: start;
+}
+
+.fp-swiper-storyline .item .fp-mask {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.fp-swiper-storyline .item.is-active .fp-mask {
+    opacity: 1;
+}
+
+/* Home */
+.fp-sec-hero-home:not(.bg-white) .char {
+    color: #333;
+    transition: color 0.1s ease;
+}
+
+.fp-sec-hero-home:not(.bg-white) .char.revealed {
+    color: white;
 }

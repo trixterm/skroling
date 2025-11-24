@@ -1,5 +1,8 @@
 // import React from "react";
+import StorylineSection from "@/components/sections/StorylineSection";
 
 export default function AboutPage() {
-    return <h1>about</h1>;
+    return (
+        <StorylineSection />
+    );
 }

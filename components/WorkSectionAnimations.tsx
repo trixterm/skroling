@@ -36,6 +36,18 @@ export default function WorkSectionAnimations() {
                 },
             });
 
+            gsap.from(".fp-sec-work .fp-nav-btn", {
+                opacity: 0,
+                duration: 4,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".fp-sec-work",
+                    start: "top 35%",
+                    end: "bottom 10%",
+                    scrub: true,
+                },
+            });
+
         });
 
         return () => ctx.revert();

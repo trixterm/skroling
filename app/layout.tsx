@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { PageTransition } from "@/components/PageTransition";
+import { PageTransition } from "@/components/animations/PageTransition";
 
 import { AnimationProvider } from "@/context/AnimationContext";
 import CursorOpen from "@/components/CursorOpen";

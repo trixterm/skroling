@@ -20,7 +20,7 @@ export default function VideoExpand() {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".fp-video-services",
-                    start: "top 90%",
+                    start: "top 99%",
                     end: "top top",
                     scrub: true,
                 },

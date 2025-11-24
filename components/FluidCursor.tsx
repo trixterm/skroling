@@ -3,32 +3,40 @@
 import { useEffect, useRef } from "react";
 
 export default function FluidCursor() {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return; // jei dėl kažkokios priežasties ref dar nepritvirtintas
+
     const ctx = canvas.getContext("2d");
+    if (!ctx) return; // jei nepavyko gauti 2D context
 
     let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     let ball = { x: mouse.x, y: mouse.y, radius: 40 };
+    let animationId: number;
 
-    // Sekti pelę
-    const move = (e) => {
+    // Sekti pelę (DOM MouseEvent, ne React)
+    const move = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     };
 
     window.addEventListener("mousemove", move);
 
-    // Sklandus judėjimas (skystumo įspūdis)
-    function animate() {
+    // Canvase dydis = visam ekranui
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Interpolacija (sklandus skystas judėjimas)
       ball.x += (mouse.x - ball.x) * 0.15;
       ball.y += (mouse.y - ball.y) * 0.15;
 
-      // Piešiame skystą kamuoliuką
       ctx.beginPath();
       ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
       ctx.fillStyle = "#5ac7ff";
@@ -37,23 +45,17 @@ export default function FluidCursor() {
       ctx.fill();
       ctx.shadowBlur = 0;
 
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Canvase dydis = visam ekranui
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+      animationId = requestAnimationFrame(animate);
+    };
 
     resize();
     window.addEventListener("resize", resize);
+    animate();
 
     return () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animationId);
     };
   }, []);
 

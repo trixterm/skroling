@@ -1,9 +1,16 @@
-import { useState } from "react";
+"use client";
+
+import { useState, MouseEvent } from "react";
+
+type Pos = {
+  x: number;
+  y: number;
+};
 
 export default function HeroGradientFollow() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [pos, setPos] = useState<Pos>({ x: 0, y: 0 });
 
-  const handleMove = (e) => {
+  const handleMove = (e: MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setPos({
       x: e.clientX - rect.left,

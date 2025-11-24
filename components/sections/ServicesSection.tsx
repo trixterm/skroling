@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import ServicesReveal from "@/components/ServicesReveal";
+import ServicesReveal from "@/components/animations/ServicesReveal";
 import VideoExpand from "@/components/VideoExpand";
 
 const SERVICE_ITEMS = [

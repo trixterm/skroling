@@ -14,7 +14,7 @@ interface ServicesRevealProps {
   gapAmount?: number; 
 }
 
-export default function ServicesReveal({ children, className = "", gapAmount = 80 }: ServicesRevealProps) {
+export default function ServicesReveal({ children, className = "", gapAmount = 50 }: ServicesRevealProps) {
     const containerRef = useRef<HTMLElement>(null);
 
     useLayoutEffect(() => {

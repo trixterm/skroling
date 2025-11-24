@@ -14,7 +14,7 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="fp-top-nav fixed left-0 right-0 mx-auto max-w-[330px] flex px-[6px] py-[5px] gap-1 bg-white rounded-3xl text-[12px] font-medium text-[#5A5A5A] backdrop-blur-2xl">
+        <nav className="fp-top-nav fixed left-0 right-0 mx-auto max-w-[335px] flex px-[6px] py-[5px] gap-1 bg-white dark:bg-[#292929] rounded-3xl text-[12px] font-medium text-[#5A5A5A] backdrop-blur-[50px] dark:backdrop-blur-[30px]">
             {navItems.map((item) => {
                 const isActive = pathname === item.href;
 
@@ -22,8 +22,8 @@ export default function Navbar() {
                     <Link
                         key={item.href}
                         href={item.href}
-                        className={`px-[9px] py-[8px] ${
-                            isActive ? "text-[#C4C4C4] bg-[#1A1A1A] rounded-3xl" : ""
+                        className={`px-[10px] py-[8px] ${
+                            isActive ? "text-[#C4C4C4] dark:text-[#1A1A1A] bg-[#1A1A1A] dark:bg-[#F0F0F0] rounded-3xl font-semibold" : "dark:text-[#F0F0F0]"
                         }`}
                     >
                         {item.name}

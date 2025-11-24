@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import DrawSVGPlugin from "@/libs/gsap/DrawSVGPlugin";
+// import DrawSVGPlugin from "@/libs/gsap/DrawSVGPlugin";
 
 export default function DrawSvgClient() {
   const svgRef = useRef(null);

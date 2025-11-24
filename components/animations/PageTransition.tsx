@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, Easing } from "framer-motion";
 import styled from "styled-components";
-import { transitionPresets } from "./transition-presets";
+import { transitionPresets } from "../transition-presets";
 
 const TransitionContainer = styled.div`
   position: relative;
