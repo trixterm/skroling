@@ -8,7 +8,7 @@ export default function ResultsSection() {
       <div className="container mx-auto">
         <div className="fp-section-heading pb-20">Real results</div>
 
-        <div className="fp-results-list text-[#5A5A5A]">
+        <div className="fp-results-list">
           <div className="inner mx-20 grid grid-cols-3 gap-x-3 gap-y-12">
             
             {/* 1 ITEM */}

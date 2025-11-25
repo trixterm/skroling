@@ -1,3 +1,5 @@
+import styles from "./TestimonialsSection.module.css";
+
 type Testimonial = {
     text: string;
     author: string;
@@ -28,13 +30,17 @@ export default function TestimonialsSection() {
                         say about me
                     </h2>
 
-                    <div className="fp-testimonials-list flex gap-6 items-end">
+                    <div
+                        className={`${styles["fp-testimonials-list"]} flex gap-6 items-end`}
+                    >
                         {testimonials.map((item, index) => (
                             <div
                                 key={index}
-                                className="item w-[12px] h-[12px] rounded-[6px] bg-[#3C3C3C] relative"
+                                className={`${styles.item} w-[12px] h-[12px] rounded-[6px] bg-[#3C3C3C] relative`}
                             >
-                                <figure className="fp-meta text-white z-2 p-6 opacity-0 invisible">
+                                <figure
+                                    className={`${styles["fp-meta"]} fp-meta text-white z-2 p-6 opacity-0 invisible`}
+                                >
                                     <blockquote className="text-[12px] leading-5">
                                         {item.text}
                                     </blockquote>

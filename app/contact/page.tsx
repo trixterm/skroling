@@ -1,8 +1,14 @@
-"use client";
+// "use client";
 
-import { sendEmail } from "@/lib/resend";
-import Image from "next/image";
-import { useState } from "react";
+// import { sendEmail } from "@/lib/resend";
+// import { useState } from "react";
+
+import { buildMetadata, siteConfig } from '@/config/site.config';
+
+export const metadata = buildMetadata({
+    title: `Contact | ${siteConfig.siteName}`,
+    description: 'Skroling',
+});
 
 export default function ContactPage() {
     // const [status, setStatus] = useState<null | "success" | "error">(null);
@@ -40,9 +46,7 @@ export default function ContactPage() {
       <section className="fp-sec-contact-1 pt-16">
           <div className="container mx-auto px-3">
               <div className="inner max-w-[800px] mx-auto">
-                  <h1 className="text-[42px] md:text-[60px] pb-6">Contact</h1>                
-x
-                  <Image src="/images/book-melisa.png" width={500} height={300} alt="Melissa Book" loading="lazy" layout="repsonsive" />
+                  <h1 className="text-[42px] md:text-[60px] pb-6">Contact</h1>
 
                   <form className="fp-form fp-form-contact">
                       <div className="fp-row"><input name="name" required placeholder="Name" className="border p-2" /></div>

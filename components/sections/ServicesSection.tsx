@@ -58,7 +58,7 @@ export default function ServicesSection() {
                             <span className="relative z-10">{item}</span>
 
                             <div 
-                                className="line-element absolute bottom-0 left-0 w-full h-[1px] bg-current origin-left scale-x-0 will-change-transform" 
+                                className="line-element absolute bottom-0 left-0 w-full h-[1px] bg-current dark:bg-[#fff] origin-left scale-x-0 will-change-transform" 
                             />
                         </div>
                     ))}

@@ -1,0 +1,9 @@
+.fp-sec-hero-home:not(.bg-white) .char {
+    color: #333;
+    transition: color 0.1s ease;
+}
+
+.fp-sec-hero-home:not(.bg-white) .char.revealed,
+.dark body.hero-animation-finished .fp-sec-hero-home .char {
+    color: #fff;
+} 

@@ -70,7 +70,7 @@ export default function CountUpAnimation({
         duration: 2,
         ease: "power3.inOut",
       },
-      "-=0.5"
+      "-=1.2"
     );
 
   }, { scope: containerRef });

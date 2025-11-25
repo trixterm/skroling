@@ -1,0 +1,25 @@
+.fp-nav-btn {
+    width: 160px;
+}
+
+.fp-nav-btn .fp-arrow {
+    cursor: pointer;
+}
+
+.fp-nav-btn .fp-arrow-left {
+    transform: rotate(180deg);
+}
+
+.fp-line-1 {
+    transform: translateX(0);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.fp-arrow-left:hover ~ .fp-line-1 {
+    transform: translateX(-35px);
+}
+
+.fp-nav-btn:has(.fp-arrow-right:hover) .fp-line-1 {
+    transform: translateX(35px);
+}
