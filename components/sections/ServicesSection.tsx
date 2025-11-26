@@ -43,7 +43,7 @@ export default function ServicesSection() {
     });
 
     return (
-        <ServicesReveal className="fp-sec-services py-20 relative z-2">
+        <ServicesReveal className="fp-sec-services py-24 relative z-2">
             <div className="container mx-auto" ref={containerRef}>
                 <div className="fp-section-heading pb-6">Services</div>
 

@@ -1,20 +1,47 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import localFont from "next/font/local"
 import "./globals.css";
-import { PageTransition } from "@/components/animations/PageTransition";
+import ClientLayoutWrapper from "./ClientLayoutWrapper";
 
-import { AnimationProvider } from "@/context/AnimationContext";
-import CursorOpen from "@/components/CursorOpen";
-import CursorTopNav from "@/components/CursorTopNav";
-import Header from "@/components/Header";
-import FooterSection from "@/components/sections/FooterSection";
-import CopyrightSection from "@/components/sections/CopyrightSection";
-import SmoothScroll from "@/components/SmoothScroll";
-// import PageTransition from "@/components/PageTransition";
+export const roth = localFont({
+  src: [
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Bold.woff2', weight: '700', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-BoldItalic.woff2', weight: '700', style: 'italic' },
 
-import FluidBackground from "@/components/animations/FluidBackground";
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Black.woff2', weight: '900', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-BlackItalic.woff2', weight: '900', style: 'italic' },
 
-import type { ReactNode } from "react";
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ExtraLight.woff2', weight: '200', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ExtraLightItalic.woff2', weight: '200', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Light.woff2', weight: '300', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-LightItalic.woff2', weight: '300', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Thin.woff2', weight: '100', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ThinItalic.woff2', weight: '100', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Medium.woff2', weight: '500', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-MediumItalic.woff2', weight: '500', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-SemiBold.woff2', weight: '600', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-SemiBoldItalic.woff2', weight: '600', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-RegularItalic.woff2', weight: '400', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ExBold.woff2', weight: '800', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ExBoldItalic.woff2', weight: '800', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Normal.woff2', weight: '400', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-NormalItalic.woff2', weight: '400', style: 'italic' },
+
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Hairline.woff2', weight: '100', style: 'normal' },
+    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-HairlineItalic.woff2', weight: '100', style: 'italic' },
+  ],
+  variable: '--font-roth', // optional CSS variable
+});
+
 
 const montserrat = Montserrat({
     subsets: ["latin"],
@@ -27,34 +54,13 @@ export const metadata: Metadata = {
     description: "",
 };
 
-export default function RootLayout({
-    children,
-}: {
-    children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={montserrat.variable}>
             <body>
-                <SmoothScroll>
-                    <PageTransition preset="fade" duration={0.5}>
-                        <AnimationProvider>
-                            <div id="flash-overlay"></div>
-
-                            <Header />
-
-                            {children}
-
-                            <CopyrightSection />
-                            <FooterSection />
-                            
-                        </AnimationProvider>
-                    </PageTransition>
-                    <CursorOpen />
-                    <CursorTopNav />
-                </SmoothScroll>
-
-                <FluidBackground SPLASH_COLOR={{ r: 0.29, g: 0.29, b: 0.29 }}  />
-
+                <ClientLayoutWrapper>
+                    {children}
+                </ClientLayoutWrapper>
             </body>
         </html>
     );

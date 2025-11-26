@@ -214,6 +214,10 @@ body.white-mode {
     }
 }
 
+.fp-extra-font {
+    font-family: 'roth';
+}
+
 .navbar-transition {
     opacity: 0;
     transform: translateY(-20px);
@@ -320,4 +324,28 @@ body.white-mode.flash-done #flash-overlay {
 .fp-sec-hero-home:not(.bg-white) .char.revealed,
 .dark body.hero-animation-finished .fp-sec-hero-home .char {
     color: #fff;
+}
+
+.fp-btn {
+    display: inline-block;
+    padding: 10px 34px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-transition: 500ms cubic-bezier(0.25, 1, 0.5, 1);
+            transition: 500ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fp-btn-filled-1 {
+    background: #F0F0F0;
+    color: #1A1A1A;
+}
+
+/* Forms */
+.fp-input {
+    @apply w-full bg-transparent border-b border-[#A8A6A6] text-[12px] text-white placeholder-[#A8A6A6] placeholder:text-[12px] font-medium py-2 px-0 focus:outline-none focus:border-white transition-colors;
 }

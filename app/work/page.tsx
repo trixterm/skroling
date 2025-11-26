@@ -1,6 +1,7 @@
 // import React from "react";
 
 import { buildMetadata, siteConfig } from '@/config/site.config';
+import WorkCardsSection from "@/components/sections/WorkCardsSection";
 
 export const metadata = buildMetadata({
     title: `Work | ${siteConfig.siteName}`,
@@ -8,5 +9,7 @@ export const metadata = buildMetadata({
 });
 
 export default function WorkPage() {
-    return <h1>Work</h1>;
+    return (
+        <WorkCardsSection />
+    );
 }

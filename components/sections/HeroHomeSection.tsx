@@ -215,7 +215,7 @@ export default function HeroHomeSection() {
           {/* Antraštė */}
           <div 
             ref={headingRef} 
-            className="fp-heading text-5xl font-semibold leading-tight will-change-opacity z-2 relative"
+            className="fp-extra-font text-6xl font-semibold leading-17 text[#383232] will-change-opacity z-2 relative"
           >
             {text.split("").map((char, i) => (
               <span
