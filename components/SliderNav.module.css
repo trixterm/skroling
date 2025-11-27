@@ -1,4 +1,7 @@
 .fp-nav-btn {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
     width: 160px;
 }
 
@@ -10,16 +13,28 @@
     transform: rotate(180deg);
 }
 
-.fp-line-1 {
+:global(.fp-nav-btn .fp-line-1) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     transform: translateX(0);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
 }
 
-.fp-arrow-left:hover ~ .fp-line-1 {
-    transform: translateX(-35px);
+/* ---------------------------
+   LEFT ARROW HOVER
+---------------------------- */
+:global(.fp-nav-btn .fp-arrow-left:hover) ~ :global(.fp-line-1) {
+    transform: translateX(-36px);
 }
 
-.fp-nav-btn:has(.fp-arrow-right:hover) .fp-line-1 {
-    transform: translateX(35px);
+/* ---------------------------
+   RIGHT ARROW HOVER
+---------------------------- */
+:global(.fp-nav-btn .fp-arrow-right:hover) ~ :global(.fp-line-1) {
+    transform: translateX(37px);
 }

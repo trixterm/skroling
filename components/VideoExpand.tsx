@@ -1,31 +1,52 @@
 "use client";
 
 import { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+let gsapLoaded = false;
 
 export default function VideoExpand() {
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
+        let ctx: any = null;
 
-        gsap.fromTo(
-            ".fp-video-services video",
-            {
-                width: "0px",
-                borderRadius: "16px",
-            },
-            {
-                width: "100vw",
-                borderRadius: "0px",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ".fp-video-services",
-                    start: "top 99%",
-                    end: "top top",
-                    scrub: true,
-                },
+        async function start() {
+            const { gsap } = await import("gsap");
+            const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+
+            // 2. plugin registro guard
+            if (!gsapLoaded) {
+                gsap.registerPlugin(ScrollTrigger);
+                gsapLoaded = true;
             }
-        );
+
+            requestAnimationFrame(() => {
+                ctx = gsap.context(() => {
+                    gsap.fromTo(
+                        ".fp-video-services video",
+                        {
+                            width: "0px",
+                            borderRadius: "16px",
+                        },
+                        {
+                            width: "100vw",
+                            borderRadius: "0px",
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: ".fp-video-services",
+                                start: "top 99%",
+                                end: "top top",
+                                scrub: true,
+                            },
+                        }
+                    );
+                });
+            });
+        }
+
+        start();
+
+        return () => {
+            ctx?.revert();
+        };
     }, []);
 
     return null;

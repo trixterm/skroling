@@ -1,23 +1,17 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
+import { memo, useRef } from "react";
+import dynamic from "next/dynamic";
 
 interface CountUpAnimationProps {
-  value: number;
-  subtitle: string;
-  prefix?: string;
-  suffix?: string;
-  className?: string;
+  readonly value: number;
+  readonly subtitle: string;
+  readonly prefix?: string;
+  readonly suffix?: string;
+  readonly className?: string;
 }
 
-export default function CountUpAnimation({
+function CountUpAnimation({
   value,
   subtitle,
   prefix = "",
@@ -25,61 +19,67 @@ export default function CountUpAnimation({
   className = "",
 }: CountUpAnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const numberRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLDivElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 85%",
-        once: true,
-      },
-    });
+  // Lazy-load GSAP only when component mounts
+  useClientGSAP(() => {
+    (async () => {
+      const gsap = (await import("gsap")).default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const { useGSAP } = await import("@gsap/react");
 
-    // 1. Atsiranda Skaičius (Opacity + šiek tiek pakyla)
-    tl.fromTo(
-      ".fp-number",
-      { opacity: 0, y: 20 }, 
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "power2.out",
-      }
-    );
+      gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-    // 2. Atsiranda Subtitras
-    tl.fromTo(
-      ".fp-number-subtitle",
-      { opacity: 0, y: 10 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "power2.out",
-      },
-      "-=1.0" // Prasideda šiek tiek anksčiau, kol skaičius dar animuojasi
-    );
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 85%",
+          once: true,
+        },
+      });
 
-    // 3. Nusibraižo linija
-    tl.fromTo(
-      borderRef.current,
-      { width: "0%" },
-      {
-        width: "100%",
-        duration: 2,
-        ease: "power3.inOut",
-      },
-      "-=1.2"
-    );
+      tl.fromTo(
+        numberRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "power2.out",
+        }
+      );
 
-  }, { scope: containerRef });
+      tl.fromTo(
+        subtitleRef.current,
+        { opacity: 0, y: 10 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "power2.out",
+        },
+        "-=1.0"
+      );
+
+      tl.fromTo(
+        borderRef.current,
+        { width: "0%" },
+        {
+          width: "100%",
+          duration: 2,
+          ease: "power3.inOut",
+        },
+        "-=1.2"
+      );
+    })();
+  });
 
   return (
     <div ref={containerRef} className="flex flex-col">
-      
-      {/* SKAIČIUS (Statinis, tik su Opacity animacija) */}
-      <div className={`fp-number inline-flex items-baseline ${className}`}>
+      {/* NUMBER */}
+      <div ref={numberRef} className={`fp-number inline-flex items-baseline ${className}`}>
         <span className="flex items-baseline">
           {prefix && <span>{prefix}</span>}
           <span>{value}</span>
@@ -87,18 +87,22 @@ export default function CountUpAnimation({
         </span>
       </div>
 
-      {/* SUBTITRAS */}
-      <div className="fp-number-subtitle text-[12px] font-medium uppercase pb-3">
+      {/* SUBTITLE */}
+      <div ref={subtitleRef} className="fp-number-subtitle text-[12px] font-medium uppercase pb-3">
         {subtitle}
       </div>
 
-      {/* LINIJA */}
-      <div 
-        ref={borderRef}
-        className="bg-current h-[1px]"
-        style={{ width: 0 }} 
-      ></div>
-      
+      {/* LINE */}
+      <div ref={borderRef} className="bg-current h-[1px] w-0"></div>
     </div>
   );
+}
+
+export default memo(CountUpAnimation);
+
+// Custom hook: safely runs GSAP only on client
+function useClientGSAP(callback: () => void) {
+  if (typeof window !== "undefined") {
+    callback();
+  }
 }

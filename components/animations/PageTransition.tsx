@@ -7,9 +7,9 @@ import styled from "styled-components";
 import { transitionPresets } from "../transition-presets";
 
 const TransitionContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 `;
 
 interface PageTransitionProps {
@@ -21,7 +21,7 @@ interface PageTransitionProps {
 
 export function PageTransition({
   children,
-  preset = "fade",
+  preset = "slideUp",
   duration = 0.45,
   easing = [0.22, 1, 0.36, 1], // ← valid cubic bezier
 }: PageTransitionProps) {

@@ -17,7 +17,7 @@ export default function ClientLayoutWrapper({ children }: { children: ReactNode 
 
     return (
         <SmoothScroll>
-            <PageTransition preset="fade" duration={0.5}>
+            <PageTransition preset="fade" duration={0.4}>
                 <AnimationProvider>
                     <div id="flash-overlay"></div>
 

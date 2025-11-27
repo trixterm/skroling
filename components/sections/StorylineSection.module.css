@@ -1,4 +1,4 @@
-.fp-scroll-gallery .fp-scroll-container {
+/* .fp-scroll-gallery .fp-scroll-container {
     position: relative;
     overflow-x: scroll;
     scrollbar-width: none;
@@ -7,7 +7,7 @@
 
 .fp-swiper-storyline .item {
     scroll-snap-align: start;
-}
+} */
 
 .fp-swiper-storyline .item .fp-mask {
     opacity: 0;

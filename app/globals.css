@@ -349,3 +349,14 @@ body.white-mode.flash-done #flash-overlay {
 .fp-input {
     @apply w-full bg-transparent border-b border-[#A8A6A6] text-[12px] text-white placeholder-[#A8A6A6] placeholder:text-[12px] font-medium py-2 px-0 focus:outline-none focus:border-white transition-colors;
 }
+
+.fp-scroll-gallery .fp-scroll-container {
+    position: relative;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+
+.fp-scroll-gallery li {
+    scroll-snap-align: start;
+}
