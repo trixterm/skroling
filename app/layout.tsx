@@ -6,20 +6,11 @@ import ClientLayoutWrapper from "./ClientLayoutWrapper";
 
 export const roth = localFont({
   src: [
-    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Bold.woff2', weight: '700', style: 'normal' },
-    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-BoldItalic.woff2', weight: '700', style: 'italic' },
-
-    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Black.woff2', weight: '900', style: 'normal' },
-    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-BlackItalic.woff2', weight: '900', style: 'italic' },
-
     { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ExtraLight.woff2', weight: '200', style: 'normal' },
     { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ExtraLightItalic.woff2', weight: '200', style: 'italic' },
 
     { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Light.woff2', weight: '300', style: 'normal' },
     { path: '../public/fonts/Trial-Rothek/Trial-Rothek-LightItalic.woff2', weight: '300', style: 'italic' },
-
-    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Thin.woff2', weight: '100', style: 'normal' },
-    { path: '../public/fonts/Trial-Rothek/Trial-Rothek-ThinItalic.woff2', weight: '100', style: 'italic' },
 
     { path: '../public/fonts/Trial-Rothek/Trial-Rothek-Medium.woff2', weight: '500', style: 'normal' },
     { path: '../public/fonts/Trial-Rothek/Trial-Rothek-MediumItalic.woff2', weight: '500', style: 'italic' },

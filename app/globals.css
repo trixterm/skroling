@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
-html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 }
 
 @theme {
@@ -359,4 +361,24 @@ body.white-mode.flash-done #flash-overlay {
 
 .fp-scroll-gallery li {
     scroll-snap-align: start;
+}
+
+.fp-logo-letters-anim {
+    transition: transform 1.2s cubic-bezier(0.25,0.8,0.25,1);
+}
+
+.fp-logo .fp-logo-letters-anim {
+    transform: translateY(-25px);
+}
+
+.fp-logo:hover .fp-logo-letters-anim {
+    transform: translateY(-8px);
+}
+
+.fp-logo-footer .fp-logo-letters-anim {
+    transform: translateY(-120px);
+}
+
+.fp-logo-footer:hover .fp-logo-letters-anim {
+    transform: translateY(-36px);
 }

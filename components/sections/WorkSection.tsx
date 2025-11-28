@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import gsap from "gsap";
 import SwiperSlider from "@/components/SwiperSlider";
 import WorkSectionAnimations from "@/components/WorkSectionAnimations";
 import SliderNav from "@/components/SliderNav";

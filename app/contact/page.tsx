@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import FaqSection from "@/components/sections/FaqSection";
+import ContactForm2 from '@/components/ContactForm2';
 
 export default function ContactPage() {
     const maskRef = useRef<HTMLDivElement>(null);
@@ -178,6 +179,7 @@ export default function ContactPage() {
                         >
                             sent just now
                         </div>
+                        <ContactForm2 />
                     </div>
                 </div>
             </section>

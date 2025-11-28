@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, lazy } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ServicesReveal from "@/components/animations/ServicesReveal";
-import VideoExpand from "@/components/VideoExpand";
+const VideoExpand = lazy(() => import("@/components/VideoExpand"));
 
 const SERVICE_ITEMS = [
     "Custom Website Development",
@@ -36,7 +36,7 @@ export default function ServicesSection() {
         gsap.to(line, {
             scaleX: 0,
             transformOrigin: "right center",
-            duration: 0.3,
+            duration: 0.4,
             ease: "power2.in",
             overwrite: "auto",
         });
@@ -73,6 +73,7 @@ export default function ServicesSection() {
                     muted
                     autoPlay
                     loop
+                    loading="lazy"
                 >
                     <source src="/videos/3571264-hd_1920_1080_30fps.mp4" type="video/mp4" />
                 </video>

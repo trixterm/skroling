@@ -61,21 +61,17 @@ const ContactForm: React.FC = () => {
   };
 
   const handleSubmit = async (): Promise<void> => {
-    // Mark all fields as touched
     setTouched(new Set(['nameSurname', 'email', 'projectDetails', 'services']));
-    
     setStatus('submitting');
     setStatusMessage('');
-    
+
     try {
-      // Call Server Action
       const result = await submitContactForm(formData);
-      
+
       if (result.success) {
         setStatus('success');
         setStatusMessage(result.message);
-        
-        // Reset form after 3 seconds
+
         setTimeout(() => {
           setFormData({
             nameSurname: '',
@@ -88,10 +84,11 @@ const ContactForm: React.FC = () => {
           setStatus('idle');
           setStatusMessage('');
         }, 3000);
+
       } else {
         setStatus('error');
         setStatusMessage(result.message);
-        
+
         if (result.errors) {
           setErrors(result.errors);
         }
@@ -100,13 +97,7 @@ const ContactForm: React.FC = () => {
     } catch (error) {
       console.error('Submission error:', error);
       setStatus('error');
-      setStatusMessage('Network error. Please check your connection and try again.');
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent): void => {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      handleSubmit();
+      setStatusMessage('Network error. Please try again.');
     }
   };
 
@@ -116,17 +107,17 @@ const ContactForm: React.FC = () => {
 
   return (
     <div className="fp-comp-contact-form w-full max-w-lg">
-      <div 
+      <form
         className="space-y-4"
-        role="form"
         aria-label="Contact form"
-        onKeyDown={handleKeyDown}
+        onSubmit={(e) => {
+          e.preventDefault(); // Stop reload → HTML5 validation still works
+          handleSubmit();
+        }}
       >
         {/* Name Surname Field */}
         <div>
-          <label htmlFor="nameSurname" className="sr-only">
-            Name Surname
-          </label>
+          <label htmlFor="nameSurname" className="sr-only">Name Surname</label>
           <input
             id="nameSurname"
             name="nameSurname"
@@ -136,22 +127,13 @@ const ContactForm: React.FC = () => {
             onBlur={() => handleBlur('nameSurname')}
             placeholder="Name Surname"
             className="fp-input"
-            aria-invalid={shouldShowError('nameSurname')}
-            aria-describedby={shouldShowError('nameSurname') ? 'nameSurname-error' : undefined}
-            aria-required="true"
+            required
           />
-          {shouldShowError('nameSurname') && (
-            <p id="nameSurname-error" className="mt-1 text-[10px] text-red-300" role="alert">
-              {errors.nameSurname}
-            </p>
-          )}
         </div>
 
-        {/* Company Field (Optional) */}
+        {/* Company (Optional) */}
         <div>
-          <label htmlFor="company" className="sr-only">
-            Company (optional)
-          </label>
+          <label htmlFor="company" className="sr-only">Company</label>
           <input
             id="company"
             name="company"
@@ -163,11 +145,9 @@ const ContactForm: React.FC = () => {
           />
         </div>
 
-        {/* Email Field */}
+        {/* Email */}
         <div>
-          <label htmlFor="email" className="sr-only">
-            E-mail
-          </label>
+          <label htmlFor="email" className="sr-only">E-mail</label>
           <input
             id="email"
             name="email"
@@ -177,22 +157,13 @@ const ContactForm: React.FC = () => {
             onBlur={() => handleBlur('email')}
             placeholder="E-mail"
             className="fp-input"
-            aria-invalid={shouldShowError('email')}
-            aria-describedby={shouldShowError('email') ? 'email-error' : undefined}
-            aria-required="true"
+            required
           />
-          {shouldShowError('email') && (
-            <p id="email-error" className="mt-1 text-[10px] text-red-300" role="alert">
-              {errors.email}
-            </p>
-          )}
         </div>
 
-        {/* Project Details Field */}
+        {/* Project Details */}
         <div>
-          <label htmlFor="projectDetails" className="sr-only">
-            Tell us about your project
-          </label>
+          <label htmlFor="projectDetails" className="sr-only">Project details</label>
           <textarea
             id="projectDetails"
             name="projectDetails"
@@ -202,83 +173,66 @@ const ContactForm: React.FC = () => {
             placeholder="Tell us about your project"
             rows={3}
             className="fp-input h-[40px] resize-none"
-            aria-invalid={shouldShowError('projectDetails')}
-            aria-describedby={shouldShowError('projectDetails') ? 'projectDetails-error' : undefined}
-            aria-required="true"
+            required
           />
-          {shouldShowError('projectDetails') && (
-            <p id="projectDetails-error" className="mt-1 text-[10px] text-red-300" role="alert">
-              {errors.projectDetails}
-            </p>
-          )}
         </div>
 
-        {/* Services Selection */}
+        {/* Services */}
         <div>
-          <div role="group" aria-labelledby="services-label">
-            <p id="services-label" className="text-white text-[13px] font-medium mb-4">
-              Select what services do you need?
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {SERVICE_OPTIONS.map((service) => {
-                const isSelected = formData.services.includes(service);
-                return (
-                  <button
-                    key={service}
-                    type="button"
-                    onClick={() => handleServiceToggle(service)}
-                    onBlur={() => handleBlur('services')}
-                    className={`px-[10px] py-[5px] rounded-full text-[10px] font-medium cursor-pointer transition-all ${
-                      isSelected
-                        ? 'bg-white border-1 border-white text-[#000]'
-                        : 'bg-transparent text-gray-300 border-1 border-[#E2E3E5] hover:border-gray-300'
-                    }`}
-                    aria-pressed={isSelected}
-                    aria-label={`${service}${isSelected ? ', selected' : ''}`}
-                  >
-                    {service}
-                  </button>
-                );
-              })}
-            </div>
-            {shouldShowError('services') && (
-              <p className="mt-2 text-[10px] text-red-300" role="alert">
-                {errors.services}
-              </p>
-            )}
+          <p className="text-white text-[13px] font-medium mb-4">
+            Select what services do you need?
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {SERVICE_OPTIONS.map((service) => {
+              const isSelected = formData.services.includes(service);
+              return (
+                <button
+                  key={service}
+                  type="button"
+                  onClick={() => handleServiceToggle(service)}
+                  onBlur={() => handleBlur('services')}
+                  className={`px-[10px] py-[5px] rounded-full text-[10px] font-medium cursor-pointer transition-all duration-400 ${
+                    isSelected
+                      ? 'bg-white border-1 border-white text-[#000]'
+                      : 'bg-transparent text-gray-300 border-1 border-[#E2E3E5] hover:border-gray-300'
+                  }`}
+                >
+                  {service}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <div className="flex justify-end">
           <button
-            type="button"
-            onClick={handleSubmit}
+            type="submit"
             disabled={status === 'submitting'}
             className="fp-btn fp-btn-filled-1"
-            aria-busy={status === 'submitting'}
           >
             {status === 'submitting' ? 'Submitting...' : 'Submit'}
           </button>
         </div>
 
-        {/* Status Messages */}
+        {/* Status */}
         {status === 'success' && (
-          <div className="p-4 bg-green-500 bg-opacity-20 border border-green-400 rounded-lg" role="status">
+          <div className="p-4 bg-green-500 bg-opacity-20 border border-green-400 rounded-lg">
             <p className="text-green-300 text-center text-sm">
-              ✓ {statusMessage}
+              {statusMessage}
             </p>
           </div>
         )}
-        
+
         {status === 'error' && (
-          <div className="p-4 bg-red-500 bg-opacity-20 border border-red-400 rounded-lg" role="alert">
+          <div className="p-4">
             <p className="text-red-300 text-center text-sm">
-              ✗ {statusMessage}
+              {statusMessage}
             </p>
           </div>
         )}
-      </div>
+      </form>
     </div>
   );
 };
