@@ -368,7 +368,7 @@ body.white-mode.flash-done #flash-overlay {
 }
 
 .fp-logo .fp-logo-letters-anim {
-    transform: translateY(-25px);
+    transform: translateY(-62px);
 }
 
 .fp-logo:hover .fp-logo-letters-anim {
@@ -379,6 +379,24 @@ body.white-mode.flash-done #flash-overlay {
     transform: translateY(-120px);
 }
 
+/* .slider-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+} */
+
+/* 
 .fp-logo-footer:hover .fp-logo-letters-anim {
     transform: translateY(-36px);
-}
+} */

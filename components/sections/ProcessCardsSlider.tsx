@@ -1,10 +1,15 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+    useMemo,
+    useState,
+    useCallback,
+    useEffect,
+} from "react";
 import dynamic from "next/dynamic";
+import { motion, useAnimationControls } from "framer-motion";
 
 const SliderNav = dynamic(() => import("@/components/SliderNav"), {
-    loading: () => <div className="w-20 h-10 bg-gray-800 rounded animate-pulse" />,
     ssr: false,
 });
 
@@ -12,9 +17,7 @@ const ITEM_WIDTH = 300;
 const GAP = 15;
 const FULL_ITEM_WIDTH = ITEM_WIDTH + GAP;
 
-const easeOutCubic = (t: number): number => {
-    return 1 - Math.pow(1 - t, 3);
-};
+/* ---------------------- Types ---------------------- */
 
 type CardData = {
     number: string;
@@ -28,6 +31,8 @@ type ProcessedCard = CardData & {
     lastSentence: string;
 };
 
+/* ---------------- Utilities ---------------- */
+
 const splitLastSentence = (text: string): { main: string; last: string } => {
     const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
     if (sentences.length === 0) return { main: text, last: "" };
@@ -36,31 +41,39 @@ const splitLastSentence = (text: string): { main: string; last: string } => {
     return { main, last };
 };
 
-const ProcessCard = React.memo<{
-    card: ProcessedCard;
-    isActive: boolean;
-    index: number;
-}>(
-    ({ card, isActive, index }) => (
-        <li
-            className="relative flex-shrink-0 w-[300px] h-[380px] bg-[#1a1a1a] rounded-2xl p-6 pr-4 flex flex-col justify-between transition-all duration-300"
-            style={{ 
-                scrollSnapAlign: "start",
-                contain: "layout style paint",
-                willChange: isActive ? "transform" : "auto" 
+/* ---------------- Card Component ---------------- */
+
+const ProcessCard = React.memo(
+    ({
+        card,
+        isActive,
+        rotation,
+    }: {
+        card: ProcessedCard;
+        isActive: boolean;
+        rotation: number;
+    }) => (
+        <motion.li
+            className="relative flex-shrink-0 w-[300px] h-[380px] bg-[#1a1a1a] rounded-2xl p-6 pr-4 flex flex-col justify-between"
+            animate={{
+                opacity: isActive ? 1 : 0.5,
+                rotate: rotation,
             }}
-            aria-current={isActive ? "true" : "false"}
-            aria-label={`Step ${index + 1}: ${card.title}`}
+            transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 12,
+            }}
         >
             <div>
                 <div className="duration-wrap flex mb-6">
                     <div className="flex self-start border border-white px-6 py-1.5 rounded-[20px]">
-                        <span className="text-[10px] font-medium text-[#F0F0F0] leading-[12px]">
+                        <span className="text-[10px] font-medium text-[#F0F0F0]">
                             {card.duration}
                         </span>
                     </div>
                     <div
-                        className={`inline-block -mt-[14px] ml-auto text-[94px] font-medium leading-none transition-colors duration-300 ${
+                        className={`inline-block -mt-[14px] ml-auto text-[94px] font-medium leading-none ${
                             isActive ? "text-white" : "text-[#F0F0F0]"
                         }`}
                     >
@@ -74,237 +87,187 @@ const ProcessCard = React.memo<{
                     )}
                 </p>
             </div>
+
             <h3 className="text-[40px] font-medium text-[#F0F0F0] leading-none">
                 {card.title}
             </h3>
-        </li>
-    ),
-    (prev, next) => prev.isActive === next.isActive && prev.card === next.card
+        </motion.li>
+    )
 );
 
 ProcessCard.displayName = "ProcessCard";
 
-const ProcessCardsSlider = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    // New state specifically for navigation buttons
-    const [navState, setNavState] = useState({
-        isAtStart: true,
-        isAtEnd: false
-    });
+/* ---------------- Main Component ---------------- */
 
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const scrollTicking = useRef(false);
-    const isScrollingProgrammatically = useRef(false);
-
-    const cards = useMemo<CardData[]>(
+export default function ProcessCardsSlider() {
+    const rawCards: CardData[] = useMemo(
         () => [
-            { number: "01", duration: "1-2 weeks", title: "Discovery", description: "The new website has completely transformed our online presence. It loads fast, looks great on all devices, and has already helped increase customer inquiries. The entire experience was hassle-free and incredibly professional." },
-            { number: "02", duration: "2-3 weeks", title: "Research", description: "We analyzed user behavior extensively. This allowed us to refine features and significantly improve UX. The final decisions were all data-driven and intuitive." },
-            { number: "03", duration: "3-4 weeks", title: "Wireframe", description: "We created a full structural blueprint of the website. Every user journey was streamlined for efficiency. The clarity it brought saved weeks of development." },
-            { number: "04", duration: "4-5 weeks", title: "Build", description: "The development process was executed with precision. The codebase is highly optimized and scalable. It ensures long-term stability and easy maintenance." },
-            { number: "05", duration: "1-2 weeks", title: "Animation", description: "Micro-interactions were designed to enrich the user experience. They add motion that feels natural and purposeful. Users reported a significant increase in engagement." },
-            { number: "06", duration: "2-3 weeks", title: "Testing", description: "Every feature underwent rigorous QA testing. We simulated real-world scenarios to eliminate issues. The final product is polished and exceptionally reliable." },
+            { number: "01", duration: "1-2 weeks", title: "Discovery", description: "The new website has completely transformed..." },
+            { number: "02", duration: "2-3 weeks", title: "Research", description: "We analyzed user behavior extensively..." },
+            { number: "03", duration: "3-4 weeks", title: "Wireframe", description: "We created a full structural blueprint..." },
+            { number: "04", duration: "4-5 weeks", title: "Build", description: "The development process was executed..." },
+            { number: "05", duration: "1-2 weeks", title: "Animation", description: "Micro-interactions were designed..." },
+            { number: "06", duration: "2-3 weeks", title: "Testing", description: "Every feature underwent rigorous QA..." },
         ],
         []
     );
 
-    const processedCards = useMemo<ProcessedCard[]>(
-        () => cards.map((card) => {
-            const { main, last } = splitLastSentence(card.description);
-            return { ...card, mainText: main, lastSentence: last };
-        }),
-        [cards]
+    const processed = useMemo<ProcessedCard[]>(
+        () =>
+            rawCards.map((c) => {
+                const { main, last } = splitLastSentence(c.description);
+                return { ...c, mainText: main, lastSentence: last };
+            }),
+        [rawCards]
     );
 
-    // Consolidated scroll logic
-    const updateScrollState = useCallback(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
+    const originalCount = processed.length;
 
-        // 1. Calculate Active Index (Visual Highlighting)
-        // We only update this if not scrolling programmatically to prevent flickering during animation
-        if (!isScrollingProgrammatically.current) {
-            const newIndex = Math.round(container.scrollLeft / FULL_ITEM_WIDTH);
-            const clampedIndex = Math.max(0, Math.min(newIndex, processedCards.length - 1));
-            
-            // Only update state if changed
-            setActiveIndex(prev => prev !== clampedIndex ? clampedIndex : prev);
-        }
+    // Triple list for infinite loop
+    const looped = useMemo(
+        () => [...processed, ...processed, ...processed],
+        [processed]
+    );
 
-        // 2. Calculate Button States (Geometry Based)
-        // Use a tolerance of 2px to handle fractional scaling issues on some displays
-        const TOLERANCE = 2;
-        const { scrollLeft, scrollWidth, clientWidth } = container;
-        
-        const isAtStart = scrollLeft <= TOLERANCE;
-        const isAtEnd = Math.abs(scrollWidth - clientWidth - scrollLeft) <= TOLERANCE;
+    /* ---------------- Slider State ---------------- */
 
-        setNavState(prev => {
-            if (prev.isAtStart === isAtStart && prev.isAtEnd === isAtEnd) return prev;
-            return { isAtStart, isAtEnd };
-        });
+    const [offset, setOffset] = useState(0);
+    const [rotation, setRotation] = useState(0);
 
-    }, [processedCards.length]);
+    const trackControls = useAnimationControls();
 
-    const handleScroll = useCallback(() => {
-        if (scrollTicking.current) return;
-        scrollTicking.current = true;
-        requestAnimationFrame(() => {
-            updateScrollState();
-            scrollTicking.current = false;
-        });
-    }, [updateScrollState]);
+    /* Active index */
+    const activeIndex =
+        ((Math.round(-offset / FULL_ITEM_WIDTH) % originalCount) + originalCount) %
+        originalCount;
 
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
+    /* ---------------- Rotation Elasticity ---------------- */
 
-        // Initial check on mount to set correct button state
-        updateScrollState();
+    const computeRotation = useCallback((dragX: number) => {
+        const limit = 4;         // MAX 4°
+        const elasticity = 0.10;  // Drag sensitivity
 
-        container.addEventListener("scroll", handleScroll, { passive: true });
-        
-        let resizeTimeout: NodeJS.Timeout;
-        const handleResize = () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                // Force update on resize as container width changes affect 'isAtEnd'
-                updateScrollState();
-            }, 150);
-        };
-        
-        window.addEventListener("resize", handleResize, { passive: true });
+        let angle = dragX * elasticity;
+        return Math.max(Math.min(angle, limit), -limit);
+    }, []);
 
-        return () => {
-            container.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", handleResize);
-            clearTimeout(resizeTimeout);
-        };
-    }, [handleScroll, updateScrollState]);
+    /* DRAG active rotation */
+    const handleDrag = useCallback(
+        (_, info) => {
+            const deltaX = info.offset.x;
+            setRotation(computeRotation(deltaX));
+        },
+        [computeRotation]
+    );
 
-    const scrollToCard = useCallback(
-        (direction: "next" | "prev") => {
-            const container = scrollContainerRef.current;
-            if (!container) return;
+    /* ---------------- Move Function ---------------- */
 
-            // Determine target
-            // Note: We use Math.round on current scroll position to find the current "slot",
-            // then add/subtract. This is more reliable than relying on activeIndex state 
-            // which might be slightly stale during rapid clicks.
-            const currentSlot = Math.round(container.scrollLeft / FULL_ITEM_WIDTH);
-            const targetIndex = direction === "next" ? currentSlot + 1 : currentSlot - 1;
+    const animateNavRotation = useCallback((direction: "next" | "prev") => {
+        setRotation(direction === "next" ? -4 : 4);
 
-            if (targetIndex < 0 || targetIndex >= processedCards.length) return;
+        setTimeout(() => {
+            setRotation(0);
+        }, 200);
+    }, []);
 
-            isScrollingProgrammatically.current = true;
-            setActiveIndex(targetIndex);
+    const moveTo = useCallback(
+        async (newOffset: number) => {
+            setOffset(newOffset);
 
-            container.scrollTo({
-                left: targetIndex * FULL_ITEM_WIDTH,
-                behavior: "smooth",
+            await trackControls.start({
+                x: newOffset,
+                transition: { type: "spring", stiffness: 150, damping: 20 },
             });
 
-            // Re-enable active index detection after scroll animation (approx 500-1000ms)
-            // Using a slightly smarter check than just a timeout:
-            const checkScrollEnd = () => {
-                if(!isScrollingProgrammatically.current) return;
-                
-                // If we are close enough to target, unlock
-                const targetLeft = targetIndex * FULL_ITEM_WIDTH;
-                if(Math.abs(container.scrollLeft - targetLeft) < 5) {
-                    isScrollingProgrammatically.current = false;
-                    updateScrollState(); // Final verification
-                } else {
-                    requestAnimationFrame(checkScrollEnd);
-                }
-            };
-            
-            // Start checking or fallback to timeout if animation gets stuck
-            requestAnimationFrame(checkScrollEnd);
-            setTimeout(() => { isScrollingProgrammatically.current = false; }, 1000);
+            const totalWidth = FULL_ITEM_WIDTH * originalCount;
+
+            if (newOffset <= -totalWidth * 2) {
+                const corrected = newOffset + totalWidth;
+                setOffset(corrected);
+                trackControls.set({ x: corrected });
+            }
+
+            if (newOffset >= -totalWidth) {
+                const corrected = newOffset - totalWidth;
+                setOffset(corrected);
+                trackControls.set({ x: corrected });
+            }
         },
-        [processedCards.length, updateScrollState]
+        [trackControls, originalCount]
     );
 
-    const scrollToIndex = useCallback(
-        (index: number) => {
-            const container = scrollContainerRef.current;
-            if (!container) return;
+    /* ---------------- Navigation ---------------- */
 
-            isScrollingProgrammatically.current = true;
-            setActiveIndex(index);
-            container.scrollTo({ left: index * FULL_ITEM_WIDTH, behavior: "smooth" });
-            
-            setTimeout(() => { isScrollingProgrammatically.current = false; }, 1000);
+    const goNext = useCallback(() => {
+        animateNavRotation("next");
+        moveTo(offset - FULL_ITEM_WIDTH);
+    }, [offset, moveTo, animateNavRotation]);
+
+    const goPrev = useCallback(() => {
+        animateNavRotation("prev");
+        moveTo(offset + FULL_ITEM_WIDTH);
+    }, [offset, moveTo, animateNavRotation]);
+
+    /* ---------------- Drag End ---------------- */
+
+    const handleDragEnd = useCallback(
+        (_: any, info: { offset: { x: number } }) => {
+            const delta = info.offset.x;
+
+            setRotation(0); // bounce back
+
+            if (delta < -40) goNext();
+            else if (delta > 40) goPrev();
+            else moveTo(offset);
         },
-        []
+        [goNext, goPrev, moveTo, offset]
     );
+
+    /* ---------------- Initial ---------------- */
+
+    useEffect(() => {
+        const startOffset = -(originalCount * FULL_ITEM_WIDTH);
+        setOffset(startOffset);
+        trackControls.set({ x: startOffset });
+    }, [originalCount, trackControls]);
+
+    /* ---------------- Render ---------------- */
 
     return (
-        <section className="fp-sec-process-cards-slider py-44" aria-label="Product development process">
+        <section className="py-44">
             <div className="container">
-                <header className="fp-header flex items-center mb-6">
-                    <h2 className="fp-title text-[16px] font-semibold">
+                <header className="flex items-center mb-6">
+                    <h2 className="text-[16px] font-semibold">
                         Your product going to live process
                     </h2>
+
                     <div className="ml-auto">
-                        <SliderNav
-                            onPrev={() => scrollToCard("prev")}
-                            onNext={() => scrollToCard("next")}
-                            disablePrev={navState.isAtStart}
-                            disableNext={navState.isAtEnd}
-                        />
+                        <SliderNav onPrev={goPrev} onNext={goNext} />
                     </div>
                 </header>
             </div>
 
-            <div className="ml-auto max-w-full w-[1360px] fp-scroll-gallery">
-                <div className="relative fp-scroll-container">
-                    <ul
-                        ref={scrollContainerRef}
-                        className="flex gap-[15px] pb-4 overflow-x-auto"
-                        style={{
-                            scrollSnapType: "x mandatory",
-                            scrollbarWidth: "none",
-                            msOverflowStyle: "none",
-                            WebkitOverflowScrolling: "touch",
-                        }}
-                        role="list"
-                        aria-label="Process steps"
-                    >
-                        {processedCards.map((card, index) => (
-                            <ProcessCard
-                                key={card.number}
-                                card={card}
-                                isActive={activeIndex === index}
-                                index={index}
-                            />
-                        ))}
-                        <div className="w-[1px] flex-shrink-0" aria-hidden="true" />
-                    </ul>
-                </div>
-
-                <nav className="flex justify-center gap-2 mt-8" aria-label="Slider pagination">
-                    {processedCards.map((card, index) => (
-                        <button
-                            key={card.number}
-                            onClick={() => scrollToIndex(index)}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black ${
-                                activeIndex === index
-                                    ? "bg-[#F0F0F0] w-8"
-                                    : "bg-[#F0F0F0]/20 hover:bg-[#F0F0F0]/40"
-                            }`}
-                            aria-label={`Go to ${card.title}`}
-                            aria-current={activeIndex === index ? "true" : "false"}
+            <div className="w-full max-w-[1360px] ml-[80px]">
+                <motion.ul
+                    drag="x"
+                    dragElastic={0.15}
+                    dragMomentum={true}
+                    onDrag={handleDrag}
+                    onDragEnd={handleDragEnd}
+                    animate={trackControls}
+                    style={{ x: offset, overflow: "visible" }}
+                    className="flex gap-[15px] select-none"
+                >
+                    {looped.map((card, i) => (
+                        <ProcessCard
+                            key={`${card.number}-${i}`}
+                            card={card}
+                            isActive={i % originalCount === activeIndex}
+                            rotation={rotation}
                         />
                     ))}
-                </nav>
+                </motion.ul>
             </div>
-            <style jsx>{`
-                ul::-webkit-scrollbar { display: none; }
-            `}</style>
         </section>
     );
-};
-
-export default ProcessCardsSlider;
+}

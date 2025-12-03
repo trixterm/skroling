@@ -106,9 +106,9 @@ const ContactForm2: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mt-6 mx-auto">
+    <div className="fp-form-message-wrapper mt-6">
       <form
-        className="flex flex-col gap-y-3"
+        className="flex flex-col gap-y-2"
         aria-label="Simplified contact form"
         onSubmit={(e) => {
           e.preventDefault();
@@ -126,7 +126,7 @@ const ContactForm2: React.FC = () => {
             onChange={handleInputChange}
             onBlur={() => handleBlur('email')}
             placeholder="Enter your email"
-            className={`w-full bg-white rounded-[12px] px-8 py-6 text-gray-800 placeholder-gray-500 outline-none transition-shadow duration-300 focus:ring-2 focus:ring-black/5 ${
+            className={`w-full bg-white rounded-[12px] px-8 py-4.5 text-[16px] font-medium text-[#5A5A5A] placeholder-gray-500 outline-none transition-shadow duration-300 ${
                 touched.has('email') && errors.email ? 'ring-2 ring-red-300' : ''
             }`}
             required
@@ -139,7 +139,7 @@ const ContactForm2: React.FC = () => {
         </div>
 
         {/* Message & Submit Container - Matches the bottom large white box in screenshot */}
-        <div className={`relative bg-white rounded-3xl p-2 transition-shadow duration-300 focus-within:ring-2 focus-within:ring-black/5 ${
+        <div className={`relative bg-white rounded-[12px] p-2 text-[16px] font-medium text-[#5A5A5A] transition-shadow duration-300 ${
              touched.has('projectDetails') && errors.projectDetails ? 'ring-2 ring-red-300' : ''
         }`}>
           <label htmlFor="projectDetails" className="sr-only">Type your message here</label>
@@ -152,13 +152,13 @@ const ContactForm2: React.FC = () => {
             onChange={handleInputChange}
             onBlur={() => handleBlur('projectDetails')}
             placeholder="Type your message here"
-            rows={5}
-            className="w-full bg-transparent px-6 py-4 text-gray-800 placeholder-gray-500 outline-none resize-none"
+            rows={2}
+            className="w-full bg-transparent px-6 py-3.5 text-gray-800 placeholder-gray-500 outline-none resize-none"
             required
           />
 
           {/* Submit Button - Positioned inside the container at bottom right */}
-          <div className="flex justify-between items-end px-4 pb-2">
+          <div className="flex justify-between items-end px-1 pb-2">
             
             {/* Error Message Area (Left side of footer) */}
             <div className="flex-1 pl-2">
@@ -174,7 +174,7 @@ const ContactForm2: React.FC = () => {
             <button
                 type="submit"
                 disabled={status === 'submitting' || status === 'success'}
-                className="bg-[#1a1a1a] text-white rounded-full px-8 py-3 text-sm font-medium hover:bg-black transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="bg-[#1a1a1a] text-white rounded-[26px] px-8 py-3 text-[12px] font-medium cursor-pointer"
             >
                 {status === 'submitting' ? 'Sending...' : 'Submit'}
             </button>

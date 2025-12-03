@@ -12,7 +12,7 @@
     transition: opacity 500ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.fp-testimonials-list .item:hover {
+/* .fp-testimonials-list .item:hover {
     width: 300px;
     height: 380px;
 }
@@ -20,6 +20,25 @@
 .fp-testimonials-list .item:hover .fp-meta {
     animation: fadeInMeta 1s ease forwards;
     animation-delay: 0.3s;
+} */
+
+.item {
+    cursor: pointer;
+    transition: all 800ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fp-meta {
+    transition: opacity 500ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.item.isActive {
+    width: 300px;
+    height: 380px;
+}
+
+.item.isActive .fp-meta {
+    animation: fadeInMeta 1.5s ease forwards;
+    animation-delay: 0.4s;
 }
 
 @keyframes fadeInMeta {

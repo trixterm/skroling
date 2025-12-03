@@ -42,7 +42,7 @@ export default function WorkSectionAnimations() {
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: ".fp-sec-work",
-                    start: "top 35%",
+                    start: "top 20%",
                     end: "bottom 10%",
                     scrub: true,
                 },

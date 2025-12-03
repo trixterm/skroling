@@ -63,8 +63,8 @@ const FaqSection: React.FC<FaqSectionProps> = ({ faqs = defaultFaqs }) => {
   };
 
   return (
-    <section className="w-full min-h-screen px-6 py-16 md:px-12 lg:px-24 xl:px-32">
-      <div className="max-w-7xl mx-auto">
+    <section className="fp-sec-faq w-full py-24">
+      <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Column - Heading */}
           <div className="lg:sticky lg:top-24 lg:self-start">

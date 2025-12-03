@@ -49,7 +49,7 @@ export default function Logo() {
   const assets = useMemo(() => ({
     mainLogo: isDark 
       ? "/images/logo-skroling-light-2.svg" 
-      : "/images/logo-skroling-2.svg",
+      : "/images/logo-skroling-3.svg",
     letterLogo: isDark 
       ? "/images/logo-skroling-letter-light.svg" 
       : "/images/logo-skroling-letter.svg"
@@ -122,10 +122,10 @@ export default function Logo() {
             {/* Repeated Letters 
               Ideally, map these from an array to reduce code duplication
             */}
-            {[...Array(4)].map((_, index) => (
+            {[...Array(5)].map((_, index) => (
               <Image
                 key={`${assets.letterLogo}-${index}`}
-                className={index < 3 ? "mb-[1px]" : ""}
+                className={index < 4 ? "mb-[1px]" : ""}
                 src={assets.letterLogo}
                 width={17}
                 height={17}
