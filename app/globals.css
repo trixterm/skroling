@@ -10,7 +10,7 @@
 @theme {
     --breakpoint-sm: 735px;
     --breakpoint-md: 1069px;
-    --breakpoint-lg: 1441px;
+    --breakpoint-lg: 1439px;
     --breakpoint-xl: 1599px;
 }
 
@@ -400,3 +400,51 @@ body.white-mode.flash-done #flash-overlay {
 .fp-logo-footer:hover .fp-logo-letters-anim {
     transform: translateY(-36px);
 } */
+
+
+.fp-rotating-text-block {
+  position: relative;
+  will-change: transform, border-radius, width, height;
+  overflow: hidden;
+}
+
+.fp-video-morph-target {
+  z-index: 5;
+  will-change: transform, opacity;
+}
+
+/* Work grid */
+.fp-grey-box-1 {
+    grid-column: 4 / 5;
+    grid-row: 2 / 3;
+}
+
+.fp-grey-box-2 {
+    grid-column: 5 / 6;
+    grid-row: 3 / 4;
+}
+
+.fp-grey-box-3 {
+    grid-column: 6 / 7;
+    grid-row: 2 / 3;
+}
+
+.fp-grey-box-4 {
+    grid-column: 6 / 7;
+    grid-row: 4 / 5;
+}
+
+.fp-grey-box-5 {
+    grid-column: 7 / 8;
+    grid-row: 3 / 4;
+}
+
+.fp-grey-box-6 {
+    grid-column: 8 / 9;
+    grid-row: 2 / 3;
+}
+
+.fp-grey-box-7 {
+    grid-column: 8 / 9;
+    grid-row: 4 / 5;
+}

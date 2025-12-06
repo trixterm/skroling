@@ -14,6 +14,7 @@ export default function WorkSection() {
     const [controls, setControls] = useState<SliderControls | null>(null);
 
     return (
+
         <section className="fp-sec-work pt-28 pb-16 relative z-2">
             <WorkSectionAnimations />
 
