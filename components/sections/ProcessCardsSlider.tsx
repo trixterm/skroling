@@ -234,7 +234,7 @@ export default function ProcessCardsSlider() {
     /* ---------------- Render ---------------- */
 
     return (
-        <section className="py-44">
+        <section className="my-44">
             <div className="container">
                 <header className="flex items-center mb-6">
                     <h2 className="text-[16px] font-semibold">

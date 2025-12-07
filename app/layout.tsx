@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import localFont from "next/font/local"
 import "./globals.css";
 import ClientLayoutWrapper from "./ClientLayoutWrapper";
+import {BodyClassProvider} from "./BodyClassProvider";
 
 export const roth = localFont({
   src: [
@@ -49,9 +50,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en" className={montserrat.variable}>
             <body>
-                <ClientLayoutWrapper>
-                    {children}
-                </ClientLayoutWrapper>
+                <BodyClassProvider>
+                    <ClientLayoutWrapper>
+                        {children}
+                    </ClientLayoutWrapper>
+                </BodyClassProvider>
+      
             </body>
         </html>
     );

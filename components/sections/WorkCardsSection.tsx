@@ -38,7 +38,7 @@ export default function index(): JSX.Element {
   });
   return (
     <ReactLenis root>
-      <section className='fp-sec-work-cards' ref={container}>
+      <section className='fp-sec-work-cards mt-[100vh]' ref={container}>
           {projects.map((project, i) => {
             const targetScale = 1 - (projects.length - i) * 0.05;
             return (

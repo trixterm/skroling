@@ -20,15 +20,16 @@ export default function CursorOpen() {
       mouseY.set(e.clientY);
 
       const target = e.target as HTMLElement;
-      const isHoveringWork = target.closest('.fp-swiper-work .swiper-slide');
+      const isHoveringCustom = target.closest('.fp-swiper-work .swiper-slide, .link-photo-box');
 
-      if (isHoveringWork) {
+      if (isHoveringCustom) {
         setIsVisible(true);
         document.body.classList.add('hide-native-cursor');
       } else {
         setIsVisible(false);
         document.body.classList.remove('hide-native-cursor');
       }
+
     };
 
     window.addEventListener('mousemove', moveCursor);

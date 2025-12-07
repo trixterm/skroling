@@ -448,3 +448,31 @@ body.white-mode.flash-done #flash-overlay {
     grid-column: 8 / 9;
     grid-row: 4 / 5;
 }
+
+/* Base letter styling – tweak as needed */
+.hero-work-section .work-letters-wrapper .fp-letter {
+  position: relative; /* in case you rely on positioning */
+  display: inline-block;
+  /* animation offsets via CSS variables */
+  --fx: 0px;
+  --fy: 0px;
+  transform: translate3d(var(--fx), var(--fy), 0);
+  will-change: transform;
+}
+
+/* Optional: subtle hover scaling for the whole block */
+.hero-work-section[data-floating-letters-ready="true"] .work-letters-wrapper {
+  transition: transform 200ms ease-out;
+}
+.hero-work-section[data-floating-letters-ready="true"]:hover .work-letters-wrapper {
+  transform: scale(1.01);
+}
+
+/* Respect reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .hero-work-section .work-letters-wrapper .fp-letter {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
