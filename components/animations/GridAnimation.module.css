@@ -1,0 +1,37 @@
+/* GridAnimation.module.css */
+
+.gridContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0; /* Behind content */
+}
+
+.line {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: #ddd;
+  /* Hardware acceleration hint */
+  will-change: transform, opacity;
+  /* Start from center, opacity 0 usually looks better, but requirements say contract */
+  transform: translateX(-50%); 
+}
+
+/* We will handle the 'left' positioning via inline styles in React 
+  for dynamic interpolation, but we keep basic styles here.
+*/
+
+.triggerSection {
+  position: relative;
+  width: 100%;
+  min-height: 150vh; /* Ensure enough scroll space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 1;
+}

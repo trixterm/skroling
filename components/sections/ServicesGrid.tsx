@@ -65,9 +65,9 @@ const services: Service[] = [
 
 export default function ServicesGrid() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="fp-grid-services grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       {services.map((service) => (
-        <article key={service.id} className="flex h-full flex-col border border-[#3B3B3B]">
+        <article key={service.id} className="flex h-full flex-col">
           <div className="flex flex-1 flex-col p-10">
             <div className="text-[18px] font-semibold tracking-wide dark:text-white">
               {service.id}

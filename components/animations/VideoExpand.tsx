@@ -27,8 +27,24 @@ const VideoExpand: React.FC<VideoExpandProps> = ({ children }) => {
 
       const videoEl = section.querySelector<HTMLElement>(".fp-video-block-1");
       const headingEl = section.querySelector<HTMLElement>(".fp-heading-wrap");
+      const kLetterEl = section.querySelector<SVGElement>(".fp-k-letter");
 
       if (!videoEl || !headingEl) return;
+
+      // Force K letter to have its own stacking context with higher z-index
+      if (kLetterEl) {
+        gsap.set(kLetterEl, {
+          transform: "translate3d(0, 0, 0)",
+          zIndex: 50,
+          willChange: "transform",
+          force3D: true,
+        });
+      }
+
+      // Set video z-index lower than K letter
+      gsap.set(videoEl, {
+        zIndex: 3,
+      });
 
       // Create a temporary dummy ScrollTrigger to calculate end position
       const calculateSectionHeight = () => {
@@ -92,7 +108,7 @@ const VideoExpand: React.FC<VideoExpandProps> = ({ children }) => {
 
       // Calculate final Y position to center video vertically in viewport
       const calculateVideoEndY = () => {
-        gsap.set(videoEl, { y: 0 });
+        gsap.set(videoEl, { y: 0, zIndex: 3 });
         
         const videoRect = videoEl.getBoundingClientRect();
         const sectionRect = section.getBoundingClientRect();
@@ -130,17 +146,32 @@ const VideoExpand: React.FC<VideoExpandProps> = ({ children }) => {
         videoEl,
         {
           width: () => {
-            gsap.set(videoEl, { y: 0 });
+            gsap.set(videoEl, { y: 0, zIndex: 3 });
             return videoEl.getBoundingClientRect().width || 320;
           },
           y: 0,
+          zIndex: 3,
         },
         {
           width: "96vw",
           y: calculateVideoEndY,
+          zIndex: 3,
           ease: "none",
         },
         0
+      );
+
+      // Heading opacity animation - starts at 20% of video animation
+      tl.fromTo(
+        headingEl,
+        {
+          opacity: 1,
+        },
+        {
+          opacity: 0,
+          ease: "none",
+        },
+        0.2
       );
 
       const handleResize = () => {

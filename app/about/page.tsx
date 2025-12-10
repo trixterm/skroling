@@ -1,5 +1,6 @@
 // import React from "react";
 import StorylineSection from "@/components/sections/StorylineSection";
+import GridDigit from "@/components/GridDigit";
 
 import { buildMetadata, siteConfig } from '@/config/site.config';
 
@@ -10,6 +11,10 @@ export const metadata = buildMetadata({
 
 export default function AboutPage() {
     return (
-        <StorylineSection />
+        <>
+            <GridDigit interval={1000} />
+            <StorylineSection />
+            
+        </>
     );
 }

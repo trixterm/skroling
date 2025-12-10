@@ -61,6 +61,10 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    --bg: #dcdcdc;
+    --grid-line: #ffffff;
+    --segment: #111111;
+    --grid-border-color: transparent;
 
 }
 
@@ -476,3 +480,213 @@ body.white-mode.flash-done #flash-overlay {
     will-change: auto;
   }
 }
+
+.fp-anim-title-1 {
+    position: relative;
+    display: inline-block;
+    margin-left: -120px;
+}
+
+/* Grid background */
+.fp-grid-background-1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.fp-grid-background-1 .fp-line {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: #ddd;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+
+.fp-grid-background-1 .fp-line:nth-child(1) { left: calc(100% / 12 * 1); }
+.fp-grid-background-1 .fp-line:nth-child(2) { left: calc(100% / 12 * 2); }
+.fp-grid-background-1 .fp-line:nth-child(3) { left: calc(100% / 12 * 3); }
+.fp-grid-background-1 .fp-line:nth-child(4) { left: calc(100% / 12 * 4); }
+.fp-grid-background-1 .fp-line:nth-child(5) { left: calc(100% / 12 * 5); }
+.fp-grid-background-1 .fp-line:nth-child(6) { left: calc(100% / 12 * 6); }
+.fp-grid-background-1 .fp-line:nth-child(7) { left: calc(100% / 12 * 7); }
+.fp-grid-background-1 .fp-line:nth-child(8) { left: calc(100% / 12 * 8); }
+.fp-grid-background-1 .fp-line:nth-child(9) { left: calc(100% / 12 * 9); }
+.fp-grid-background-1 .fp-line:nth-child(10) { left: calc(100% / 12 * 10); }
+.fp-grid-background-1 .fp-line:nth-child(11) { left: calc(100% / 12 * 11); }
+.fp-grid-background-1 .fp-line:nth-child(12) { left: calc(100% / 12 * 12); }
+
+
+.fp-grid-background-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.fp-grid-background-2 .fp-row {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ddd;
+}
+
+/* .fp-grid-background-2 .fp-row:nth-child(1) { top: calc(100% / 12 * 1); }
+.fp-grid-background-2 .fp-row:nth-child(2) { top: calc(100% / 12 * 2); }
+.fp-grid-background-2 .fp-row:nth-child(3) { top: calc(100% / 12 * 3); }
+.fp-grid-background-2 .fp-row:nth-child(4) { top: calc(100% / 12 * 4); }
+.fp-grid-background-2 .fp-row:nth-child(5) { top: calc(100% / 12 * 5); }
+.fp-grid-background-2 .fp-row:nth-child(6) { top: calc(100% / 12 * 6); }
+.fp-grid-background-2 .fp-row:nth-child(7) { top: calc(100% / 12 * 7); }
+.fp-grid-background-2 .fp-row:nth-child(8) { top: calc(100% / 12 * 8); }
+.fp-grid-background-2 .fp-row:nth-child(9) { top: calc(100% / 12 * 9); }
+.fp-grid-background-2 .fp-row:nth-child(10) { top: calc(100% / 12 * 10); }
+.fp-grid-background-2 .fp-row:nth-child(11) { top: calc(100% / 12 * 11); } */
+
+.force-stacking-context {
+  transform: translate3d(0, 0, 0);
+}
+
+.fp-grid-services {
+    border-bottom: 1px solid var(--grid-border-color);
+    transition: border-color 0.1s linear;
+}
+
+.fp-grid-services article {
+    border-top: 1px solid var(--grid-border-color);
+}
+
+
+/* Numbers animation */
+  .digit-wrapper {
+    width: 320px;
+    aspect-ratio: 1 / 1;
+    position: relative;
+  }
+
+  /* 12x12 tinklelis fone */
+  .digit-grid {
+    position: absolute;
+    inset: 0;
+    background:
+      /* vertikalios linijos */
+      linear-gradient(to right,
+        var(--grid-line) 0 1px,
+        transparent 1px 100%) 0 0 / calc(100% / 12) 100% repeat-x,
+      /* horizontalios linijos */
+      linear-gradient(to bottom,
+        var(--grid-line) 0 1px,
+        transparent 1px 100%) 0 0 / 100% calc(100% / 12) repeat-y,
+      var(--bg);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Skaičiaus segmentai */
+  .segments {
+    position: absolute;
+    inset: 0;
+  }
+
+  .segment {
+    position: absolute;
+    background: var(--segment);
+    border-radius: 999px;
+    opacity: 0.12;              /* „išjungtas“ segmentas */
+    transition: opacity 0.35s ease-in-out;
+  }
+
+  /* Horizontalūs segmentai: a, g, d */
+  .seg-a,
+  .seg-g,
+  .seg-d {
+    left: 12%;
+    right: 12%;
+    height: 11%;
+  }
+
+  .seg-a { top: 6%; }
+  .seg-g { top: 44%; }
+  .seg-d { bottom: 6%; }
+
+  /* Vertikalūs segmentai: b, c, e, f */
+  .seg-b,
+  .seg-c,
+  .seg-e,
+  .seg-f {
+    width: 11%;
+  }
+
+  .seg-b {
+    right: 6%;
+    top: 9%;
+    height: 30%;
+  }
+
+  .seg-c {
+    right: 6%;
+    bottom: 9%;
+    height: 30%;
+  }
+
+  .seg-f {
+    left: 6%;
+    top: 9%;
+    height: 30%;
+  }
+
+  .seg-e {
+    left: 6%;
+    bottom: 9%;
+    height: 30%;
+  }
+
+  /* Šiek tiek suapvalinti kampai, kad forma būtų panaši į pavyzdį */
+  .seg-a { border-radius: 1000px 1000px 600px 600px; }
+  .seg-d { border-radius: 600px 600px 1000px 1000px; }
+  .seg-g { border-radius: 600px; }
+  .seg-b { border-radius: 600px 1000px 1000px 600px; }
+  .seg-c { border-radius: 1000px 600px 600px 1000px; }
+  .seg-f { border-radius: 1000px 600px 600px 1000px; }
+  .seg-e { border-radius: 600px 1000px 1000px 600px; }
+
+  /* —— Skaičių apšvietimas (klasės n1..n5) —— */
+
+  /* 1 -> įjungti tik b ir c */
+  .segments.n1 .seg-b,
+  .segments.n1 .seg-c { opacity: 1; }
+
+  /* 2 -> a, b, g, e, d */
+  .segments.n2 .seg-a,
+  .segments.n2 .seg-b,
+  .segments.n2 .seg-g,
+  .segments.n2 .seg-e,
+  .segments.n2 .seg-d { opacity: 1; }
+
+  /* 3 -> a, b, g, c, d */
+  .segments.n3 .seg-a,
+  .segments.n3 .seg-b,
+  .segments.n3 .seg-g,
+  .segments.n3 .seg-c,
+  .segments.n3 .seg-d { opacity: 1; }
+
+  /* 4 -> f, g, b, c */
+  .segments.n4 .seg-f,
+  .segments.n4 .seg-g,
+  .segments.n4 .seg-b,
+  .segments.n4 .seg-c { opacity: 1; }
+
+  /* 5 -> a, f, g, c, d */
+  .segments.n5 .seg-a,
+  .segments.n5 .seg-f,
+  .segments.n5 .seg-g,
+  .segments.n5 .seg-c,
+  .segments.n5 .seg-d { opacity: 1; }
