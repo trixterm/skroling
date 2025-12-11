@@ -53,10 +53,6 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
                 </video>
                 </div>
             )}
-
-            <div className="fp-meta absolute left-7 right-7 bottom-7 z-20">
-                <div className="fp-title text-[22px] font-semibold">{title}</div>
-            </div>
         </div>
       ) : (
         <div className="relative h-[460px] bg-neutral-300 rounded-[20px] overflow-hidden flex p-7">
@@ -67,10 +63,6 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
                 alt={title}
                 fill
                 />
-            </div>
-
-            <div className="fp-meta mt-auto z-20 relative">
-                <div className="fp-title text-[22px] font-semibold">{title}</div>
             </div>
         </div>
       )}

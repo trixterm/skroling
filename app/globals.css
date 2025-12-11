@@ -690,3 +690,26 @@ body.white-mode.flash-done #flash-overlay {
   .segments.n5 .seg-g,
   .segments.n5 .seg-c,
   .segments.n5 .seg-d { opacity: 1; }
+
+
+/* Before After Videos */
+@media screen and (min-width: 992px) {
+    .fp-video-box-1 {
+        transform: translateX(calc(-50% + -6px));
+        position: relative;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        z-index: 10;
+    }
+
+    .fp-video-box-2 {
+        margin-left: auto; 
+        width: fit-content;
+        
+        transform: translateX(calc(50% + 40px));
+        position: relative;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        z-index: 10;
+    }
+}

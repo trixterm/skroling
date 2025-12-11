@@ -4,6 +4,7 @@ import { buildMetadata, siteConfig } from '@/config/site.config';
 import HeroServicesSection from '@/components/sections/HeroServicesSection';
 import ProcessCardsSlider from '@/components/sections/ProcessCardsSlider';
 import ServicesGrid from '@/components/sections/ServicesGrid';
+import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
 import GridAnimation from '@/components/animations/GridAnimation';
 import OpacityScrollAnimation from '@/components/animations/OpacityScrollAnimation';
 import HorizontalGridAnimation from '@/components/animations/HorizontalGridAnimation';
@@ -17,11 +18,11 @@ export const metadata = buildMetadata({
 export default function ServicesPage() {
     return (
         <>
-            <GridAnimation />
-            <HorizontalGridAnimation />
+            {/* <GridAnimation /> */}
+            {/* <HorizontalGridAnimation /> */}
             
             <div className="fp-page-services-inner">
-                <div className="fp-grid-background-1">
+                {/* <div className="fp-grid-background-1">
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
@@ -34,7 +35,7 @@ export default function ServicesPage() {
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
-                </div>
+                </div> */}
 
                 {/* <div className="fp-grid-background-2">
                     <div className="fp-row"></div>
@@ -73,6 +74,8 @@ export default function ServicesPage() {
                         <div className="fp-anim-title-1 fp-text text-[32px] font-medium leading-[44px] relative -top-[44px] left-[488px]">Believe in a change.</div>
                     </div>
                 </div>
+
+                <BeforeAfterSection />
 
                 <ProcessCardsSlider />
             </div>
