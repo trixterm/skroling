@@ -53,7 +53,7 @@ const PhotoBoxScrollFade: FC<PhotoBoxScrollFadeProps> = ({
     const tl = gsap.timeline({ paused: true });
 
     tl.to(boxes, {
-      opacity: 0,
+      opacity: 0.5,
       stagger,
       ease,
       duration: 1, // čia tik vidinis GSAP laikas; realiai valdys scroll'as

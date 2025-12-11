@@ -419,26 +419,26 @@ body.white-mode.flash-done #flash-overlay {
 
 /* Work grid */
 .fp-grey-box-1 {
-    grid-column: 4 / 5;
-    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
 }
 
 .fp-grey-box-2 {
-    grid-column: 5 / 6;
+    grid-column: 3 / 4;
     grid-row: 3 / 4;
 }
 
 .fp-grey-box-3 {
-    grid-column: 6 / 7;
-    grid-row: 2 / 3;
-}
-
-.fp-grey-box-4 {
-    grid-column: 6 / 7;
+    grid-column: 4 / 5;
     grid-row: 4 / 5;
 }
 
-.fp-grey-box-5 {
+.fp-grey-box-4 {
+    grid-column: 3 / 4;
+    grid-row: 6 / 7;
+}
+
+/* .fp-grey-box-5 {
     grid-column: 7 / 8;
     grid-row: 3 / 4;
 }
@@ -451,25 +451,43 @@ body.white-mode.flash-done #flash-overlay {
 .fp-grey-box-7 {
     grid-column: 8 / 9;
     grid-row: 4 / 5;
-}
+} */
 
-/* Base letter styling – tweak as needed */
-.hero-work-section .work-letters-wrapper .fp-letter {
-  position: relative; /* in case you rely on positioning */
-  display: inline-block;
-  /* animation offsets via CSS variables */
-  --fx: 0px;
-  --fy: 0px;
-  transform: translate3d(var(--fx), var(--fy), 0);
-  will-change: transform;
-}
+@media screen and (min-width: 992px) {
+    .fp-grey-box-1 {
+        grid-column: 4 / 5;
+        grid-row: 2 / 3;
+    }
 
-/* Optional: subtle hover scaling for the whole block */
-.hero-work-section[data-floating-letters-ready="true"] .work-letters-wrapper {
-  transition: transform 200ms ease-out;
-}
-.hero-work-section[data-floating-letters-ready="true"]:hover .work-letters-wrapper {
-  transform: scale(1.01);
+    .fp-grey-box-2 {
+        grid-column: 5 / 6;
+        grid-row: 3 / 4;
+    }
+
+    .fp-grey-box-3 {
+        grid-column: 6 / 7;
+        grid-row: 2 / 3;
+    }
+
+    .fp-grey-box-4 {
+        grid-column: 6 / 7;
+        grid-row: 4 / 5;
+    }
+
+    .fp-grey-box-5 {
+        grid-column: 7 / 8;
+        grid-row: 3 / 4;
+    }
+
+    .fp-grey-box-6 {
+        grid-column: 8 / 9;
+        grid-row: 2 / 3;
+    }
+
+    .fp-grey-box-7 {
+        grid-column: 8 / 9;
+        grid-row: 4 / 5;
+    }
 }
 
 /* Respect reduced-motion users */
@@ -711,5 +729,33 @@ body.white-mode.flash-done #flash-overlay {
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         z-index: 10;
+    }
+
+    /* Base letter styling – tweak as needed */
+    .hero-work-section .work-letters-wrapper .fp-letter {
+        position: relative; /* in case you rely on positioning */
+        display: inline-block;
+        /* animation offsets via CSS variables */
+        --fx: 0px;
+        --fy: 0px;
+        transform: translate3d(var(--fx), var(--fy), 0);
+        will-change: transform;
+    }
+
+    /* Optional: subtle hover scaling for the whole block */
+    .hero-work-section[data-floating-letters-ready="true"] .work-letters-wrapper {
+        transition: transform 200ms ease-out;
+    }
+    .hero-work-section[data-floating-letters-ready="true"]:hover .work-letters-wrapper {
+        transform: scale(1.01);
+    }
+
+}
+
+@media screen and (max-width: 992px) {
+    .hero-work-section .work-letters-wrapper .fp-letter-o-2 {
+        display: none !important;
+        width: 156px;
+        height: 156px;
     }
 }

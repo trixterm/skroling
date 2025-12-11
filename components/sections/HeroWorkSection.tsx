@@ -7,6 +7,7 @@ import HeroFloatingLetters from "@/components/animations/HeroFloatingLetters";
 
 const HeroWorkSection = () => {
   const totalGridCells = 12 * 6;
+  const totalGridCellsMob = 4 * 7;
 
   return (
     <>
@@ -20,7 +21,15 @@ const HeroWorkSection = () => {
 
       <section className="hero-work-section fixed top-0 w-full h-screen">
         <div className="relative h-full w-full">
+
           {/* Grid lines overlay for desktop */}
+            <div className="pointer-events-none absolute inset-0 grid grid-cols-4 grid-rows-7 lg:hidden">
+            {Array.from({ length: totalGridCellsMob }, (_, index) => (
+              <div key={index} className="border border-gray-200" />
+            ))}
+          </div>
+
+          {/* GRID DESKTOP (>=992px) */}
           <div className="pointer-events-none absolute inset-0 hidden lg:grid lg:grid-cols-12 lg:grid-rows-6">
             {Array.from({ length: totalGridCells }, (_, index) => (
               <div key={index} className="border border-gray-200" />
@@ -28,13 +37,13 @@ const HeroWorkSection = () => {
           </div>
 
           {/* Main content grid */}
-          <div className="relative z-10 grid h-full w-full grid-cols-1 gap-4 p-4 lg:grid-cols-12 lg:grid-rows-6 lg:gap-0 lg:p-0">
+          <div className="relative z-10 grid h-full w-full grid-cols-4 grid-rows-7 md:p-4 lg:grid-cols-12 lg:grid-rows-6 lg:gap-0 lg:p-0">
             {/* WORK letters wrapper */}
             <div className="work-letters-wrapper contents">
               {/* W letter area: col 4–5, row 3–4 (grid lines) */}
-              <div className="work-letter-w flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-4 lg:row-start-3">
+              <div className="work-letter-w flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 lg:h-full col-start-1 row-start-2 lg:col-start-4 lg:row-start-3">
                 <svg
-                  className="fp-letter relative -top-[33px] left-[33px]"
+                  className="fp-letter relative top-[40px] left-[50px] md:-top-[33px] md:left-[33px] max-md:w-[147px] max-md:h-[123px]"
                   width="551"
                   height="472"
                   viewBox="0 0 551 472"
@@ -49,9 +58,9 @@ const HeroWorkSection = () => {
               </div>
 
               {/* O letter area: col 6–7, row 3–4 (grid lines) */}
-              <div className="work-letter-o flex flex-col h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-6 lg:row-start-3">
+              <div className="work-letter-o flex flex-col h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 col-start-3 row-start-3 lg:h-full lg:col-start-6 lg:row-start-3">
                 <svg
-                  className="fp-letter scale-190 transform-gpu relative -top-[40px]"
+                  className="fp-letter fp-letter-o-1 lg:scale-190 transform-gpu relative top-[40px] md:-top-[40px] max-md:left-[50px]"
                   width="407"
                   height="416"
                   viewBox="0 0 407 416"
@@ -64,7 +73,7 @@ const HeroWorkSection = () => {
                   />
                 </svg>
                 <svg
-                  className="fp-letter scale-190 transform-gpu relative top-[40px]"
+                  className="fp-letter fp-letter-o-2 scale-190 transform-gpu relative top-[40px] max-md:hidden"
                   width="407"
                   height="416"
                   viewBox="0 0 407 416"
@@ -79,9 +88,9 @@ const HeroWorkSection = () => {
               </div>
 
               {/* R letter area: col 8–9, row 3–4 (grid lines) */}
-              <div className="work-letter-r flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-8 lg:row-start-3">
+              <div className="work-letter-r flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 col-start-1 row-start-4 lg:h-full lg:col-start-8 lg:row-start-3">
                 <svg
-                  className="fp-letter w-[78px] h-[105px] relative -top-[40px] -left-[60px]"
+                  className="fp-letter w-[78px] h-[105px] relative top-[40px] left-[53px] md:-top-[40px] md:-left-[60px]"
                   width="293"
                   height="402"
                   viewBox="0 0 293 402"
@@ -96,9 +105,9 @@ const HeroWorkSection = () => {
               </div>
 
               {/* K letter area: col 9–10, row 3–4 (grid lines) */}
-              <div className="work-letter-k flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-9 lg:row-start-3">
+              <div className="work-letter-k flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 col-start-3 row-start-5 lg:h-full lg:col-start-9 lg:row-start-3">
                 <svg
-                  className="fp-letter w-[87px] h-[104px] relative top-[62px] -left-[40px]"
+                  className="fp-letter w-[87px] h-[104px] relative top-[50px] left-[60px] md:top-[62px] md:-left-[40px]"
                   width="326"
                   height="402"
                   viewBox="0 0 326 402"
@@ -117,58 +126,56 @@ const HeroWorkSection = () => {
             <div className="fp-grey-box-2 bg-[#f5f5f5] relative" />
             <div className="fp-grey-box-3 bg-[#f5f5f5] relative" />
             <div className="fp-grey-box-4 bg-[#f5f5f5] relative" />
-            <div className="fp-grey-box-5 bg-[#f5f5f5] relative" />
-            <div className="fp-grey-box-6 bg-[#f5f5f5] relative" />
-            <div className="fp-grey-box-7 bg-[#f5f5f5] relative" />
+            <div className="fp-grey-box-5 bg-[#f5f5f5] relative max-md:hidden" />
+            <div className="fp-grey-box-6 bg-[#f5f5f5] relative max-md:hidden" />
+            <div className="fp-grey-box-7 bg-[#f5f5f5] relative max-md:hidden" />
 
             {/* Top-left photo placeholder: col 2–3, row 2–3 (grid lines) */}
-            <div className="top-left-photo flex h-32 w-full items-center justify-center text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-2 lg:row-start-2">
-              <Link className="link-photo-box" href="/work/lukdeira"><Image
-                className="photo-box" src="/images/img-box-1.jpg"
+            <div className="relative top-left-photo flex items-center justify-center text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full col-start-3 row-start-2 lg:col-start-2 lg:row-start-2">
+              <Link className="link-photo-box block w-full h-full" href="/work/lukdeira"><Image
+                className="photo-box object-cover" src="/images/img-box-1.jpg"
                 alt="Top left photo"
-                width={150}
-                height={150}
+                fill
               /></Link>
             </div>
 
             {/* Top-right photo placeholder: col 10–11, row 2–3 (grid lines) */}
-            <div className="photo-box top-right-photo flex h-32 w-full items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-10 lg:row-start-2">
-              <Link className="link-photo-box" href="/work/website-2"><Image
-                className="photo-box" src="/images/img-box-1.jpg"
+            <div className="relative photo-box top-right-photo flex items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 col-start-1 row-start-6 lg:h-full lg:col-start-10 lg:row-start-2">
+              <Link className="link-photo-box block w-full h-full" href="/work/website-2"><Image
+                className="photo-box object-cover" src="/images/img-box-1.jpg"
                 alt="Top right photo"
-                width={150}
-                height={150}
+                fill
               /></Link>
             </div>
 
             {/* Bottom-center photo placeholder: col 7–8, row 5–6 (grid lines) */}
-            <div className="photo-box bottom-center-photo flex h-32 w-full items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-7 lg:row-start-5">
-              <Link className="link-photo-box" href="/work/website-3"><Image
-                className="photo-box" src="/images/img-box-1.jpg"
+            <div className="relative photo-box bottom-center-photo flex items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 col-start-3 row-start-2 lg:h-full lg:col-start-7 lg:row-start-5">
+              <Link className="link-photo-box block w-full h-full" href="/work/website-3"><Image
+                className="photo-box object-cover" src="/images/img-box-1.jpg"
                 alt="Bottom center photo"
-                width={150}
-                height={150}
+                fill
               /></Link>
             </div>
 
             {/* Bottom-left photo placeholder: col 4–5, row 6–7 (grid lines) */}
-            <div className="photo-box bottom-left-photo flex h-32 w-full items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-4 lg:row-start-6">
-             <Link className="link-photo-box" href="/work/website-4"> <Image
-                className="photo-box" src="/images/img-box-1.jpg"
+            <div className="relative photo-box bottom-left-photo flex h-28 w-full items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full col-start-1 row-start-6 lg:col-start-4 max-md:hidden">
+             <Link className="link-photo-box block w-full h-full" href="/work/website-4"> <Image
+                className="photo-box object-cover" src="/images/img-box-1.jpg"
                 alt="Bottom left photo"
-                width={150}
-                height={150}
+                fill
               /></Link>
             </div>
 
             {/* Bottom-right photo placeholder: col 11–12, row 5–6 (grid lines) */}
-            <div className="photo-box bottom-right-photo flex h-32 w-full items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full lg:col-start-11 lg:row-start-5">
-              <Link className="link-photo-box" href="/work/website-5"><Image
-                className="photo-box" src="/images/img-box-1.jpg"
+            <div className="relative photo-box bottom-right-photo flex h-28 w-full items-center justify-center bg-gray-300 text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 lg:h-full col-start-3 row-start-7 lg:col-start-11 lg:row-start-5 max-md:hidden">
+              <Link className="link-photo-box block w-full h-full" href="/work/website-5">
+              <Image
+                className="photo-box object-cover"
+                src="/images/img-box-1.jpg"
                 alt="Bottom right photo"
-                width={150}
-                height={150}
-              /></Link>
+                fill
+              />
+            </Link>
             </div>
           </div>
         </div>

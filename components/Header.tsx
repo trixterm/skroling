@@ -7,7 +7,7 @@ import React from 'react';
 
 const Header = () => {
     return (
-    <header className="site-header fixed top-0 left-0 w-full z-[9999]">
+    <header className="site-header fixed top-0 left-0 w-full z-[9999] max-md:hidden">
         <div className="container">
             <div className="inner flex justify-between items-center py-12">
                 <Logo />
