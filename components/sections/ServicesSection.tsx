@@ -51,7 +51,7 @@ export default function ServicesSection() {
                     {SERVICE_ITEMS.map((item, index) => (
                         <div
                             key={index}
-                            className="item mb-5 relative text-[52px] leading-16 font-semibold mb-1 cursor-pointer overflow-hidden group"
+                            className="item mb-5 relative text-[40px] md:text-[52px] leading-14 md:leading-16 font-semibold mb-1 cursor-pointer overflow-hidden group"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >

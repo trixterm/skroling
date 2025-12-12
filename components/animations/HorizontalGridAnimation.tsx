@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Konfigūracija lengvesniam palaikymui
 const CONFIG = {
-  ROW_COUNT: 12,
+  ROW_COUNT: 8,
   OFFSCREEN_MULTIPLIER: 1.2, // Kiek toli už ekrano nuvažiuoja linijos
   ANIMATION_TRIGGER: ".fp-sec-services",
   // Čia nurodome CSS kintamojo pavadinimą

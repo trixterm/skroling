@@ -58,10 +58,10 @@ export default function TestimonialsSection() {
     }, []);
 
     return (
-        <section className="fp-sec-testimonials py-8 pb-26 relative z-2">
+        <section className="fp-sec-testimonials py-8 pb-26 relative z-2 overflow-hidden">
             <div className="container mx-auto">
-                <div className="inner flex items-end gap-12 relative">
-                    <h2 className="fp-heading text-[52px] font-semibold leading-[1.15]">
+                <div className="inner flex flex-col md:flex-row items-end gap-12 relative">
+                    <h2 className="fp-heading text-[40px] md:text-[52px] font-semibold leading-[1.15]">
                         What clients <br />
                         say about me
                     </h2>

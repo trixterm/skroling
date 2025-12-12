@@ -15,7 +15,7 @@ export default function WorkSection() {
 
     return (
 
-        <section className="fp-sec-work pt-28 pb-16 relative z-2">
+        <section className="fp-sec-work pt-28 pb-16 relative z-2 overflow-hidden">
             <WorkSectionAnimations />
 
             <div className="mx-5">

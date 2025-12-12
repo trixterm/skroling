@@ -5,17 +5,17 @@ import Image from 'next/image';
 const LogoFooter: React.FC = () => {
   return (
     <div className="fp-logo-footer">
-      <div className="fp-img-wrap relative overflow-hidden">
+      <div className="fp-img-wrap relative overflow-hidden max-md:mb-8">
         <Image
           src="/images/logo-skroling-light-2.svg"
           width={540}
           height={144}
           alt="Logo Skroling"
           priority
-          className="w-[540px] h-[144px]"
+          className="w-[319px] h-[84px] md:w-[540px] md:h-[144px]"
         />
         
-        <div className="fp-logo-letters absolute w-[76.5px] h-[76.5px] top-[33px] left-[225px] overflow-hidden">
+        <div className="fp-logo-letters absolute w-[76.5px] h-[76.5px] top-[4px] left-[117px] md:top-[33px] md:left-[225px] overflow-hidden max-md:scale-57">
           <div className="fp-logo-letters-anim w-[76.5px] h-[184.5px]">
             <Image
               className="mb-[3px]"

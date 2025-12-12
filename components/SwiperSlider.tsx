@@ -73,25 +73,25 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
 const slides: WorkSlideProps[] = [
   {
     title: "Website 1",
-    image: "/images/website-1.jpg",
+    image: "/images/website-01.jpg",
     video: "/videos/3571264-hd_1920_1080_30fps.mp4",
     type: "hoverVideo",
   },
   {
     title: "Website 2",
-    image: "/images/website-2.jpg",
+    image: "/images/website-02.jpg",
     video: "/videos/3571264-hd_1920_1080_30fps.mp4",
     type: "hoverVideo",
   },
   {
     title: "Website 3",
-    image: "/images/website-1.jpg",
+    image: "/images/website-03.jpg",
     video: "/videos/3571264-hd_1920_1080_30fps.mp4",
     type: "hoverVideo",
   },
   {
     title: "Website 4",
-    image: "/images/website-2.jpg",
+    image: "/images/website-01.jpg",
     type: "static",
   },
 ];
@@ -104,7 +104,11 @@ export default function SwiperSlider({ onInitControls }: SwiperSliderProps) {
         loop={true}
         speed={700}
         spaceBetween={10}
-        slidesPerView={3}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 2 },  // sm+
+          1024: { slidesPerView: 3 }, // lg+
+        }}
         onSwiper={(swiper: SwiperType) => {
           if (onInitControls) {
             onInitControls({

@@ -153,8 +153,14 @@ body {
     color: #333;
     background: #F5F5F5;
     transition: background-color 1.2s ease;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
+
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
 
 html.dark body {
     background: #1A1A1A;
@@ -452,6 +458,16 @@ body.white-mode.flash-done #flash-overlay {
     grid-column: 8 / 9;
     grid-row: 4 / 5;
 } */
+
+.fp-nav-mobile a {
+    padding-bottom: 14px;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.fp-nav-mobile a:last-child {
+    padding-bottom: 0;
+    border: 0;
+}
 
 @media screen and (min-width: 992px) {
     .fp-grey-box-1 {

@@ -1,24 +1,42 @@
-"use client";
+import React from 'react';
 
-import { useEffect } from "react";
-import gsap from "gsap";
+type SocialLink = {
+    name: string;
+    url: string;
+};
 
-export default function CopyrightSection() {
+const socialLinks: SocialLink[] = [
+    { name: 'Linkedin', url: '#' },
+    { name: 'Facebook', url: '#' },
+    { name: 'Instagram', url: '#' },
+];
 
+const CopyrightSection: React.FC = () => {
     const year = new Date().getFullYear();
 
     return (
-        <div className="fp-sec-copyright relative z-2 pb-14 md:pb-27">
+        <div className="fp-sec-copyright relative z-2 md:pb-27 max-md:pt-8">
             <div className="container mx-auto">
-                <div className="inner flex flex-col md:flex-row md:items-center">
-                    <div className="text-[10px] max-md:pb-4">© {year}. All rights reserved Monty and Kaite</div>
-                    <ul className="fp-social-list flex gap-x-1 md:ml-auto">
-                        <li><a href="#" className="px-4 py-[5px] text-[10px] border-1 border-[#9F9F9F] rounded-[20px]">Linkedin</a></li>
-                        <li><a href="#" className="px-4 py-[5px] text-[10px] border-1 border-[#9F9F9F] rounded-[20px]">Facebook</a></li>
-                        <li><a href="#" className="px-4 py-[5px] text-[10px] border-1 border-[#9F9F9F] rounded-[20px]">Instagram</a></li>
+                <div className="inner flex flex-col-reverse md:flex-row items-center">
+                    <div className="text-xs max-md:pt-4">
+                        © {year}. All rights reserved Monty and Kaite
+                    </div>
+                    <ul className="fp-social-list flex gap-x-2 md:ml-auto">
+                        {socialLinks.map(({ name, url }) => (
+                            <li key={name}>
+                                <a
+                                    href={url}
+                                    className="px-4 py-[5px] text-xs border border-[#9F9F9F] rounded-[20px]"
+                                >
+                                    {name}
+                                </a>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
         </div>
     );
-}
+};
+
+export default CopyrightSection;

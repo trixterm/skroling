@@ -20,7 +20,7 @@ export default function CursorOpen() {
       mouseY.set(e.clientY);
 
       const target = e.target as HTMLElement;
-      const isHoveringCustom = target.closest('.fp-swiper-work .swiper-slide, .link-photo-box');
+      const isHoveringCustom = target.closest('.fp-swiper-work .swiper-slide, .link-photo-box, .fp-link-work-card');
 
       if (isHoveringCustom) {
         setIsVisible(true);

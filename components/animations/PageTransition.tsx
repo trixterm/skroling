@@ -9,7 +9,7 @@ import { transitionPresets } from "../transition-presets";
 const TransitionContainer = styled.div`
     position: relative;
     width: 100%;
-    height: 100%;
+    height: auto;
 `;
 
 interface PageTransitionProps {
@@ -37,20 +37,17 @@ export function PageTransition({
   return (
     <TransitionContainer aria-live="polite">
       <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={mountedKey}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={presetVariants}
-          transition={{
-            duration,
-            ease: easing as Easing | Easing[], // <- arba cast, jei nori
-          }}
-          style={{ position: "absolute", width: "100%" }}
-        >
-          {children}
-        </motion.div>
+      <motion.div
+        key={mountedKey}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={presetVariants}
+        transition={{ duration, ease: easing as any }}
+        style={{ position: "relative", width: "100%" }}
+      >
+        {children}
+      </motion.div>
       </AnimatePresence>
     </TransitionContainer>
   );

@@ -18,11 +18,11 @@ export const metadata = buildMetadata({
 export default function ServicesPage() {
     return (
         <>
-            {/* <GridAnimation /> */}
-            {/* <HorizontalGridAnimation /> */}
+            <GridAnimation />
+            <HorizontalGridAnimation />
             
             <div className="fp-page-services-inner">
-                {/* <div className="fp-grid-background-1">
+                <div className="fp-grid-background-1">
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
@@ -35,7 +35,7 @@ export default function ServicesPage() {
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
-                </div> */}
+                </div>
 
                 {/* <div className="fp-grid-background-2">
                     <div className="fp-row"></div>

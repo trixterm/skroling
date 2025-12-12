@@ -222,7 +222,7 @@ export default function HeroHomeSection() {
         <div className="inner max-w-[800px] mx-auto text-center select-none">
           <div
             ref={headingRef}
-            className="fp-extra-font text-6xl font-semibold leading-17 text-[#383232] will-change-opacity relative z-10"
+            className="fp-extra-font text-4xl lg:text-6xl font-semibold leading-12 md:leading-17 text-[#383232] will-change-opacity relative z-10"
           >
             {chars.map((char, i) => (
               <span
