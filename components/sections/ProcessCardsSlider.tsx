@@ -234,7 +234,7 @@ export default function ProcessCardsSlider() {
     /* ---------------- Render ---------------- */
 
     return (
-        <section className="my-44">
+        <section className="my-44 overflow-hidden">
             <div className="container">
                 <header className="flex items-center mb-6">
                     <h2 className="text-[16px] font-semibold">
@@ -247,7 +247,7 @@ export default function ProcessCardsSlider() {
                 </header>
             </div>
 
-            <div className="w-full max-w-[1360px] ml-[80px]">
+            <div className="w-full max-w-[1360px] ml-[80px] overflow-hidden">
                 <motion.ul
                     drag="x"
                     dragElastic={0.15}

@@ -53,7 +53,7 @@ export default function ServicesPage() {
 
                 <HeroServicesSection />
                 <div className="fp-text-after-video-wrap flex justify-end pb-20 md-pb-44">
-                    <div className="fp-text-after-video text-[20px] max-w-[900px] pr-20">
+                    <div className="fp-text-after-video text-[20px] max-w-[900px] md:pr-20 max-md:px-[30px]">
                         Craft digital experiences that resonate. We design and develop interactive websites where motion, emotion, and strategy work together to guide users toward your goals. Using advanced animation frameworks and best-in-class technologies, we create interfaces that feel intuitive, purposeful, and unmistakably premium.
                     </div>
                 </div>
@@ -67,11 +67,11 @@ export default function ServicesPage() {
 
                 <div className="fp-sec-mind pt-44 pb-44 h-[110vh] relative">
                     <div className="inner max-w-[1000px] mx-auto relative">
-                        <OpacityScrollAnimation className="fp-text text-[32px] font-medium leading-[44px] indent-30">
+                        <OpacityScrollAnimation className="fp-text text-[32px] font-medium leading-[44px] indent-30 max-md:px-[20px]">
                             In the world filled with the same paterns, there is unique you that should be a best version of yourserf to achieve better results.
                         </OpacityScrollAnimation>
 
-                        <div className="fp-anim-title-1 fp-text text-[32px] font-medium leading-[44px] relative -top-[44px] left-[488px]">Believe in a change.</div>
+                        <div className="fp-anim-title-1 fp-text text-[32px] font-medium leading-[44px] relative -top-[44px] left-[488px] max-md:hidden">Believe in a change.</div>
                     </div>
                 </div>
 

@@ -23,11 +23,18 @@ export default function ContactPage() {
 
     // 1. Calculate SVG Path based on container dimensions
     useEffect(() => {
-        if (messageWindowRef.current) {
-            const rect = messageWindowRef.current.getBoundingClientRect();
+        if (!messageWindowRef.current) return;
+
+        const el = messageWindowRef.current;
+
+        const observer = new ResizeObserver(() => {
+            const rect = el.getBoundingClientRect();
+
+            const padding = 18;
+            const r = 18;
+
             const w = rect.width;
             const h = rect.height;
-            const r = 18; // Corner radius
 
             const path = `
                 M ${r},0
@@ -36,15 +43,20 @@ export default function ContactPage() {
                 L ${w},${h - r}
                 Q ${w},${h} ${w - r},${h}
                 L ${r},${h}
-                L 0,${h}
-                L 0,${h - r}
+                Q 0,${h} 0,${h - r}
                 L 0,${r}
                 Q 0,0 ${r},0
                 Z
             `;
+
             setPathData(path);
-        }
+        });
+
+        observer.observe(el);
+
+        return () => observer.disconnect();
     }, []);
+
 
     // 2. Main Animation Timeline
     useEffect(() => {
@@ -191,14 +203,14 @@ export default function ContactPage() {
 
     return (
         <>
-            <section className="fp-sec-contact-1 pt-20 md:pt-44">
+            <section className="fp-sec-contact-1 pt-28 md:pt-44">
                 <div className="container mx-auto px-3">
 
                     <div className="inner max-w-[580px] mx-auto">
                         {/* <div className="text-[19px] font-medium mb-4">Leave a message</div> */}
                         
                         {/* Avatar & Chat Bubble Wrapper */}
-                        <div className="fp-message-window-wrap flex gap-x-3 items-end -ml-[63px] relative">
+                        <div className="fp-message-window-wrap flex gap-x-3 items-end md:-ml-[63px] relative">
                             
                             {/* Avatar Section */}
                             <div className="fp-chat-mask flex items-end">
@@ -219,12 +231,9 @@ export default function ContactPage() {
                             {/* Chat Bubble & SVG Border */}
                             <div className="relative flex-1">
                                 <svg
-                                    className="absolute inset-0 pointer-events-none"
-                                    style={{ 
-                                        width: '100%', 
-                                        height: '100%',
-                                        overflow: 'visible'
-                                    }}
+                                    className="absolute inset-0 w-full h-full pointer-events-none"
+                                    viewBox={`0 0 ${messageWindowRef.current?.offsetWidth || 0} ${messageWindowRef.current?.offsetHeight || 0}`}
+                                    preserveAspectRatio="none"
                                 >
                                     {pathData && (
                                         <path

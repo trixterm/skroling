@@ -515,11 +515,6 @@ body.white-mode.flash-done #flash-overlay {
   }
 }
 
-.fp-anim-title-1 {
-    position: relative;
-    display: inline-block;
-    margin-left: -120px;
-}
 
 /* Grid background */
 .fp-grid-background-1 {
@@ -726,6 +721,11 @@ body.white-mode.flash-done #flash-overlay {
   .segments.n5 .seg-d { opacity: 1; }
 
 
+  .fp-message-window {
+    position: relative;
+    width: 100%;
+}
+
 /* Before After Videos */
 @media screen and (min-width: 992px) {
     .fp-video-box-1 {
@@ -764,6 +764,12 @@ body.white-mode.flash-done #flash-overlay {
     }
     .hero-work-section[data-floating-letters-ready="true"]:hover .work-letters-wrapper {
         transform: scale(1.01);
+    }
+
+    .fp-anim-title-1 {
+        position: relative;
+        display: inline-block;
+        margin-left: -120px;
     }
 
 }

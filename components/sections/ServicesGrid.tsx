@@ -69,17 +69,17 @@ export default function ServicesGrid() {
       {services.map((service) => (
         <article key={service.id} className="flex h-full flex-col">
           <div className="flex flex-1 flex-col p-10">
-            <div className="text-[18px] font-semibold tracking-wide dark:text-white">
+            <div className="text-[26px] font-medium tracking-wide dark:text-white">
               {service.id}
             </div>
 
             <div className="mt-16 space-y-4">
               <h3
-                className="text-lg font-semibold leading-snug dark:text-white"
+                className="text-[26px] font-medium leading-snug dark:text-white"
                 // allows using <br /> inside the title string
                 dangerouslySetInnerHTML={{ __html: service.title }}
               />
-              <p className="max-w-[360px] text-[16px] leading-relaxed dark:text-white">
+              <p className="max-w-[360px] text-[16px] font-medium leading-[22px] dark:text-white">
                 {service.description}
               </p>
             </div>

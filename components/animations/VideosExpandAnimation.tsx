@@ -24,14 +24,14 @@ export default function VideosExpandAnimation() {
 
         tl.fromTo(
           ".fp-video-box-1",
-          { clipPath: "inset(99% 0% 0% 0%)" },
+          { clipPath: "inset(99.5% 0% 0% 0%)" },
           { clipPath: "inset(0% 0% 0% 0%)", ease: "none" },
           0
         );
 
         tl.fromTo(
           ".fp-video-box-2",
-          { clipPath: "inset(0% 0% 99% 0%)" },
+          { clipPath: "inset(0% 0% 99.5% 0%)" },
           { clipPath: "inset(0% 0% 0% 0%)", ease: "none" },
           0
         );
