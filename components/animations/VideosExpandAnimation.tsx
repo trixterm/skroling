@@ -9,52 +9,77 @@ gsap.registerPlugin(ScrollTrigger);
 export default function VideosExpandAnimation() {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const triggerElement = document.querySelector(".fp-sec-before-after");
+      const trigger = document.querySelector(".fp-sec-before-after");
+      if (!trigger) return;
 
-      if (triggerElement) {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: triggerElement,
-            start: "top 14%",
-            end: "+=300",
-            scrub: 1,
-            pin: true,
-          },
-        });
+      const boundary = "top 15%";
 
-        tl.fromTo(
-          ".fp-video-box-1",
-          { clipPath: "inset(99.5% 0% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "none" },
-          0
-        );
+      // 1) NO PIN — tik clipPath reveal
+      const revealTl = gsap.timeline({
+        scrollTrigger: {
+          trigger,
+          start: "top 60%",
+          end: boundary,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-        tl.fromTo(
-          ".fp-video-box-2",
-          { clipPath: "inset(0% 0% 99.5% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "none" },
-          0
-        );
+      revealTl.fromTo(
+        ".fp-video-box-1",
+        { clipPath: "inset(100% 0% 0% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", ease: "none" },
+        0
+      );
 
-        tl.to(
-          ".fp-video-box-1",
-          { x: 0, borderBottomLeftRadius: "20px", borderBottomRightRadius: "20px", ease: "none" },
-          1
-        );
+      revealTl.fromTo(
+        ".fp-video-box-2",
+        { clipPath: "inset(0% 0% 100% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", ease: "none" },
+        0
+      );
 
-        tl.to(
-          ".fp-video-box-2",
-          { x: 0, borderTopLeftRadius: "20px", borderTopRightRadius: "20px", ease: "none" },
-          1
-        );
+      // 2) PIN — x + radius + content fade (prasideda tik kai tampa pin)
+      const pinTl = gsap.timeline({
+        scrollTrigger: {
+          trigger,
+          start: boundary,
+          end: "+=500",
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-        tl.fromTo(
-          ".fp-grid-before-after .fp-content",
-          { opacity: 0 },
-          { opacity: 1, ease: "none" },
-          1
-        );
-      }
+      pinTl.to(
+        ".fp-video-box-1",
+        {
+          x: 0,
+          borderBottomLeftRadius: "20px",
+          borderBottomRightRadius: "20px",
+          ease: "none",
+        },
+        0
+      );
+
+      pinTl.to(
+        ".fp-video-box-2",
+        {
+          x: 0,
+          borderTopLeftRadius: "20px",
+          borderTopRightRadius: "20px",
+          ease: "none",
+        },
+        0
+      );
+
+      pinTl.fromTo(
+        ".fp-grid-before-after .fp-content",
+        { opacity: 0 },
+        { opacity: 1, ease: "none" },
+        0.2 // jei nori iškart pin start — daryk 0
+      );
     });
 
     return () => ctx.revert();

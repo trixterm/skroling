@@ -79,6 +79,9 @@ export default function ServicesSection() {
                 </video>
             </section>
 
+            <div className="container">
+                <div className="fp-text-after-video text-[20px] font-regular max-w-[870px] mt-16">Behind every project is years of steady, hands-on experience and a commitment to doing the work with care and precision. I focus on consistency, clear communication, and delivering results that truly meet expectations. The numbers below reflect the reliability of my process and the level of quality I bring to every collaboration.</div>
+            </div>
         </ServicesReveal>
     );
 }

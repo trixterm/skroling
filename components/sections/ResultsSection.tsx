@@ -1,57 +1,44 @@
 "use client";
 
-import CountUpAnimation from "@/components/animations/CountUpAnimation";
+import ExpandResultsAnimation from "@/components/animations/ExpandResultsAnimation";
 
 export default function ResultsSection() {
-  return (
-    <section className="fp-sec-results relative z-2">
-      <div className="container mx-auto">
-        <div className="fp-section-heading pb-20">Real results</div>
-
-        <div className="fp-results-list">
-          <div className="inner mx-20 grid grid-cols-3 gap-x-3 gap-y-12">
-            
-            {/* 1 ITEM */}
-            <div className="item">
-              <CountUpAnimation 
-                value={5} 
-                prefix="x" 
-                subtitle="Speed Upgrades"
-                className="text-[80px] font-medium leading-24" 
-              />
+    return (
+        <section className="fp-sec-results relative z-2 pt-12 pb-32">
+            <ExpandResultsAnimation />
+            <div className="container mx-auto">
+                {/* <div className="fp-section-heading pb-20">Real results</div> */}
+                <div className="fp-results-list">
+                    <div className="inner">
+                        <div className="flex justify-space-between gap-6 max-md:flex-wrap">
+                            <article className="flex h-[410px] w-full flex-col justify-between rounded-[20px] bg-[#EAEAEA] p-6 text-black">
+                                <div className="text-[65px] font-semibold leading-none">23</div>
+                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium uppercase tracking-[0.03em]">
+                                    Happy clients
+                                </div>
+                            </article>
+                            <article className="flex self-end h-[210px] w-full flex-col justify-between rounded-[20px] bg-[#EAEAEA] p-6 text-black">
+                                <div className="text-[65px] font-light leading-none">&infin;</div>
+                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium uppercase tracking-[0.03em]">
+                                    Created micro-interactions
+                                </div>
+                            </article>
+                            <article className="flex h-[410px] w-full flex-col justify-between rounded-[20px] bg-[#EAEAEA] p-6 text-black">
+                                <div className="text-[65px] font-semibold leading-none">5x</div>
+                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium uppercase tracking-[0.03em]">
+                                    Speed update
+                                </div>
+                            </article>
+                            <article className="flex h-[210px] w-full flex-col justify-between rounded-[20px] bg-[#EAEAEA] p-6 text-black">
+                                <div className="text-[65px] font-semibold leading-none">15</div>
+                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium uppercase tracking-[0.03em]">
+                                    Years in development
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            {/* 2 ITEM */}
-            <div className="item">
-              <CountUpAnimation 
-                value={23} 
-                subtitle="Happy Clients"
-                className="text-[80px] font-medium leading-24" 
-              />
-            </div>
-
-            {/* 3 ITEM */}
-            <div className="item col-2">
-              <CountUpAnimation 
-                value={5} 
-                prefix="x" 
-                subtitle="Speed Upgrades"
-                className="text-[80px] font-medium leading-24" 
-              />
-            </div>
-
-            {/* 4 ITEM */}
-            <div className="item col-3">
-              <CountUpAnimation 
-                value={23} 
-                subtitle="Launched Projects"
-                className="text-[80px] font-medium leading-24" 
-              />
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }

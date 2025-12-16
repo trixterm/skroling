@@ -1,369 +1,445 @@
-// 'use client';
-
-// import React, { useState, useEffect, useMemo } from 'react';
-
-// // --- KONFIGŪRACIJA ---
-// const GRID_SIZE = 12;
-
-// const PATTERNS: Record<number, string[]> = {
-//   1: [
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//     ".....XX.....",
-//   ],
-//   2: [
-//     "...XXXXX....", // Viršutinė linija
-//     "...XXXXX....",
-//     "........XX..", // Nusileidimas dešinėje
-//     "........XX..",
-//     "........XX..",
-//     "....XXXX....", // Vidurinė linija
-//     "....XXXX....", // Vidurinė linija
-//     "..XX........", // Nusileidimas kairėje
-//     "..XX........",
-//     "..XX........",
-//     "....XXXXX...", // Apatinė linija
-//     "....XXXXX...",
-//   ],
-//   3: [
-//     "...XXXXX....",
-//     "...XXXXX....",
-//     "........XX..",
-//     "........XX..",
-//     "........XX..",
-//     "...XXXXX....",
-//     "...XXXXX....",
-//     "........XX..",
-//     "........XX..",
-//     "........XX..",
-//     "...XXXXX....",
-//     "...XXXXX....",
-//   ],
-//   4: [
-//     "...XX..XX....",
-//     "...XX..XX....",
-//     "...XX..XX....",
-//     "...XX..XX....",
-//     "...XXXXXX....",
-//     "...XXXXXX....",
-//     ".......XX....",
-//     ".......XX....",
-//     ".......XX....",
-//     ".......XX....",
-//     ".......XX....",
-//     ".......XX....",
-//   ],
-//   5: [
-//     "....XXXXX...",
-//     "....XXXXX...",
-//     "..XX........",
-//     "..XX........",
-//     "..XX........",
-//     "....XXXXX...",
-//     "....XXXXX...",
-//     ".........XX.",
-//     ".........XX.",
-//     ".........XX.",
-//     "....XXXXX...",
-//     "....XXXXX...",
-//   ],
-// };
-
-// const parsePattern = (pattern: string[]): Set<number> => {
-//   const activeIndices = new Set<number>();
-//   pattern.forEach((rowStr, rowIndex) => {
-//     rowStr.split('').forEach((char, colIndex) => {
-//       if (char !== '.') {
-//         activeIndices.add(rowIndex * GRID_SIZE + colIndex);
-//       }
-//     });
-//   });
-//   return activeIndices;
-// };
-
-// export default function GridDigit() {
-//   const [currentNumber, setCurrentNumber] = useState(1);
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentNumber((prev) => (prev >= 5 ? 1 : prev + 1));
-//     }, 2000);
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   const activeIndices = useMemo(() => {
-//     return parsePattern(PATTERNS[currentNumber]);
-//   }, [currentNumber]);
-
-//   const cells = Array.from({ length: GRID_SIZE * GRID_SIZE });
-
-//   const R = '16px'; 
-
-//   return (
-//     <div className="flex flex-col min-h-[600px]">
-      
-//       <div 
-//         className="grid bg-[#d4d4d4] border-2 border-white/50 p-[1px]"
-//         style={{
-//           gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-//           gap: '1px',
-//           width: 'fit-content',
-//         }}
-//       >
-//         {cells.map((_, index) => {
-//           const isActive = activeIndices.has(index);
-
-//           const row = Math.floor(index / GRID_SIZE);
-//           const col = index % GRID_SIZE;
-          
-//           const hasTop = activeIndices.has((row - 1) * GRID_SIZE + col);
-//           const hasBottom = activeIndices.has((row + 1) * GRID_SIZE + col);
-//           const hasLeft = col > 0 && activeIndices.has(row * GRID_SIZE + (col - 1));
-//           const hasRight = col < GRID_SIZE - 1 && activeIndices.has(row * GRID_SIZE + (col + 1));
-
-//           return (
-//             <div
-//               key={index}
-//               className={`
-//                 w-8 h-8 sm:w-10 sm:h-10
-//                 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
-//                 ${isActive ? 'bg-[#1a1a1a] scale-100' : 'bg-[#cccccc]/50 scale-90'}
-//               `}
-//             />
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import styles from "./GridDigit.module.css";
 
-type Coord = { x: number; y: number } | null;
+type Corners = { tl: boolean; tr: boolean; br: boolean; bl: boolean };
+type CellTarget = ({ x: number; y: number } & Corners) | null;
 
-const COLS = 5;
-const ROWS = 7;
+const COLS = 12;
+const ROWS = 12;
 
-// 5x7 “pixel” šriftas (1–5)
+// Skaičių pattern'ai (12x12)
 const DIGITS: Record<number, string[]> = {
   1: [
-    "..#..",
-    ".##..",
-    "..#..",
-    "..#..",
-    "..#..",
-    "..#..",
-    ".###.",
+    ".....##.....",
+    ".....##.....",
+    ".....##.....",
+    "..###.......",
+    "..###.......",
+    ".....##.....",
+    ".....##.....",
+    ".....##.....",
+    ".....##.....",
+    ".....##.....",
+    "..########..",
+    "..########..",
   ],
   2: [
-    ".###.",
-    "#...#",
-    "....#",
-    "...#.",
-    "..#..",
-    ".#...",
-    "#####",
+    "...#####....",
+    "...#####....",
+    "........##..",
+    "........##..",
+    "........##..",
+    "....####....",
+    "....####....",
+    "..##........",
+    "..##........",
+    "..##........",
+    "....#####...",
+    "....#####...",
   ],
   3: [
-    "####.",
-    "....#",
-    "...#.",
-    "..##.",
-    "....#",
-    "#...#",
-    ".###.",
+    "..######....",
+    "..######....",
+    "........##..",
+    "........##..",
+    "........##..",
+    "....####....",
+    "....####....",
+    "........##..",
+    "........##..",
+    "........##..",
+    "..######....",
+    "..######....",
   ],
   4: [
-    "...#.",
-    "..##.",
-    ".#.#.",
-    "#..#.",
-    "#####",
-    "...#.",
-    "...#.",
+    "..##....##..",
+    "..##....##..",
+    "..##....##..",
+    "..##....##..",
+    "..##....##..",
+    "....####....",
+    "....####....",
+    "........##..",
+    "........##..",
+    "........##..",
+    "........##..",
+    "........##..",
   ],
   5: [
-    "#####",
-    "#....",
-    "####.",
-    "....#",
-    "....#",
-    "#...#",
-    ".###.",
+    "....#####...",
+    "....#####...",
+    "..##........",
+    "..##........",
+    "..##........",
+    "....#####...",
+    "....#####...",
+    "........##..",
+    "........##..",
+    "........##..",
+    "...#####....",
+    "...#####....",
   ],
 };
 
-function patternToCoords(pattern: string[]): Coord[] {
-  const coords: { x: number; y: number }[] = [];
-  for (let y = 0; y < pattern.length; y++) {
-    for (let x = 0; x < pattern[y].length; x++) {
-      if (pattern[y][x] === "#") coords.push({ x, y });
-    }
+// Transition pattern'ai (t1 = tarp 1 ir 2, t2 = tarp 2 ir 3, t3 = tarp 3 ir 4, t4 = tarp 4 ir 5)
+const TRANSITIONS: Record<number, string[]> = {
+  1: [
+    "..##.##.....",
+    "..##.##.....",
+    ".....##.....",
+    "........##..",
+    "........##..",
+    ".....###....",
+    ".....###....",
+    "...##.......",
+    "...##.##....",
+    "......##....",
+    "##..##..##..",
+    "##..##..##..",
+  ],
+  2: [
+    ".##......##.",
+    ".##..##..##.",
+    ".....##.##..",
+    "........##..",
+    "............",
+    "..######....",
+    "..######....",
+    "............",
+    "....##....##",
+    "....##....##",
+    "..##..##....",
+    "..##..##....",
+  ],
+  3: [
+    "..##......##",
+    "..##......##",
+    "..##........",
+    "..##..####..",
+    "......####..",
+    "....##..##..",
+    "....##..##..",
+    "##..##....##",
+    "##..##....##",
+    "............",
+    "........##..",
+    "........##..",
+  ],
+  4: [
+    "##..##......",
+    "##..##......",
+    "......##....",
+    "......##....",
+    "............",
+    "..####....##",
+    "..####....##",
+    "##......##..",
+    "##......##..",
+    "......##....",
+    ".##...##....",
+    ".##...##....",
+  ],
+};
+
+/**
+ * Rankiniai kampų override'ai konkretiems cells, konkretiems skaičiams.
+ * Key: "x,y" (x=0..11, y=0..11)
+ * Value: kuriuos kampus apvalinti (tl/tr/br/bl).
+ *
+ * Pavyzdžiai čia tik demo – susidėk savo realius coords.
+ */
+const DIGIT_CORNER_OVERRIDES: Record<number, Record<string, Partial<Corners>>> = {
+  1: {
+    "5,0": { bl: false, tl: true, tr: false, br: false },
+    "6,0": { bl: false, tl: false, tr: true, br: false },
+    "2,10": { bl: false, tl: true, tr: false, br: false },
+    "2,11": { bl: true, tl: false, tr: false, br: false },
+    "9,10": { bl: false, tl: false, tr: true, br: false },
+    "9,11": { bl: false, tl: false, tr: false, br: true },
+  },
+  2: {
+    "7,0": { bl: false, tl: false, tr: true, br: false },
+    "9,4": { bl: false, tl: false, tr: false, br: true },
+    "4,5": { bl: false, tl: true, tr: false, br: false },
+    "2,7": { bl: false, tl: true, tr: false, br: false },
+    "2,9": { bl: true, tl: false, tr: false, br: false },
+    "4,11": { bl: true, tl: false, tr: false, br: false },
+  },
+  3: {
+    "7,0": { bl: false, tl: false, tr: true, br: false },
+    "9,2": { bl: false, tl: false, tr: true, br: false },
+    "4,5": { bl: false, tl: true, tr: false, br: false },
+    "4,6": { bl: true, tl: false, tr: false, br: false },
+    "9,7": { bl: false, tl: false, tr: true, br: false },
+    "2,10": { bl: false, tl: true, tr: false, br: false },
+    "2,11": { bl: true, tl: false, tr: false, br: false },
+    "7,11": { bl: false, tl: false, tr: false, br: true },
+  },
+  4: {},
+  5: {},
+};
+
+function getStagePattern(stageKey: string): string[] {
+  if (stageKey.startsWith("t")) {
+    const idx = Number(stageKey.slice(1));
+    return TRANSITIONS[idx];
   }
-  // stabilus rūšiavimas → mažiau “chaoso”
-  coords.sort((a, b) => (a.y - b.y) || (a.x - b.x));
-  return coords;
+  return DIGITS[Number(stageKey)];
 }
 
-function padTo(coords: { x: number; y: number }[], n: number): Coord[] {
-  const out: Coord[] = coords.slice(0, n);
+function patternToTargets(pattern: string[], digit?: number) {
+  const overridesForDigit =
+    digit != null ? DIGIT_CORNER_OVERRIDES[digit] ?? {} : {};
+
+  const out: ({ x: number; y: number } & Corners)[] = [];
+
+  for (let y = 0; y < pattern.length; y++) {
+    for (let x = 0; x < pattern[y].length; x++) {
+      if (pattern[y][x] !== "#") continue;
+
+      // DEFAULT: jokių kampų (rankinis režimas)
+      let tl = false;
+      let tr = false;
+      let br = false;
+      let bl = false;
+
+      // pritaikom tik jei yra override konkrečiam cell'ui
+      const key = `${x},${y}`;
+      const o = overridesForDigit[key];
+      if (o) {
+        if (typeof o.tl === "boolean") tl = o.tl;
+        if (typeof o.tr === "boolean") tr = o.tr;
+        if (typeof o.br === "boolean") br = o.br;
+        if (typeof o.bl === "boolean") bl = o.bl;
+      }
+
+      out.push({ x, y, tl, tr, br, bl });
+    }
+  }
+
+  out.sort((a, b) => a.y - b.y || a.x - b.x);
+  return out;
+}
+
+function padTo(
+  targets: ReturnType<typeof patternToTargets>,
+  n: number
+): CellTarget[] {
+  const out: CellTarget[] = targets.slice(0, n);
   while (out.length < n) out.push(null);
   return out;
 }
 
-function px(n: number) {
-  return `${n}px`;
-}
-
 export default function ReassemblingDigits(props: {
-  from?: number;     // default 1
-  to?: number;       // default 5
-  cell?: number;     // default 18
-  holdMs?: number;   // default 900 (kiek “stovi” skaičius)
-  durationMs?: number; // default 1200 (morfavimo trukmė)
+  from?: number; // default 1
+  to?: number; // default 5
+  cell?: number; // default 18
+  stepPx?: number; // px per 1 timeline second (scroll distance scaling)
+  triggerSelector?: string; // default ".fp-sec-my-expertise"
+
+  digitHold?: number; // kiek ilgai “stovi” skaičius (timeline sekundėmis)
+  transitionHold?: number; // kiek ilgai “stovi” transition stage
+  moveDur?: number; // judėjimo trukmė (morph) į kitą stage
+
+  cornerRadiusFactor?: number; // radius = cell * factor
 }) {
   const from = props.from ?? 1;
   const to = props.to ?? 5;
-  const cell = props.cell ?? 18;
-  const holdMs = props.holdMs ?? 900;
-  const durationMs = props.durationMs ?? 1200;
+  const cell = props.cell ?? 25;
+  const stepPx = props.stepPx ?? 100;
+  const triggerSelector = props.triggerSelector ?? ".fp-sec-my-expertise";
 
-  const sequence = useMemo(() => {
-    const arr: number[] = [];
-    for (let d = from; d <= to; d++) arr.push(d);
-    return arr;
+  // laikymo / greičio kontrolė
+  const digitHold = props.digitHold ?? 1.2;
+  const transitionHold = props.transitionHold ?? 0.12;
+  const moveDur = props.moveDur ?? 0.2;
+
+  const cornerRadiusFactor = props.cornerRadiusFactor ?? 0.45;
+
+  // Seka: "1, t1, 2, t2, 3, t3, 4, t4, 5"
+  const stageKeys = useMemo(() => {
+    const keys: string[] = [];
+    for (let d = from; d <= to; d++) {
+      keys.push(String(d));
+      if (d < to && TRANSITIONS[d]) keys.push(`t${d}`);
+    }
+    return keys;
   }, [from, to]);
 
-  const digitCoords = useMemo(() => {
-    const map = new Map<number, { x: number; y: number }[]>();
-    for (const d of sequence) map.set(d, patternToCoords(DIGITS[d]));
+  const stageTargets = useMemo(() => {
+    const map = new Map<string, ReturnType<typeof patternToTargets>>();
+    for (const k of stageKeys) {
+      const pattern = getStagePattern(k);
+      const digit = k.startsWith("t") ? undefined : Number(k);
+      map.set(k, patternToTargets(pattern, digit));
+    }
     return map;
-  }, [sequence]);
+  }, [stageKeys]);
 
   const maxBlocks = useMemo(() => {
     let m = 0;
-    for (const d of sequence) m = Math.max(m, digitCoords.get(d)!.length);
+    for (const k of stageKeys) m = Math.max(m, stageTargets.get(k)!.length);
     return m;
-  }, [sequence, digitCoords]);
+  }, [stageKeys, stageTargets]);
 
-  const [index, setIndex] = useState(0);
-  const [animKey, setAnimKey] = useState(0);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
+  blockRefs.current = Array.from(
+    { length: maxBlocks },
+    (_, i) => blockRefs.current[i] ?? null
+  );
 
-  // laikom ankstesnį “padded” išdėstymą, kad galėtume animuoti FROM → TO
-  const prevLayoutRef = useRef<Coord[]>(padTo(digitCoords.get(sequence[0])!, maxBlocks));
-
-  // timeris: hold + animacija
   useEffect(() => {
-    const tick = () => {
-      setIndex((i) => (i + 1) % sequence.length);
-      setAnimKey((k) => k + 1);
+    let ctx: any;
+    let gsap: any;
+    let ScrollTrigger: any;
+
+    const init = async () => {
+      const mod = await import("gsap");
+      const st = await import("gsap/ScrollTrigger");
+      gsap = mod.gsap || mod.default || mod;
+      ScrollTrigger = st.ScrollTrigger;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const triggerEl = document.querySelector(triggerSelector) as HTMLElement | null;
+      if (!triggerEl) return;
+
+      const els = blockRefs.current.filter(Boolean) as HTMLDivElement[];
+      if (!els.length) return;
+
+      const layouts: CellTarget[][] = stageKeys.map((k) =>
+        padTo(stageTargets.get(k)!, maxBlocks)
+      );
+
+      // “parkingas” off-state blokams
+      const parkX = 2 * cell;
+      const parkY = 6 * cell;
+
+      const isDigitStage = (k: string) => !k.startsWith("t");
+      const r = Math.round(cell * cornerRadiusFactor);
+
+      ctx = gsap.context(() => {
+        // initial (pirmas stage)
+        els.forEach((el, i) => {
+          const c = layouts[0][i];
+          gsap.set(el, {
+            x: c ? c.x * cell : parkX,
+            y: c ? c.y * cell : parkY,
+            autoAlpha: c ? 1 : 0,
+            scale: c ? 1 : 0,
+
+            borderTopLeftRadius: c?.tl ? r : 0,
+            borderTopRightRadius: c?.tr ? r : 0,
+            borderBottomRightRadius: c?.br ? r : 0,
+            borderBottomLeftRadius: c?.bl ? r : 0,
+
+            force3D: true,
+          });
+        });
+
+        // Timeline: greitas morph + hold
+        const tl = gsap.timeline({ defaults: { ease: "none" } });
+
+        // hold ant pirmo stage
+        tl.to({}, { duration: isDigitStage(stageKeys[0]) ? digitHold : transitionHold });
+
+        for (let s = 1; s < layouts.length; s++) {
+          const target = layouts[s];
+          const key = stageKeys[s];
+
+          // 1) greitas perėjimas (visi blokai vienu metu)
+          const step = gsap.timeline();
+          els.forEach((el, i) => {
+            const c = target[i];
+            step.to(
+              el,
+              {
+                x: c ? c.x * cell : parkX,
+                y: c ? c.y * cell : parkY,
+                autoAlpha: c ? 1 : 0,
+                scale: c ? 1 : 0,
+
+                borderTopLeftRadius: c?.tl ? r : 0,
+                borderTopRightRadius: c?.tr ? r : 0,
+                borderBottomRightRadius: c?.br ? r : 0,
+                borderBottomLeftRadius: c?.bl ? r : 0,
+
+                duration: moveDur,
+              },
+              0
+            );
+          });
+          tl.add(step);
+
+          // 2) hold ant stage (skaičius ilgiau, transition trumpiau)
+          tl.to({}, { duration: isDigitStage(key) ? digitHold : transitionHold });
+        }
+
+        ScrollTrigger.create({
+          trigger: triggerEl,
+          start: "top 20%",
+          end: `+=${Math.ceil(stepPx * tl.duration())}`,
+          pin: true,
+          scrub: true,
+          animation: tl,
+          invalidateOnRefresh: true,
+        });
+
+        ScrollTrigger.refresh();
+      }, stageRef);
     };
-    const t = setInterval(tick, holdMs + durationMs);
-    return () => clearInterval(t);
-  }, [holdMs, durationMs, sequence.length]);
 
-  const currentDigit = sequence[index];
-  const nextDigit = sequence[(index + 1) % sequence.length];
+    init();
 
-  const fromLayout = prevLayoutRef.current;
-  const toLayout = padTo(digitCoords.get(nextDigit)!, maxBlocks);
-
-  // kai tik “animKey” pasikeičia, fiksuojam naują FROM (dabartinis skaičius)
-  useEffect(() => {
-    const now = padTo(digitCoords.get(currentDigit)!, maxBlocks);
-    prevLayoutRef.current = now;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animKey]);
-
-  const SEGMENTS = 5;
-
-  // segmentų “išsiardymo” vektoriai (grid-step’ais)
-  const scatterVectors = useMemo(() => {
-    // kiekvienam perėjimui duodam skirtingą, bet tvarkingą “išbarstymą”
-    const base = [
-      { x: -2, y: -1 },
-      { x:  2, y: -1 },
-      { x: -2, y:  1 },
-      { x:  2, y:  1 },
-      { x:  0, y:  2 },
-    ];
-    // “pasukam” pagal animKey, kad neatrodytų identiškai
-    const rot = animKey % base.length;
-    return Array.from({ length: SEGMENTS }, (_, s) => base[(s + rot) % base.length]);
-  }, [animKey]);
+    return () => {
+      if (ctx) ctx.revert();
+      try {
+        const st = (globalThis as any).ScrollTrigger;
+        if (st?.getAll) st.getAll().forEach((t: any) => t.kill());
+      } catch {}
+    };
+  }, [
+    cell,
+    cornerRadiusFactor,
+    digitHold,
+    transitionHold,
+    moveDur,
+    maxBlocks,
+    stageKeys,
+    stageTargets,
+    stepPx,
+    triggerSelector,
+  ]);
 
   const width = COLS * cell;
   const height = ROWS * cell;
 
   return (
     <div
+      ref={stageRef}
       className={styles.stage}
       style={
         {
-          width: px(width),
-          height: px(height),
-          ["--cell" as any]: px(cell),
-          ["--dur" as any]: `${durationMs}ms`,
+          width,
+          height,
+          ["--cell" as any]: `${cell}px`,
         } as React.CSSProperties
       }
-      aria-label={`Animated digits ${from} to ${to}`}
+      aria-label={`Scroll-driven digits ${from} to ${to} with transitions and manual corners`}
     >
       <div className={styles.blocks}>
-        {Array.from({ length: maxBlocks }, (_, i) => {
-          const a = fromLayout[i];
-          const b = toLayout[i];
-
-          const fromX = a ? a.x * cell : 2 * cell; // “parkingas”
-          const fromY = a ? a.y * cell : 6 * cell;
-          const toX = b ? b.x * cell : 2 * cell;
-          const toY = b ? b.y * cell : 6 * cell;
-
-          const fromVisible = !!a;
-          const toVisible = !!b;
-
-          const seg = i % SEGMENTS;
-          const v = scatterVectors[seg];
-
-          // šiek tiek “jitter” → panašiau į video “segmentų” judėjimą
-          const jitterX = ((i * 17) % 3 - 1) * 0.25;
-          const jitterY = ((i * 29) % 3 - 1) * 0.25;
-
-          const scatterX = (v.x + jitterX) * cell;
-          const scatterY = (v.y + jitterY) * cell;
-
-          return (
-            <div
-              key={`${animKey}-${i}`}
-              className={styles.block}
-              style={
-                {
-                  ["--fromX" as any]: px(fromX),
-                  ["--fromY" as any]: px(fromY),
-                  ["--toX" as any]: px(toX),
-                  ["--toY" as any]: px(toY),
-                  ["--sx" as any]: px(scatterX),
-                  ["--sy" as any]: px(scatterY),
-                  ["--fromO" as any]: fromVisible ? 1 : 0,
-                  ["--toO" as any]: toVisible ? 1 : 0,
-                  ["--fromS" as any]: fromVisible ? 1 : 0,
-                  ["--toS" as any]: toVisible ? 1 : 0,
-                } as React.CSSProperties
-              }
-            />
-          );
-        })}
+        {Array.from({ length: maxBlocks }, (_, i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              blockRefs.current[i] = el;
+            }}
+            className={styles.block}
+          />
+        ))}
       </div>
     </div>
   );

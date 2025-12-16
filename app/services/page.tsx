@@ -18,11 +18,11 @@ export const metadata = buildMetadata({
 export default function ServicesPage() {
     return (
         <>
-            <GridAnimation />
-            <HorizontalGridAnimation />
+            {/* <GridAnimation /> */}
+            {/* <HorizontalGridAnimation /> */}
             
             <div className="fp-page-services-inner">
-                <div className="fp-grid-background-1">
+                {/* <div className="fp-grid-background-1">
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
@@ -35,7 +35,7 @@ export default function ServicesPage() {
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
-                </div>
+                </div> */}
 
                 {/* <div className="fp-grid-background-2">
                     <div className="fp-row"></div>
@@ -65,13 +65,13 @@ export default function ServicesPage() {
                     <ServicesGrid />
                 </section>
 
-                <div className="fp-sec-mind pt-44 pb-44 h-[110vh] relative">
-                    <div className="inner max-w-[1000px] mx-auto relative">
-                        <OpacityScrollAnimation className="fp-text text-[32px] font-medium leading-[44px] indent-30 max-md:px-[20px]">
-                            In the world filled with the same paterns, there is unique you that should be a best version of yourserf to achieve better results.
+                <div className="fp-sec-mind pt-44 pb-10 h-[100vh] relative">
+                    <div className="inner max-w-[920px] mx-auto relative">
+                        <OpacityScrollAnimation className="fp-text text-[32px] font-medium leading-[44px] max-md:px-[20px]">
+                            In the world filled with the same paterns, there is unique you that should be a best version of yourserf to achieve better results. <span className="part-hidden">Believe in a change.</span>
                         </OpacityScrollAnimation>
 
-                        <div className="fp-anim-title-1 fp-text text-[32px] font-medium leading-[44px] relative -top-[44px] left-[488px] max-md:hidden">Believe in a change.</div>
+                        <div className="fp-anim-title-1 text-[32px] font-medium leading-[44px] relative -top-[44px] left-[488px] max-md:hidden opacity-0">Believe in a change.</div>
                     </div>
                 </div>
 

@@ -27,17 +27,21 @@ const VideoExpand: React.FC<VideoExpandProps> = ({ children }) => {
 
       const videoEl = section.querySelector<HTMLElement>(".fp-video-block-1");
       const headingEl = section.querySelector<HTMLElement>(".fp-heading-wrap");
-      const kLetterEl = section.querySelector<SVGElement>(".fp-k-letter");
+      const letterEls = section.querySelectorAll<SVGElement>(
+        ".fp-k-letter, .fp-v-letter, .fp-n-letter"
+      );
 
       if (!videoEl || !headingEl) return;
 
-      // Force K letter to have its own stacking context with higher z-index
-      if (kLetterEl) {
-        gsap.set(kLetterEl, {
-          transform: "translate3d(0, 0, 0)",
-          zIndex: 50,
-          willChange: "transform",
-          force3D: true,
+      // Force SVG letters to have their own stacking context with higher z-index
+      if (letterEls.length) {
+        letterEls.forEach((letterEl) => {
+          gsap.set(letterEl, {
+            transform: "translate3d(0, 0, 0)",
+            zIndex: 50,
+            willChange: "transform",
+            force3D: true,
+          });
         });
       }
 
