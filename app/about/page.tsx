@@ -1,6 +1,7 @@
 // import React from "react";
 import StorylineSection from "@/components/sections/StorylineSection";
 import MyExpertiseSection from "@/components/sections/MyExpertiseSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
 import GridDigit from "@/components/GridDigit";
 
 import { buildMetadata, siteConfig } from '@/config/site.config';
@@ -15,6 +16,7 @@ export default function AboutPage() {
         <>
             <StorylineSection />
             <MyExpertiseSection />
+            <ExperienceSection />
             
         </>
     );

@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import CopyrightSection from "@/components/sections/CopyrightSection";
 import LogoFooter from "@/components/LogoFooter";
 
-// Kontaktų forma kraunama tik klientui (ir tik kai wrapperis ją parodys)
 const ContactFormLazyWrapper = dynamic(
   () => import("@/components/ContactFormLazyWrapper"),
   {

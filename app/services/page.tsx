@@ -8,6 +8,7 @@ import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
 import GridAnimation from '@/components/animations/GridAnimation';
 import OpacityScrollAnimation from '@/components/animations/OpacityScrollAnimation';
 import HorizontalGridAnimation from '@/components/animations/HorizontalGridAnimation';
+import ResultsSection from '@/components/sections/ResultsSection';
 
 
 export const metadata = buildMetadata({
@@ -18,11 +19,11 @@ export const metadata = buildMetadata({
 export default function ServicesPage() {
     return (
         <>
-            {/* <GridAnimation /> */}
-            {/* <HorizontalGridAnimation /> */}
+            <GridAnimation />
+            <HorizontalGridAnimation />
             
             <div className="fp-page-services-inner">
-                {/* <div className="fp-grid-background-1">
+                <div className="fp-grid-background-1">
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
@@ -35,9 +36,9 @@ export default function ServicesPage() {
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
                     <div className="fp-line"></div>
-                </div> */}
+                </div>
 
-                {/* <div className="fp-grid-background-2">
+                <div className="fp-grid-background-2">
                     <div className="fp-row"></div>
                     <div className="fp-row"></div>
                     <div className="fp-row"></div>
@@ -49,7 +50,7 @@ export default function ServicesPage() {
                     <div className="fp-row"></div>
                     <div className="fp-row"></div>
                     <div className="fp-row"></div>
-                </div> */}
+                </div>
 
                 <HeroServicesSection />
                 <div className="fp-text-after-video-wrap flex justify-end pb-20 md-pb-44">
@@ -76,6 +77,8 @@ export default function ServicesPage() {
                 </div>
 
                 <BeforeAfterSection />
+
+                <ResultsSection />
 
                 <ProcessCardsSlider />
             </div>

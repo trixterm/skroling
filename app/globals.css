@@ -65,6 +65,7 @@
     --grid-line: #ffffff;
     --segment: #111111;
     --grid-border-color: transparent;
+    --gutter: 20px;
 
 }
 
@@ -190,17 +191,41 @@ html.dark body {
     .container {
         max-width: 640px;
     }
+
+    .custom-margin-left {
+        margin-left: calc((100vw - 640px) / 2);
+    }
+
+    :root {
+        --gutter: calc((100vw - 600px) / 2);
+    }
 }
 
 @media screen and (min-width: 1069px) {
     .container {
         max-width: 960px;
     }
+    
+    .custom-margin-left {
+        margin-left: calc((100vw - 960px) / 2);
+    }
+
+    :root {
+        --gutter: calc((100vw - 920px) / 2);
+    }
 }
 
 @media screen and (min-width: 1440px) {
     .container {
         max-width: 1390px;
+    }
+
+    .custom-margin-left {
+        margin-left: calc((100vw - 1350px) / 2);
+    }
+
+    :root {
+        --gutter: calc((100vw - 1350px) / 2);
     }
 }
 
@@ -744,6 +769,10 @@ body.white-mode.flash-done #flash-overlay {
     content: "";
     display: inline-block;
     width: 7.5rem;
+}
+
+.fp-cards-slider-1 {
+    scroll-padding-left: calc((100vw - 1350px) / 2);
 }
 
 /* Before After Videos */
