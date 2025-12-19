@@ -61,7 +61,7 @@ export default function ServicesPage() {
 
                 <section className="fp-sec-services z-2 relative">
                     <div className="container">
-                        <div className="fp-heading text-[32px] font-medium pb-3">Services</div>
+                        <div className="fp-heading fp-extra-font text-[32px] font-medium pb-3">Services</div>
                     </div>
                     <ServicesGrid />
                 </section>

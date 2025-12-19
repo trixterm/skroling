@@ -22,10 +22,16 @@ export default function GridAnimation() {
       // Check if required elements exist
       const serviceSection = document.querySelector(".fp-sec-services");
       const gridContainer = document.querySelector(".fp-grid-background-1");
+      const container = document.querySelector(".container");
 
       if (!serviceSection || !gridContainer) {
         console.warn("GridAnimation: Required elements not found in DOM");
         return null;
+      }
+
+      // Check for container specifically for the new feature
+      if (!container) {
+        console.warn("GridAnimation: .container element not found. Alignment features may not work.");
       }
 
       // Create GSAP context for cleanup
@@ -40,119 +46,172 @@ export default function GridAnimation() {
           return;
         }
 
-        // Filter lines for left movement (indices 0-5, excluding index 3 which is 4th line)
-        const leftLines = lines.filter((_, index) => {
-          return index >= 0 && index <= 5 && index !== 3;
+        // --- GROUPING LOGIC ---
+
+        // Group 1: Lines flying completely OFF to the LEFT
+        // Indices: 1, 2, 4, 5 (Index 3 is fixed, Index 0 is container-aligned)
+        const flyLeftLines = lines.filter((_, index) => {
+          return [1, 2, 4, 5].includes(index);
         });
 
-        // Filter lines for right movement (indices 6-11, excluding index 7 which is 8th line)
-        const rightLines = lines.filter((_, index) => {
-          return index >= 6 && index <= 11 && index !== 7;
+        // Group 2: Lines flying completely OFF to the RIGHT
+        // Indices: 6, 8, 9, 10 (Index 7 is fixed, Index 11 is container-aligned)
+        const flyRightLines = lines.filter((_, index) => {
+          return [6, 8, 9, 10].includes(index);
         });
 
-        // Select the 4th and 8th lines (indices 3 and 7) for color animation
-        const fixedLines = [lines[3], lines[7]].filter(Boolean);
+        // Group 3: Lines aligning to CONTAINER edges
+        const alignLeftLine = lines[0];  // First line
+        const alignRightLine = lines[11]; // Last line
+
+        // Group 4: Lines changing COLOR
+        // Fixed lines (3, 7) + Container lines (0, 11)
+        const colorLines = [lines[0], lines[3], lines[7], lines[11]].filter(Boolean);
 
         // Store original background color for restoration
         const originalBgColor = "#dddddd";
 
-        // Create master timeline with ScrollTrigger
-        const tl = gsap.timeline({
+        // ---------------------------------------------------------
+        // PHASE 1: ENTER (Išsiskirstymas)
+        // ---------------------------------------------------------
+        const tlEnter = gsap.timeline({
           scrollTrigger: {
             trigger: ".fp-sec-services",
-            start: "top bottom", // Animation starts when top of section enters viewport
-            end: "bottom 50%", // Animation ends when bottom of section reaches top of viewport
-            scrub: 1, // Smooth scrubbing, makes animation tied to scroll position
-            markers: false, // Set to true during development to see trigger points
-            anticipatePin: 1,
+            start: "top bottom", // Starts when top of section hits bottom of viewport
+            end: "top center",   // Ends when top of section hits center of viewport
+            scrub: 1,
+            markers: false,
+            invalidateOnRefresh: true, // IMPORTANT: Recalculates function-based values on resize
           },
         });
 
-        // PHASE 1: Lines move outward + Fixed lines turn black (first half of scroll range)
-        
-        // Left lines move to the left
-        tl.to(
-          leftLines,
+        // 1. Standard Fly-Out Left
+        tlEnter.to(
+          flyLeftLines,
           {
-            x: () => -window.innerWidth * 1.2, // Move off-screen with buffer
-            ease: "none", // Linear easing for scroll-tied animations
-            duration: 1,
-          },
-          0
-        );
-
-        // Right lines move to the right
-        tl.to(
-          rightLines,
-          {
-            x: () => window.innerWidth * 1.2, // Move off-screen with buffer
+            x: (index, target) => {
+              const rect = target.getBoundingClientRect();
+              return -(rect.right + 10);
+            },
             ease: "none",
             duration: 1,
           },
           0
         );
 
-        // 4th and 8th lines: Animate background color to black
-        tl.to(
-          fixedLines,
+        // 2. Standard Fly-Out Right
+        tlEnter.to(
+          flyRightLines,
+          {
+            x: (index, target) => {
+              const rect = target.getBoundingClientRect();
+              return (window.innerWidth - rect.left) + 10;
+            },
+            ease: "none",
+            duration: 1,
+          },
+          0
+        );
+
+        // Konfigūracija
+        const padding = 20; 
+
+        // 3. Container Alignment - Left (Line 0)
+        if (container && alignLeftLine) {
+          tlEnter.to(alignLeftLine, {
+            x: () => {
+              const containerRect = container.getBoundingClientRect();
+              const lineRect = alignLeftLine.getBoundingClientRect();
+              
+              // Calculate delta to move line to container's left edge + 20px padding
+              return (containerRect.left - lineRect.left) + padding;
+            },
+            ease: "none",
+            duration: 1,
+          }, 0);
+        }
+
+        // 4. Container Alignment - Right (Line 11)
+        if (container && alignRightLine) {
+          tlEnter.to(alignRightLine, {
+            x: () => {
+              const containerRect = container.getBoundingClientRect();
+              const lineRect = alignRightLine.getBoundingClientRect();
+              
+              // Calculate delta to move line to container's right edge - 20px padding
+              return (containerRect.right - lineRect.right) - padding;
+            },
+            ease: "none",
+            duration: 1,
+          }, 0);
+        }
+
+        // 5. Color Animation (Fixed + Container Lines)
+        tlEnter.to(
+          colorLines,
           {
             backgroundColor: "#000000",
             ease: "none",
             duration: 1,
           },
-          0 // Start at the same time as movement
+          0
         );
 
-        // PHASE 2: Lines return to original position + Fixed lines return to original color (second half of scroll range)
-        
-        // Left lines return
-        tl.to(
-          leftLines,
+        // ---------------------------------------------------------
+        // PHASE 2: EXIT (Sugrįžimas)
+        // ---------------------------------------------------------
+        const tlExit = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".fp-sec-services",
+            start: "bottom bottom",
+            end: "bottom center",
+            scrub: 1,
+            markers: false,
+            immediateRender: false,
+            invalidateOnRefresh: true, 
+          },
+        });
+
+        // Return ALL lines to x: 0
+        // We can target all subsets to ensure everything resets correctly
+        const allMovingLines = [...flyLeftLines, ...flyRightLines];
+        if (alignLeftLine) allMovingLines.push(alignLeftLine);
+        if (alignRightLine) allMovingLines.push(alignRightLine);
+
+        tlExit.to(
+          allMovingLines,
           {
             x: 0,
             ease: "none",
             duration: 1,
           },
-          1
+          0
         );
 
-        // Right lines return
-        tl.to(
-          rightLines,
-          {
-            x: 0,
-            ease: "none",
-            duration: 1,
-          },
-          1
-        );
-
-        // 4th and 8th lines: Return background color to original
-        tl.to(
-          fixedLines,
+        // Return Color
+        tlExit.to(
+          colorLines,
           {
             backgroundColor: originalBgColor,
             ease: "none",
             duration: 1,
           },
-          1 // Start at the same time as lines returning
+          0
         );
       });
 
       return ctx;
     };
 
-    // Initialize with a small delay to ensure DOM is ready
+    // Initialize with a small delay to ensure DOM is ready and layout is stable
     const timeoutId = setTimeout(() => {
       const ctx = initAnimation();
       
-      // Store context for cleanup
       if (ctx) {
         (window as any).__gridAnimationContext = ctx;
       }
     }, 100);
 
-    // Cleanup function
     return () => {
       clearTimeout(timeoutId);
       
@@ -162,7 +221,6 @@ export default function GridAnimation() {
         delete (window as any).__gridAnimationContext;
       }
       
-      // Kill all ScrollTriggers created by this component
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger === ".fp-sec-services") {
           trigger.kill();
@@ -171,7 +229,5 @@ export default function GridAnimation() {
     };
   }, []);
 
-  // This component doesn't render anything visible
-  // It only attaches animation logic to existing DOM elements
   return null;
 }
