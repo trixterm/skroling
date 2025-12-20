@@ -91,7 +91,7 @@ export default function GridAnimation() {
           {
             x: (index, target) => {
               const rect = target.getBoundingClientRect();
-              return -(rect.right + 10);
+              return -(rect.right + 7.5);
             },
             ease: "none",
             duration: 1,
@@ -105,7 +105,7 @@ export default function GridAnimation() {
           {
             x: (index, target) => {
               const rect = target.getBoundingClientRect();
-              return (window.innerWidth - rect.left) + 10;
+              return (window.innerWidth - rect.left) + 7.5;
             },
             ease: "none",
             duration: 1,
@@ -114,7 +114,7 @@ export default function GridAnimation() {
         );
 
         // Konfigūracija
-        const padding = 20; 
+        const padding = 15; 
 
         // 3. Container Alignment - Left (Line 0)
         if (container && alignLeftLine) {

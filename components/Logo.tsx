@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 
 // --- Constants ---
-const TARGET_SELECTORS = [".fp-services-list", ".fp-section-heading", ".fp-heading"];
+// const TARGET_SELECTORS = [".fp-services-list", ".fp-section-heading", ".fp-heading"];
+const TARGET_SELECTORS = [".fp-services-list"];
 const OBSERVER_OPTIONS = {
   root: null,
   threshold: 0,
@@ -101,7 +102,7 @@ export default function Logo() {
     <a
       ref={logoRef}
       href="/"
-      className={`fp-logo text-2xl font-bold z-50 transition-opacity duration-300 ease-in-out ${
+      className={`fp-logo max-md:max-w-[102px] z-50 transition-opacity duration-300 ease-in-out ${
         isHidden ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
       aria-label="Skroling Home"
@@ -117,15 +118,15 @@ export default function Logo() {
           priority
           quality={90}
         />
-        <div className="fp-logo-letters absolute w-[17px] h-[17px] top-[7px] left-[50px] overflow-hidden">
-          <div className="fp-logo-letters-anim w-[17px] h-[41px]">
+        <div className="fp-logo-letters absolute w-[17px] h-[17px] top-[7px] left-[50px] max-md:left-[42px] max-md:w-4 max-md:h-[13px] max-md:top-[7px] overflow-hidden">
+          <div className="fp-logo-letters-anim w-[17px] h-[41px] max-md:w-4 max-md:h-9">
             {/* Repeated Letters 
               Ideally, map these from an array to reduce code duplication
             */}
             {[...Array(5)].map((_, index) => (
               <Image
                 key={`${assets.letterLogo}-${index}`}
-                className={index < 4 ? "mb-[1px]" : ""}
+                className={index < 4 ? "mb-px" : ""}
                 src={assets.letterLogo}
                 width={17}
                 height={17}

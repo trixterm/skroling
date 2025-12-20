@@ -154,6 +154,7 @@ body {
     color: #333;
     background: #F5F5F5;
     transition: background-color 1.2s ease;
+    overflow-x: hidden;
     /* overflow: hidden; */
 }
 
@@ -184,7 +185,7 @@ html.dark body {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 15px;
 }
 
 @media screen and (min-width: 735px) {
@@ -884,7 +885,22 @@ body.white-mode.flash-done #flash-overlay {
         display: inline-block;
         margin-left: -140px;
     }
+}
 
+@media screen and (max-width: 1199px) {
+    .fp-grid-services article {
+        /* border-top: 1px solid #000; */
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+    }
+
+     .fp-grid-services article:last-child {
+        border-bottom: 1px solid #000;
+     }
+
+    .fp-grid-services article:before {
+        border-top: 1px solid #000;
+    }
 }
 
 @media screen and (max-width: 992px) {
@@ -892,5 +908,9 @@ body.white-mode.flash-done #flash-overlay {
         display: none !important;
         width: 156px;
         height: 156px;
+    }
+
+    .fp-logo .fp-logo-letters-anim {
+        transform: translateY(-60px);
     }
 }
