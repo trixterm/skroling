@@ -15,10 +15,10 @@ export default function WorkSection() {
 
     return (
 
-        <section className="fp-sec-work pt-28 pb-16 relative z-2 overflow-hidden">
+        <section className="fp-sec-work md:pt-24 pb-16 relative z-2 overflow-hidden">
             <WorkSectionAnimations />
 
-            <div className="mx-5">
+            <div className="container">
                 <header className="fp-header flex items-center pb-7">
                     <div className="fp-section-heading">Work</div>
 
@@ -29,8 +29,10 @@ export default function WorkSection() {
                     />
                 </header>
 
-                <div className="fp-mod-swiper-work">
-                    <SwiperSlider onInitControls={setControls} />
+                <div className="fp-mod-swiper-work-wrap">
+                    <div className="fp-mod-swiper-work">
+                        <SwiperSlider onInitControls={setControls} />
+                    </div>
                 </div>
             </div>
         </section>

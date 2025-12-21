@@ -34,7 +34,7 @@ export default function HeroHomeSection() {
   const mousePos = useRef({ x: 0, y: 0 });
   const ballPos = useRef({ x: 0, y: 0 });
 
-  const text = "Websites that move, react, and engage your user";
+  const text = "Websites that move, react, and engage your users";
   const chars = useMemo(() => text.split(""), [text]);
 
   // ---------------------
@@ -194,7 +194,7 @@ export default function HeroHomeSection() {
       onMouseMove={handleMove}
       className={`
         fp-sec-hero-home flex justify-center items-center 
-        h-screen relative overflow-hidden transition-colors ease-in-out 
+        min-h-svh relative overflow-hidden transition-colors ease-in-out 
         dark:bg-[#1A1A1A] ${transitionClass}
         ${isFinished ? "cursor-auto" : "cursor-none"}
       `}
@@ -219,10 +219,10 @@ export default function HeroHomeSection() {
       />
 
       <div className="container mx-auto relative pointer-events-none">
-        <div className="inner max-w-[800px] mx-auto text-center select-none">
+        <div className="inner max-w-[325px] sm:max-w-[480px] md:max-w-[820px] mx-auto text-center select-none">
           <div
             ref={headingRef}
-            className="fp-extra-font text-4xl lg:text-6xl font-semibold leading-12 md:leading-17 text-[#383232] will-change-opacity relative z-10"
+            className="fp-extra-font text-[50px] md:text-[65px] font-medium leading-14 md:leading-tight will-change-opacity relative z-10"
           >
             {chars.map((char, i) => (
               <span

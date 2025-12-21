@@ -1,5 +1,5 @@
 import { memo } from "react";
-import VideoExpand from "@/components/animations/VideoExpandAnimation";
+import VideoExpandAnimation2 from "@/components/animations/VideoExpandAnimation2";
 
 const HEADING_LETTERS = [
   {
@@ -105,7 +105,7 @@ const HEADING_LETTERS = [
 
 const HeroServicesSection = memo(function HeroServicesSection() {
   return (
-    <VideoExpand>
+    <VideoExpandAnimation2>
       <section className="fp-sec-hero-services relative pt-24 pb-8 lg:pt-44 md:pb-5">
         <div className="inner text-center relative z-10 max-w-[calc(100vw-30px)] sm:max-w-[calc(100vw-80px)] md:max-w-[90vw] mx-auto">
           <div className="fp-heading-wrap relative text-[#1A1A1A]">
@@ -149,7 +149,7 @@ const HeroServicesSection = memo(function HeroServicesSection() {
           />
         </div>
       </section>
-    </VideoExpand>
+    </VideoExpandAnimation2>
   );
 });
 

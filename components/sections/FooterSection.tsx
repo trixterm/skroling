@@ -20,9 +20,9 @@ export default function FooterSection() {
 
       <div className="fp-footer-contact">
         <div className="container mx-auto">
-          <div className="md:grid md:grid-cols-2 md:gap-x-6">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-x-6">
             {/* LEFT COLUMN */}
-            <div className="fp-col flex flex-col pb-3.5 md:pb-0">
+            <div className="fp-col flex flex-col pb-3.5 lg:pb-0">
               <LogoFooter />
 
               {/* Book Call Card */}

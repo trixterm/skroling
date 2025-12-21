@@ -1,10 +1,10 @@
 "use client";
-
-import { useRef, lazy } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { lazy } from "react";
 import ServicesReveal from "@/components/animations/ServicesReveal";
-const VideoExpand = lazy(() => import("@/components/VideoExpand"));
+import LineAnimation from "@/components/animations/LineAnimation";
+// import VideoExpandAnimation from "@/components/animations/VideosExpandAnimation";
+
+const VideoExpandAnimation = lazy(() => import("@/components/animations/VideoExpandAnimation"));
 
 const SERVICE_ITEMS = [
     "Custom Website Development",
@@ -14,73 +14,37 @@ const SERVICE_ITEMS = [
 ];
 
 export default function ServicesSection() {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    const { contextSafe } = useGSAP({ scope: containerRef });
-
-    const handleMouseEnter = contextSafe((e: React.MouseEvent<HTMLDivElement>) => {
-        const line = e.currentTarget.querySelector(".line-element");
-        
-        gsap.to(line, {
-            scaleX: 1,
-            transformOrigin: "left center",
-            duration: 0.4,
-            ease: "power2.out",
-            overwrite: "auto",
-        });
-    });
-
-    const handleMouseLeave = contextSafe((e: React.MouseEvent<HTMLDivElement>) => {
-        const line = e.currentTarget.querySelector(".line-element");
-
-        gsap.to(line, {
-            scaleX: 0,
-            transformOrigin: "right center",
-            duration: 0.4,
-            ease: "power2.in",
-            overwrite: "auto",
-        });
-    });
-
     return (
-        <ServicesReveal className="fp-sec-services py-24 relative z-2">
-            <div className="container mx-auto" ref={containerRef}>
-                <div className="fp-section-heading pb-6">Services</div>
-
+        <ServicesReveal className="fp-sec-services pt-10 pb-8 md:pb-24 relative z-2">
+            <div className="container mx-auto">
+                <div className="fp-section-heading mb-10">Services</div>
                 <div className="fp-services-list flex flex-col items-start">
                     {SERVICE_ITEMS.map((item, index) => (
-                        <div
+                        <LineAnimation
                             key={index}
-                            className="item mb-5 relative text-[40px] md:text-[52px] leading-14 md:leading-16 font-semibold mb-1 cursor-pointer overflow-hidden group"
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
+                            className="item mb-5 md:mb-10 fp-extra-font text-[21px] md:text-[58px] leading-snug font-medium cursor-pointer"
                         >
-                            <span className="relative z-10">{item}</span>
-
-                            <div 
-                                className="line-element absolute bottom-0 left-0 w-full h-[1px] bg-current dark:bg-[#fff] origin-left scale-x-0 will-change-transform" 
-                            />
-                        </div>
+                            {item}
+                        </LineAnimation>
                     ))}
                 </div>
             </div>
-
-            <section className="fp-video-services mt-24 flex justify-center">
-                <VideoExpand />
+            <section className="fp-video-services mt-10 md:mt-24 flex justify-center">
+                <VideoExpandAnimation />
                 <video
-                    className="w-[8px] h-screen object-cover rounded-xl"
+                    className="max-w-[calc(100vw-30px)] h-[485px] md:h-svh object-cover rounded-[20px]"
                     playsInline
                     muted
                     autoPlay
                     loop
-                    loading="lazy"
                 >
                     <source src="/videos/3571264-hd_1920_1080_30fps.mp4" type="video/mp4" />
                 </video>
             </section>
-
             <div className="container">
-                <div className="fp-text-after-video text-[20px] font-regular max-w-[870px] mt-16">Behind every project is years of steady, hands-on experience and a commitment to doing the work with care and precision. I focus on consistency, clear communication, and delivering results that truly meet expectations. The numbers below reflect the reliability of my process and the level of quality I bring to every collaboration.</div>
+                <div className="fp-text-after-video text-[16px] md:text-[20px] font-regular leading-[30px] md:leading-[33px] max-w-[870px] mt-17 max-sm:px-4">
+                    Behind every project is years of steady, hands-on experience and a commitment to doing the work with care and precision. I focus on consistency, clear communication, and delivering results that truly meet expectations. The numbers below reflect the reliability of my process and the level of quality I bring to every collaboration.
+                </div>
             </div>
         </ServicesReveal>
     );

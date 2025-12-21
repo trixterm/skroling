@@ -1,53 +1,55 @@
+/* ===== Desktop list (CSS Modules) ===== */
 .fp-testimonials-list {
-    height: 380px;
-    margin-bottom: 10px;
+  height: 380px;
+  margin-bottom: 10px;
 }
 
 .fp-testimonials-list .item {
-    cursor: pointer;
-    transition: all 500ms cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+  transition: all 500ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .fp-testimonials-list .item .fp-meta {
-    transition: opacity 500ms cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 500ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* .fp-testimonials-list .item:hover {
-    width: 300px;
-    height: 380px;
-}
-
-.fp-testimonials-list .item:hover .fp-meta {
-    animation: fadeInMeta 1s ease forwards;
-    animation-delay: 0.3s;
-} */
-
+/* fallback / base */
 .item {
-    cursor: pointer;
-    transition: all 800ms cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+  transition: all 800ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .fp-meta {
-    transition: opacity 500ms cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 500ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .item.isActive {
-    width: 300px;
-    height: 380px;
+  width: 300px;
+  height: 380px;
 }
 
 .item.isActive .fp-meta {
-    animation: fadeInMeta 1.5s ease forwards;
-    animation-delay: 0.4s;
+  animation: fadeInMeta 1.5s ease forwards;
+  animation-delay: 0.4s;
 }
 
 @keyframes fadeInMeta {
-    from {
-        opacity: 0;
-        visibility: hidden;
-    }
-    to {
-        opacity: 1;
-        visibility: visible;
-    }
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.mobileSwiper :global(.swiper-slide) {
+  width: 300px !important;
+  display: flex;
+}
+
+.mobileOverflowRight {
+    overflow: visible;
+    margin-right: calc(50% - 50vw);
 }

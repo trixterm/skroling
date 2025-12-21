@@ -24,7 +24,7 @@ type PhotoBoxScrollFadeProps = {
 };
 
 const PhotoBoxScrollFade: FC<PhotoBoxScrollFadeProps> = ({
-  selector = ".photo-box",
+  selector = ".photo-box img",
   containerSelector = ".fp-work-page-inner",
   stagger = 0.15,
   ease = "power2.out",
@@ -53,10 +53,10 @@ const PhotoBoxScrollFade: FC<PhotoBoxScrollFadeProps> = ({
     const tl = gsap.timeline({ paused: true });
 
     tl.to(boxes, {
-      opacity: 0.5,
+      opacity: 0,
       stagger,
       ease,
-      duration: 1, // čia tik vidinis GSAP laikas; realiai valdys scroll'as
+      duration: 1,
     });
 
     // Bendras scroll intervalas: nuo 0 iki 50% viewport height
