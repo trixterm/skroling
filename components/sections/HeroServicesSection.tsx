@@ -107,7 +107,7 @@ const HeroServicesSection = memo(function HeroServicesSection() {
   return (
     <VideoExpand>
       <section className="fp-sec-hero-services relative pt-24 pb-8 lg:pt-44 md:pb-5">
-        <div className="inner text-center relative z-10 max-w-[calc(100vw-30px)] md:max-w-[90vw] mx-auto">
+        <div className="inner text-center relative z-10 max-w-[calc(100vw-30px)] sm:max-w-[calc(100vw-80px)] md:max-w-[90vw] mx-auto">
           <div className="fp-heading-wrap relative text-[#1A1A1A]">
             <div className="fp-heading relative">
               <div className="fp-heading-letters-wrap flex justify-center gap-x-1 md:gap-x-4">

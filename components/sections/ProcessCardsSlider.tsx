@@ -237,7 +237,7 @@ export default function ProcessCardsSlider() {
   }, [trackControls]);
 
   return (
-    <section className="fp-sec-onboarding mt-8 mb-32 overflow-hidden">
+    <section className="fp-sec-onboarding mt-8 mb-20 md:mb-32 overflow-hidden">
       <div className="container">
         <header className="flex items-center mb-6">
           <div className="fp-heading fp-extra-font text-[34px] font-medium">

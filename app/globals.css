@@ -11,7 +11,7 @@
     --breakpoint-sm: 735px;
     --breakpoint-md: 1069px;
     --breakpoint-lg: 1439px;
-    --breakpoint-xl: 1599px;
+    --breakpoint-xl: 1536px;
 }
 
 @layer components {
@@ -190,43 +190,44 @@ html.dark body {
 
 @media screen and (min-width: 735px) {
     .container {
-        max-width: 640px;
+        padding: 0 40px;
     }
-
+/* 
     .custom-margin-left {
-        margin-left: calc((100vw - 640px) / 2);
+        margin-left: calc((100vw - 720px) / 2);
     }
 
     :root {
-        --gutter: calc((100vw - 600px) / 2);
-    }
+        --gutter: calc((100vw - 680px) / 2);
+    } */
 }
 
 @media screen and (min-width: 1069px) {
     .container {
-        max-width: 960px;
+        max-width: 1000px;
+        padding: 0 15px;
     }
     
     .custom-margin-left {
-        margin-left: calc((100vw - 960px) / 2);
+        margin-left: calc((100vw - 970px) / 2);
     }
 
     :root {
-        --gutter: calc((100vw - 920px) / 2);
+        --gutter: calc((100vw - 970px) / 2);
     }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1439px) {
     .container {
         max-width: 1390px;
     }
 
     .custom-margin-left {
-        margin-left: calc((100vw - 1350px) / 2);
+        margin-left: calc((100vw - 1360px) / 2);
     }
 
     :root {
-        --gutter: calc((100vw - 1350px) / 2);
+        --gutter: calc((100vw - 1360px) / 2);
     }
 }
 
@@ -379,7 +380,7 @@ body.white-mode.flash-done #flash-overlay {
 
 /* Forms */
 .fp-input {
-    @apply w-full bg-transparent border-b border-[#A8A6A6] text-[12px] text-white placeholder-[#A8A6A6] placeholder:text-[12px] font-medium py-2 px-0 focus:outline-none focus:border-white transition-colors;
+    @apply w-full bg-transparent border-b border-[#A8A6A6] text-[13px] text-white placeholder-[#A8A6A6] placeholder:text-[12px] font-medium py-2 px-0 focus:outline-none focus:border-white transition-colors;
 }
 
 .fp-scroll-gallery .fp-scroll-container {
@@ -833,7 +834,7 @@ body.white-mode.flash-done #flash-overlay {
 .fp-sec-mind .fp-text::before {
     content: "";
     display: inline-block;
-    width: 7.5rem;
+    width: 4rem;
 }
 
 .fp-cards-slider-1 {
@@ -884,6 +885,10 @@ body.white-mode.flash-done #flash-overlay {
         position: relative;
         display: inline-block;
         margin-left: -140px;
+    }
+
+    .fp-sec-mind .fp-text::before {
+        width: 7.5rem;
     }
 }
 

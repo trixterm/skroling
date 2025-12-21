@@ -55,7 +55,7 @@ export default function ServicesPage() {
 
                 <HeroServicesSection />
                 <div className="fp-text-after-video-wrap flex justify-end pb-20 md-pb-44">
-                    <div className="fp-text-after-video text-[16px] leading-6 md:text-[20px] md:leading-[33px] max-w-[900px] md:pr-20 max-md:px-[15px]">
+                    <div className="fp-text-after-video text-[16px] leading-6 md:text-[20px] md:leading-[33px] max-w-[900px] md:pr-20 max-md:px-10 max-sm:px-[15px]">
                         Craft digital experiences that resonate. We design and develop interactive websites where motion, emotion, and strategy work together to guide users toward your goals. Using advanced animation frameworks and best-in-class technologies, we create interfaces that feel intuitive, purposeful, and unmistakably premium.
                     </div>
                 </div>
@@ -67,13 +67,13 @@ export default function ServicesPage() {
                     <ServicesGrid />
                 </section>
 
-                <div className="fp-sec-mind pt-32 pb-10 md:pt-44 h-screen relative">
+                <div className="fp-sec-mind pt-30 pb-10 md:pt-44 h-screen relative">
                     <div className="inner max-w-[920px] mx-auto relative">
-                        <OpacityScrollAnimation className="fp-text text-[30px] md:text-[32px] font-medium leading-11 max-md:px-5">
+                        <OpacityScrollAnimation className="fp-text text-[30px] md:text-[32px] font-medium leading-11 max-md:px-4">
                             In the world filled with the same paterns, there is unique you that should be a best version of yourserf to achieve better results. <span className="part-hidden">Believe in a change.</span>
                         </OpacityScrollAnimation>
 
-                        <div className="fp-anim-title-1 text-[32px] font-medium leading-11 relative -top-11 left-[488px] max-md:hidden opacity-0">Believe in a change.</div>
+                        <div className="fp-anim-title-1 text-[30px] md:text-[32px] font-medium leading-11 relative -top-11 left-[488px] max-md:hidden opacity-0">Believe in a change.</div>
                     </div>
                 </div>
 

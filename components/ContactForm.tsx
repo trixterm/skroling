@@ -172,7 +172,7 @@ const ContactForm: React.FC = () => {
             onBlur={() => handleBlur('projectDetails')}
             placeholder="Tell us about your project"
             rows={3}
-            className="fp-input h-[40px] resize-none"
+            className="fp-input h-[37px] resize-none"
             required
           />
         </div>
@@ -183,7 +183,7 @@ const ContactForm: React.FC = () => {
             Select what services do you need?
           </p>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-x-2 gap-y-2.5">
             {SERVICE_OPTIONS.map((service) => {
               const isSelected = formData.services.includes(service);
               return (
@@ -192,10 +192,10 @@ const ContactForm: React.FC = () => {
                   type="button"
                   onClick={() => handleServiceToggle(service)}
                   onBlur={() => handleBlur('services')}
-                  className={`px-[10px] py-[5px] rounded-full text-[10px] font-medium cursor-pointer transition-all duration-400 ${
+                  className={`px-2.5 py-[5px] rounded-full text-[10px] font-semibold cursor-pointer transition-all duration-400 ${
                     isSelected
-                      ? 'bg-white border-1 border-white text-[#000]'
-                      : 'bg-transparent text-gray-300 border-1 border-[#E2E3E5] hover:border-gray-300'
+                      ? 'bg-white border border-white text-black'
+                      : 'bg-transparent text-gray-300 border border-[#E2E3E5] hover:border-gray-300'
                   }`}
                 >
                   {service}
@@ -206,7 +206,7 @@ const ContactForm: React.FC = () => {
         </div>
 
         {/* Submit */}
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-2">
           <button
             type="submit"
             disabled={status === 'submitting'}

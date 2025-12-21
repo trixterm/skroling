@@ -77,7 +77,7 @@ const renderWithDesktopBr = (text: string) => {
   return parts.map((part, i) => (
     <React.Fragment key={i}>
       {decodeBasicEntities(part)}
-      {i !== parts.length - 1 && <br className="hidden lg:block" />}
+      {i !== parts.length - 1 && <br className="hidden md:block" />}
     </React.Fragment>
   ));
 };
@@ -85,16 +85,16 @@ const renderWithDesktopBr = (text: string) => {
 export default function ServicesGrid() {
   return (
     <div className="container">
-      <div className="fp-grid-services grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="fp-grid-services grid grid-cols-1 md:grid-cols-3">
         {services.map((service) => (
           <article key={service.id} className="flex h-full flex-col">
-            <div className="flex flex-1 flex-col pt-[43px] pl-[30px] pb-[40px]">
+            <div className="flex flex-1 flex-col pt-[43px] pl-[30px] pb-10">
               <div className="text-[26px] fp-extra-font font-medium tracking-wide dark:text-white">
                 {service.id}
               </div>
 
               <div className="mt-20 md:mt-36 space-y-4">
-                <h3 className="text-[28px] fp-extra-font font-medium leading-[36px] dark:text-white">
+                <h3 className="text-[28px] fp-extra-font font-medium leading-9 dark:text-white">
                   {renderWithDesktopBr(service.title)}
                 </h3>
 
