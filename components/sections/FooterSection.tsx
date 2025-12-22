@@ -20,13 +20,13 @@ export default function FooterSection() {
 
       <div className="fp-footer-contact">
         <div className="container mx-auto">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-x-6">
+          <div className="sm:grid sm:grid-cols-2 sm:gap-x-4 md:gap-x-6">
             {/* LEFT COLUMN */}
-            <div className="fp-col flex flex-col pb-3.5 lg:pb-0">
+            <div className="fp-col flex flex-col sm:pt-8 md:pt-0 pb-3.5 lg:pb-0">
               <LogoFooter />
 
               {/* Book Call Card */}
-              <div className="fp-book-call flex gap-x-6 items-center rounded-2xl md:rounded-[20px] bg-[#2F2F34] py-6 px-5 md:p-4 mt-auto">
+              <div className="fp-book-call flex gap-x-6 items-center rounded-2xl md:rounded-[20px] bg-[#2F2F34] py-6 px-5 md:p-4 md:mt-auto">
                 <div className="fp-mask w-[90px] h-[92px] md:w-[154px] md:h-40 rounded-[10px] relative overflow-hidden">
                   <Image
                     src="/images/example-1.jpg"
@@ -42,7 +42,7 @@ export default function FooterSection() {
                     Jump on a quick call to discuss your project goals.
                   </div>
 
-                  <div className="fp-row-cta flex mt-auto md:items-end max-md:flex-col">
+                  <div className="fp-row-cta flex md:mt-auto md:items-end max-md:flex-col">
                     <div className="fp-name-wrap">
                       <div className="fp-name text-[16px] md:text-[19px] font-semibold leading-none mb-0.5 md:mb-1">
                         Mantas

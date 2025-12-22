@@ -35,7 +35,7 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
       <a className="absolute inset-0 z-30" href={href}></a>
 
       {isHoverVideo ? (
-        <div className="relative h-[460px] bg-neutral-300 rounded-[20px] overflow-hidden">
+        <div className="relative h-[380px] lg:h-[460px] bg-neutral-300 rounded-[20px] overflow-hidden">
             <div className="fp-mask absolute inset-0 opacity-100 group-hover:opacity-0 transition-opacity duration-900">
                 <Image className="object-cover" src={image} alt={title} fill />
             </div>

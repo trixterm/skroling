@@ -29,7 +29,7 @@ const MobileHeader = () => {
   return (
     <header className="md:hidden fixed top-0 left-0 w-full z-9999 bg-[#f5f5f5]">
       <div className="container">
-        <div className="flex justify-between items-center py-5">
+        <div className="flex justify-between items-center py-7 sm:px-5 lg:px-7">
           <Logo />
 
           <button

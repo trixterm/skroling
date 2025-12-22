@@ -38,7 +38,7 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const MIN_DESKTOP = 1069;
+const MIN_DESKTOP = 992;
 
 export default function TestimonialsSection() {
   const listRef = useRef<HTMLDivElement | null>(null);
@@ -46,7 +46,7 @@ export default function TestimonialsSection() {
 
   const [isDesktop, setIsDesktop] = useState(false);
 
-  // Detect >= 1069px
+  // Detect >= 992px
   useEffect(() => {
     const mql = window.matchMedia(`(min-width: ${MIN_DESKTOP}px)`);
 
@@ -105,9 +105,9 @@ export default function TestimonialsSection() {
   return (
     <section className="fp-sec-testimonials py-8 pb-18 md:pb-26 relative z-2 overflow-hidden">
       <div className="container mx-auto">
-        <div className="inner flex flex-col lg:flex-row lg:items-end gap-12 relative">
-          <h2 className="fp-heading text-[38px] md:text-[58px] font-medium leading-[1.1]">
-            What clients <br />
+        <div className="inner flex flex-col md:flex-row md:items-end gap-12 relative">
+          <h2 className="fp-heading text-[34px] md:text-[50px] lg:text-[58px] font-medium leading-[1.1] max-w-[250px] sm:max-w-full md:max-w-[400px]">
+            What clients
             say about me
           </h2>
 

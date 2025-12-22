@@ -10,7 +10,7 @@
 @theme {
     --breakpoint-sm: 735px;
     --breakpoint-md: 992px;
-    --breakpoint-lg: 1099px;
+    --breakpoint-lg: 1300px;
     --breakpoint-xl: 1536px;
 }
 
@@ -190,7 +190,7 @@ html.dark body {
 
 @media screen and (min-width: 735px) {
     .container {
-        padding: 0 40px;
+        padding: 0 42px;
     }
 /* 
     .custom-margin-left {
@@ -217,7 +217,7 @@ html.dark body {
     }
 }
 
-@media screen and (min-width: 1439px) {
+@media screen and (min-width: 1300px) {
     .container {
         max-width: 1390px;
     }

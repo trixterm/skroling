@@ -1,10 +1,10 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useScroll, useTransform, type MotionValue, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { memo, useMemo, useRef } from "react";
+import { memo, useRef } from "react";
 
 type Project = Readonly<{
   src: string;
@@ -30,32 +30,35 @@ const projects: readonly Project[] = [
   },
 ];
 
-const sectionClassName = "mt-[100svh]";
+const sectionClassName = "mt-[100svh] relative";
 const wrapperClassName =
-  "min-h-[100svh] sticky top-[50px] flex items-center justify-center";
+  "min-h-[100svh] sticky top-0 flex items-center justify-center";
 const cardClassName =
-  "relative h-[60svh] md:h-[550px] w-[92vw] md:w-[1300px] rounded-[24px] overflow-hidden origin-top";
+  "relative h-[60svh] md:h-[550px] w-[92vw] md:w-[1300px] rounded-[24px] overflow-hidden origin-top bg-neutral-900";
 const linkClassName =
-  "block h-full w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+  "fp-link-work-card block h-full w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+
+const STICKY_BASE_TOP_PX = 0;
+const CARD_OVERLAP_STEP_PX = 40;
+const SCROLL_OFFSET: readonly [any, any] = ["start start", "end end"];
+
+const projectCount = projects.length;
+const scrollSegment = projectCount > 0 ? 1 / projectCount : 1;
+
+const cardConfig = projects.map((project, index) => {
+  const targetScale = 1 - (projectCount - index) * 0.05;
+  const range: [number, number] = [index * scrollSegment, 1];
+  const top = STICKY_BASE_TOP_PX + index * CARD_OVERLAP_STEP_PX;
+  const isPriority = index === 0;
+  return { project, targetScale, range, top, isPriority };
+});
 
 export default function WorkCardsSection(): JSX.Element {
   const sectionRef = useRef<HTMLElement | null>(null);
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: SCROLL_OFFSET,
   });
-
-  const cards = useMemo(() => {
-    const count = projects.length;
-    const segment = count > 0 ? 1 / count : 1;
-
-    return projects.map((project, index) => {
-      const targetScale = 1 - (count - index) * 0.05;
-      const range: [number, number] = [index * segment, 1];
-      return { project, index, targetScale, range };
-    });
-  }, []);
 
   const content = (
     <section
@@ -63,20 +66,23 @@ export default function WorkCardsSection(): JSX.Element {
       className={sectionClassName}
       aria-label="Project gallery"
     >
-      {cards.map(({ project, index, range, targetScale }) => (
+      {cardConfig.map(({ project, range, targetScale, top, isPriority }) => (
         <Card
           key={project.link}
-          index={index}
           project={project}
           progress={scrollYProgress}
           range={range}
           targetScale={targetScale}
+          top={top}
+          isPriority={isPriority}
         />
       ))}
     </section>
   );
 
-  if (typeof window !== "undefined" && window.innerWidth >= 768) {
+  const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
+
+  if (isDesktop) {
     return <ReactLenis root>{content}</ReactLenis>;
   }
 
@@ -84,25 +90,33 @@ export default function WorkCardsSection(): JSX.Element {
 }
 
 type CardProps = Readonly<{
-  index: number;
   project: Project;
   progress: MotionValue<number>;
   range: readonly [number, number];
   targetScale: number;
+  top: number;
+  isPriority: boolean;
 }>;
 
 const Card = memo(function Card({
-  index,
   project,
   progress,
   range,
   targetScale,
+  top,
+  isPriority,
 }: CardProps): JSX.Element {
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
     <div className={wrapperClassName}>
-      <motion.div style={{ scale }} className={cardClassName}>
+      <motion.div
+        className={cardClassName}
+        style={{
+          scale,
+          top,
+        }}
+      >
         <Link
           href={project.link}
           className={linkClassName}
@@ -114,7 +128,7 @@ const Card = memo(function Card({
             alt={project.alt}
             className="object-cover"
             sizes="(max-width: 768px) 92vw, 1300px"
-            priority={index === 0}
+            priority={isPriority}
           />
         </Link>
       </motion.div>

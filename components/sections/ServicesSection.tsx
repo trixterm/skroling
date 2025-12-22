@@ -22,7 +22,7 @@ export default function ServicesSection() {
                     {SERVICE_ITEMS.map((item, index) => (
                         <LineAnimation
                             key={index}
-                            className="item mb-5 md:mb-10 fp-extra-font text-[21px] md:text-[58px] leading-snug font-medium cursor-pointer"
+                            className="item mb-5 md:mb-10 fp-extra-font text-[21px] sm:text-[40px] md:text-[56px] lg:text-[58px] leading-snug font-medium cursor-pointer"
                         >
                             {item}
                         </LineAnimation>

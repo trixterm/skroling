@@ -34,7 +34,7 @@ export default function HeroHomeSection() {
   const mousePos = useRef({ x: 0, y: 0 });
   const ballPos = useRef({ x: 0, y: 0 });
 
-  const text = "Websites that move, react, and engage your users";
+  const text = "Websites that move, react and engage your users";
   const chars = useMemo(() => text.split(""), [text]);
 
   // ---------------------
@@ -219,10 +219,10 @@ export default function HeroHomeSection() {
       />
 
       <div className="container mx-auto relative pointer-events-none">
-        <div className="inner max-w-[325px] sm:max-w-[480px] md:max-w-[820px] mx-auto text-center select-none">
+        <div className="inner max-w-[325px] sm:max-w-[690px] md:max-w-[820px] mx-auto text-center select-none">
           <div
             ref={headingRef}
-            className="fp-extra-font text-[50px] md:text-[65px] font-medium leading-14 md:leading-tight will-change-opacity relative z-10"
+            className="fp-extra-font text-[50px] sm:text-[54px] lg:text-[65px] font-medium leading-14 sm:leading-16 md:leading-tight will-change-opacity relative z-10"
           >
             {chars.map((char, i) => (
               <span
