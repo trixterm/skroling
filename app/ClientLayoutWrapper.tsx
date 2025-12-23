@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 
-import { PageTransition } from "@/components/animations/PageTransition";
+import PageTransition from "@/components/animations/PageTransition";
 import { AnimationProvider } from "@/context/AnimationContext";
 import Header from "@/components/Header";
 import MobileHeader from "@/components/MobileHeader";
@@ -33,7 +33,7 @@ export default function ClientLayoutWrapper({ children }: ClientLayoutWrapperPro
 
   return (
     <SmoothScroll>
-      <PageTransition preset="fade" duration={0.4}>
+      <PageTransition>
         <AnimationProvider>
           <div id="flash-overlay" aria-hidden="true" />
 

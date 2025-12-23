@@ -15,7 +15,7 @@ const LogoFooter: React.FC = () => {
           className="w-[319px] h-[84px] md:w-[540px] md:h-36"
         />
         
-        <div className="fp-logo-letters absolute w-[76.5px] h-[76.5px] top-1 left-[117px] md:top-[33px] md:left-[190px] lg:left-[225px] overflow-hidden max-lg:scale-84 max-md:scale-57">
+        <div className="fp-logo-letters absolute w-[76.5px] h-[76.5px] top-1 left-[117px] md:top-[33px] md:left-[170px] lg:left-[225px] overflow-hidden max-lg:scale-74 max-md:scale-57">
           <div className="fp-logo-letters-anim w-[76.5px] h-[184.5px]">
             <Image
               className="mb-[3px]"
