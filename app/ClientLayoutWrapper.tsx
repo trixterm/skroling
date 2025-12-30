@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 
@@ -12,8 +11,6 @@ import MobileHeader from "@/components/MobileHeader";
 import FooterSection from "@/components/sections/FooterSection";
 import SmoothScroll from "@/components/SmoothScroll";
 
-// Lazy-load non-critical cursor effects to reduce initial JS bundle.
-// These are purely client-side UI enhancements, so SSR is disabled.
 const CursorOpen = dynamic(() => import("@/components/CursorOpen"), {
   ssr: false,
 });
@@ -29,11 +26,12 @@ export interface ClientLayoutWrapperProps {
 export default function ClientLayoutWrapper({ children }: ClientLayoutWrapperProps) {
   const pathname = usePathname();
 
-  const hideFooter = useMemo(() => pathname === "/contact", [pathname]);
+  const hideFooter = pathname === "/contact";
 
   return (
-    <SmoothScroll>
-      <PageTransition>
+    // PageTransition at the ROOT level - outside any transform containers
+    <PageTransition transitionDuration={500}>
+      <SmoothScroll>
         <AnimationProvider>
           <div id="flash-overlay" aria-hidden="true" />
 
@@ -44,10 +42,10 @@ export default function ClientLayoutWrapper({ children }: ClientLayoutWrapperPro
 
           {!hideFooter && <FooterSection />}
         </AnimationProvider>
-      </PageTransition>
 
-      <CursorOpen />
-      <CursorTopNav />
-    </SmoothScroll>
+        <CursorOpen />
+        <CursorTopNav />
+      </SmoothScroll>
+    </PageTransition>
   );
 }

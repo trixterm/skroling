@@ -1,8 +1,8 @@
 // import React from "react";
+// TEST 3: All components - MyExpertiseSection is the suspect (uses GridDigit with ScrollTrigger pin)
 import StorylineSection from "@/components/sections/StorylineSection";
 import MyExpertiseSection from "@/components/sections/MyExpertiseSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
-import GridDigit from "@/components/GridDigit";
 
 import { buildMetadata, siteConfig } from '@/config/site.config';
 
@@ -17,7 +17,6 @@ export default function AboutPage() {
             <StorylineSection />
             <MyExpertiseSection />
             <ExperienceSection />
-            
         </>
     );
 }

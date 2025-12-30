@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import GridDigit, { DIGITS, DigitContent } from "@/components/GridDigit";
 
 const FADE_DURATION_MS = 300;
+// Height multiplier for scroll space (controls how long the section stays pinned)
+// Lower = faster animation, Higher = slower animation
+const SCROLL_HEIGHT_MULTIPLIER = 2.5;
 
 export default function MyExpertiseSection() {
     const [displayedContent, setDisplayedContent] = useState<DigitContent>({
@@ -83,25 +86,34 @@ export default function MyExpertiseSection() {
 
     return (
         <>
-            <section className="fp-sec-my-expertise">
-                <div className="fp-grid-background-3"></div>
-                <div className="container">
-                    <div className="inner relative z-2">
-                        <div className="fp-heading fp-extra-font text-[34px] font-medium mb-18">Knowledge</div>
-                        <div className="fp-grid-steps-1 md:flex md:gap-x-16 md:items-center max-w-[920px] mx-auto">
-                            <div className="fp-col">
-                                <GridDigit onDigitChange={handleDigitChange} />
-                            </div>
-                            <div className="fp-col max-w-[490px]">
-                                <div className={fadeClass}>
-                                    <div className="fp-heading fp-extra-font text-[28px] leading-10 font-medium mb-4">{displayedContent.heading}</div>
-                                    <div className="fp-text text-[16px] font-medium">{displayedContent.description}</div>
+            {/* Outer container provides scroll height for the pin effect */}
+            <div
+                className="fp-sec-my-expertise-wrapper"
+                style={{ height: `${100 * SCROLL_HEIGHT_MULTIPLIER}vh` }}
+            >
+                {/* Sticky container - stays fixed while scrolling through wrapper */}
+                <section
+                    className="fp-sec-my-expertise sticky top-0 h-screen flex items-center"
+                >
+                    <div className="fp-grid-background-3"></div>
+                    <div className="container">
+                        <div className="inner relative z-2">
+                            <div className="fp-heading fp-extra-font text-[34px] font-medium mb-18">Knowledge</div>
+                            <div className="fp-grid-steps-1 md:flex md:gap-x-16 md:items-center max-w-[920px] mx-auto">
+                                <div className="fp-col">
+                                    <GridDigit onDigitChange={handleDigitChange} />
+                                </div>
+                                <div className="fp-col max-w-[490px]">
+                                    <div className={fadeClass}>
+                                        <div className="fp-heading fp-extra-font text-[28px] leading-10 font-medium mb-4">{displayedContent.heading}</div>
+                                        <div className="fp-text text-[16px] font-medium">{displayedContent.description}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </>
     );
 }

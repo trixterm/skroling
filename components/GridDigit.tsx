@@ -361,6 +361,7 @@ export default function ReassemblingDigits(props: {
 
   const stageRef = useRef<HTMLDivElement | null>(null);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollTriggerRef = useRef<ReturnType<ScrollTriggerModule["ScrollTrigger"]["create"]> | null>(null);
 
   const blockRefSetters = useMemo(
     () =>
@@ -371,29 +372,30 @@ export default function ReassemblingDigits(props: {
   );
 
   useEffect(() => {
-    let ctx: GsapContext | undefined;
-    let gsapInstance: GsapModule["gsap"] | undefined;
-    let scrollTriggerInstance: ScrollTriggerModule["ScrollTrigger"] | undefined;
+    let isCleanedUp = false;
+    let timeline: ReturnType<GsapModule["gsap"]["timeline"]> | null = null;
+    let gsap: GsapModule["gsap"] | null = null;
 
     const init = async () => {
       const mod: GsapModule = await import("gsap");
       const st: ScrollTriggerModule = await import("gsap/ScrollTrigger");
 
-      gsapInstance = (mod.gsap ?? mod.default) as GsapModule["gsap"];
-      scrollTriggerInstance = st.ScrollTrigger;
+      if (isCleanedUp) return;
 
-      if (!gsapInstance || !scrollTriggerInstance) return;
+      gsap = (mod.gsap ?? mod.default) as GsapModule["gsap"];
+      const ScrollTrigger = st.ScrollTrigger;
 
-      gsapInstance.registerPlugin(scrollTriggerInstance);
+      if (!gsap || !ScrollTrigger) return;
 
-      const triggerEl = document.querySelector(
-        triggerSelector
-      ) as HTMLElement | null;
+      gsap.registerPlugin(ScrollTrigger);
+
+      const triggerEl = document.querySelector(triggerSelector) as HTMLElement | null;
       if (!triggerEl) return;
 
       const els = blockRefs.current.filter(Boolean) as HTMLDivElement[];
-      if (!els.length) return;
-      if (!stageKeys.length) return;
+      if (!els.length || !stageKeys.length) return;
+
+      if (isCleanedUp) return;
 
       const syncActiveStage = (time: number) => {
         if (!stageMoments.length) return;
@@ -432,43 +434,60 @@ export default function ReassemblingDigits(props: {
         borderBottomLeftRadius: (i: number) => (layouts[layoutIndex][i]?.bl ? r : 0),
       });
 
-      ctx = gsapInstance.context(() => {
-        gsapInstance!.set(els, {
-          ...tweenVarsForLayout(0),
-          force3D: true,
-        });
+      // Set initial state
+      gsap.set(els, { ...tweenVarsForLayout(0), force3D: true });
 
-        const tl = gsapInstance!.timeline({ defaults: { ease: "none" } });
+      // Create timeline
+      timeline = gsap.timeline({ defaults: { ease: "none" } });
+      timeline.to({}, { duration: holdFor(stageKeys[0]) });
 
-        tl.to({}, { duration: holdFor(stageKeys[0]) });
+      for (let s = 1; s < layouts.length; s++) {
+        const stageKey = stageKeys[s];
+        timeline.to(els, { ...tweenVarsForLayout(s), duration: moveDur }, undefined);
+        timeline.to({}, { duration: holdFor(stageKey) });
+      }
 
-        for (let s = 1; s < layouts.length; s++) {
-          const stageKey = stageKeys[s];
-          tl.to(els, { ...tweenVarsForLayout(s), duration: moveDur }, undefined);
-          tl.to({}, { duration: holdFor(stageKey) });
-        }
+      if (isCleanedUp) {
+        timeline.kill();
+        return;
+      }
 
-        scrollTriggerInstance!.create({
-          trigger: triggerEl,
-          start: "top 20%",
-          end: `+=${Math.ceil(stepPx * tl.duration())}`,
-          pin: true,
-          scrub: true,
-          animation: tl,
-          invalidateOnRefresh: true,
-          onUpdate: () => syncActiveStage(tl.time()),
-        });
+      // Find the wrapper element for proper scroll tracking with CSS sticky
+      const wrapperEl = triggerEl.closest('.fp-sec-my-expertise-wrapper') || triggerEl;
 
-        scrollTriggerInstance!.refresh();
-      }, stageRef);
+      // Create ScrollTrigger - pin is handled by CSS sticky, not ScrollTrigger
+      scrollTriggerRef.current = ScrollTrigger.create({
+        trigger: wrapperEl,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        animation: timeline,
+        invalidateOnRefresh: true,
+        onUpdate: () => syncActiveStage(timeline!.time()),
+      });
+
+      ScrollTrigger.refresh();
     };
 
     init();
 
     return () => {
-      if (ctx) ctx.revert();
-      const triggers = scrollTriggerInstance?.getAll?.();
-      triggers?.forEach((t) => t.kill());
+      isCleanedUp = true;
+      // Kill ScrollTrigger first
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+        scrollTriggerRef.current = null;
+      }
+      // Kill timeline (don't revert - let React handle DOM cleanup)
+      if (timeline) {
+        timeline.kill();
+        timeline = null;
+      }
+      // Kill any remaining tweens on our elements
+      const els = blockRefs.current.filter(Boolean);
+      if (gsap && els.length) {
+        gsap.killTweensOf(els);
+      }
     };
   }, [
     cell,

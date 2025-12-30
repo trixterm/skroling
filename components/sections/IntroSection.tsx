@@ -1,110 +1,140 @@
 "use client";
 
-import styles from "./IntroSection.module.css";
-import { useEffect } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { useAnimation } from "@/context/AnimationContext";
-import SpotlightCursor from "@/components/SpotlightCursor";
+
+const ORIGINAL_TEXT = "Where performance meets perfection.";
+const RADIUS = 110;
+const RADIUS_SQUARED = RADIUS * RADIUS;
 
 export default function IntroSection() {
-  const { setIntroFinished } = useAnimation()!; // <-- čia svarbu !
+  const { setIntroFinished } = useAnimation()!;
 
+  // Track revealed state for each character in React state
+  const [revealed, setRevealed] = useState<boolean[]>(
+    () => new Array(ORIGINAL_TEXT.length).fill(false)
+  );
+  const [fullyRevealed, setFullyRevealed] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
+
+  // Refs for DOM measurements (not manipulation)
+  const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const charRectsRef = useRef<DOMRect[]>([]);
+
+  // Update character bounding rects
+  const updateRects = useCallback(() => {
+    charRectsRef.current = charRefs.current.map(
+      (span) => span?.getBoundingClientRect() ?? new DOMRect()
+    );
+  }, []);
+
+  // Finish animation handler
+  const finishAnimation = useCallback(() => {
+    setFullyRevealed(true);
+    setShowCursor(false);
+    document.body.classList.add("white-mode");
+    document.body.style.cursor = "auto";
+
+    setTimeout(() => {
+      document.body.classList.add("flash-done");
+    }, 600);
+
+    setIntroFinished(true);
+  }, [setIntroFinished]);
+
+  // Mouse move handler
   useEffect(() => {
-    const cursor = document.querySelector<HTMLElement>(".spotlight-cursor");
-    const title = document.querySelector<HTMLElement>(".reveal-title");
-    if (!title) return;
+    if (fullyRevealed) return;
 
-    const originalText = title.textContent ?? "";
-    title.textContent = "";
-    const chars: HTMLSpanElement[] = [];
-
-    for (const ch of originalText) {
-      const span = document.createElement("span");
-      span.classList.add("char");
-      span.textContent = ch === " " ? "\u00A0" : ch;
-      title.appendChild(span);
-      chars.push(span);
-    }
-
-    let charRects: DOMRect[] = [];
-    let revealed: boolean[] = new Array(chars.length).fill(false);
-    let revealedCount = 0;
-    let fullyRevealed = false;
-
-    const radius = 110;
-    const r2 = radius * radius;
-
-    const updateRects = () => {
-      charRects = chars.map((span) => span.getBoundingClientRect());
-    };
     updateRects();
 
-    window.addEventListener("resize", updateRects);
-
-    const finishAnimation = () => {
-      fullyRevealed = true;
-      title.classList.add("fully-revealed");
-      document.body.classList.add("white-mode");
-      document.body.style.cursor = "auto";
-      if (cursor) cursor.remove();
-
-      setTimeout(() => {
-        document.body.classList.add("flash-done");
-      }, 600);
-
-      setIntroFinished(true);
-    };
-
     const handleMouseMove = (e: MouseEvent) => {
-      if (!fullyRevealed && cursor) {
-        gsap.to(cursor, {
+      // Animate cursor
+      if (cursorRef.current) {
+        gsap.to(cursorRef.current, {
           x: e.clientX,
           y: e.clientY,
           duration: 0.1,
         });
       }
 
-      if (fullyRevealed) return;
-
       const mx = e.clientX;
       const my = e.clientY;
 
-      for (let i = 0; i < chars.length; i++) {
-        if (revealed[i]) continue;
+      setRevealed((prev) => {
+        const next = [...prev];
+        let changed = false;
+        let revealedCount = 0;
 
-        const rect = charRects[i];
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = mx - cx;
-        const dy = my - cy;
+        for (let i = 0; i < ORIGINAL_TEXT.length; i++) {
+          if (next[i]) {
+            revealedCount++;
+            continue;
+          }
 
-        if (dx * dx + dy * dy <= r2) {
-          revealed[i] = true;
-          revealedCount++;
-          chars[i].classList.add("revealed");
+          const rect = charRectsRef.current[i];
+          if (!rect) continue;
+
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = mx - cx;
+          const dy = my - cy;
+
+          if (dx * dx + dy * dy <= RADIUS_SQUARED) {
+            next[i] = true;
+            changed = true;
+            revealedCount++;
+          }
         }
-      }
 
-      if (revealedCount === chars.length) {
-        finishAnimation();
-      }
+        // Check if all revealed
+        if (revealedCount === ORIGINAL_TEXT.length) {
+          // Schedule finish outside of setState
+          setTimeout(() => finishAnimation(), 0);
+        }
+
+        return changed ? next : prev;
+      });
     };
 
+    const handleResize = () => updateRects();
+
     document.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", updateRects);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [setIntroFinished]);
+  }, [fullyRevealed, updateRects, finishAnimation]);
+
+  // Initial rect calculation after mount
+  useEffect(() => {
+    updateRects();
+  }, [updateRects]);
 
   return (
     <section className="fp-sec-hero-home flex justify-center items-center h-screen">
-      <div className="spotlight-cursor"></div>
-      <h1 className="text-5xl font-medium reveal-title text-center">
-        Where performance meets perfection.
+      {showCursor && (
+        <div ref={cursorRef} className="spotlight-cursor" />
+      )}
+      <h1
+        className={`text-5xl font-medium reveal-title text-center ${
+          fullyRevealed ? "fully-revealed" : ""
+        }`}
+      >
+        {ORIGINAL_TEXT.split("").map((char, i) => (
+          <span
+            key={i}
+            ref={(el) => { charRefs.current[i] = el; }}
+            className={`char ${revealed[i] ? "revealed" : ""}`}
+          >
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
       </h1>
-      <SpotlightCursor />
     </section>
   );
 }

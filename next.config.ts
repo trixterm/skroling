@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable React strict mode for better development practices
-  reactStrictMode: true,
+  // Temporarily disabled to fix GSAP ScrollTrigger pin + React reconciliation conflict
+  // The pin feature modifies DOM structure which conflicts with React's virtual DOM
+  // TODO: Re-enable after implementing ScrollTrigger-safe patterns
+  reactStrictMode: false,
 
   // Compiler optimizations
   compiler: {

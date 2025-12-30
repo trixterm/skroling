@@ -9,7 +9,7 @@ export default function FluidCanvas() {
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      script.remove();
     };
   }, []);
 
