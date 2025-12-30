@@ -194,14 +194,14 @@ export default function StorylineSection() {
     };
 
     return (
-        <section className="fp-sec-storyline py-44 relative z-2">
+        <section className="fp-sec-storyline pt-44 pb-12 relative z-2">
             <div className="inner relative">
                 <header className="absolute w-[90%] mx-auto top-[237px] left-0 right-0 pb-4 flex items-end z-2">
-                    <div className="text-[16px] font-semibold leading-none">
-                        My Storyline
+                    <div className="text-[34px] fp-extra-font font-medium leading-none">
+                        My Story
                     </div>
 
-                    <div className="border-1 absolute top-[50px] left-0 w-[100%] h-[1px]"></div>
+                    <div className="border border-[#1a1a1a] absolute top-[50px] left-0 w-full h-px"></div>
 
                     {/* DYNAMIC PREVIEW – width ir height smooth animacija */}
                     <div
@@ -240,7 +240,7 @@ export default function StorylineSection() {
                 >
                     <div ref={scrollRef} className={styles["fp-scroll-container"]}>
                         <div
-                            className={`${styles["fp-swiper-storyline"]} flex gap-x-10`}
+                            className={`${styles["fp-swiper-storyline"]} flex gap-x-20`}
                         >
                             {/* Slide 0 */}
                             <div

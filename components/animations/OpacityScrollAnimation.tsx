@@ -13,7 +13,7 @@ interface OpacityScrollAnimationProps {
 export default function OpacityScrollAnimation({
   children,
   className = '',
-  start = 'top bottom-=30%',
+  start = 'top bottom-=27%',
   end = 'top center',
   scrub = true,
   markers = false

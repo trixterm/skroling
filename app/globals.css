@@ -572,21 +572,21 @@ body.white-mode.flash-done #flash-overlay {
 }
 
 .fp-grid-background-1 .fp-line {
-  left: calc(var(--gutter) + (var(--grid-width) / 12 * var(--i)));
+  left: calc(var(--gutter) + (var(--grid-width) / 11 * var(--i)));
 }
 
-.fp-grid-background-1 .fp-line:nth-child(1)  { --i: 1; }
-.fp-grid-background-1 .fp-line:nth-child(2)  { --i: 2; }
-.fp-grid-background-1 .fp-line:nth-child(3)  { --i: 3; }
-.fp-grid-background-1 .fp-line:nth-child(4)  { --i: 4; }
-.fp-grid-background-1 .fp-line:nth-child(5)  { --i: 5; }
-.fp-grid-background-1 .fp-line:nth-child(6)  { --i: 6; }
-.fp-grid-background-1 .fp-line:nth-child(7)  { --i: 7; }
-.fp-grid-background-1 .fp-line:nth-child(8)  { --i: 8; }
-.fp-grid-background-1 .fp-line:nth-child(9)  { --i: 9; }
-.fp-grid-background-1 .fp-line:nth-child(10) { --i: 10; }
-.fp-grid-background-1 .fp-line:nth-child(11) { --i: 11; }
-.fp-grid-background-1 .fp-line:nth-child(12) { --i: 12; }
+.fp-grid-background-1 .fp-line:nth-child(1)  { --i: 0; }
+.fp-grid-background-1 .fp-line:nth-child(2)  { --i: 1.222222; }
+.fp-grid-background-1 .fp-line:nth-child(3)  { --i: 2.444444; }
+.fp-grid-background-1 .fp-line:nth-child(4)  { --i: 3.666667; }  /* 1/3 pozicija - sudaro 3 stulpelius */
+.fp-grid-background-1 .fp-line:nth-child(5)  { --i: 4.583334; }
+.fp-grid-background-1 .fp-line:nth-child(6)  { --i: 5.5; }
+.fp-grid-background-1 .fp-line:nth-child(7)  { --i: 6.416667; }
+.fp-grid-background-1 .fp-line:nth-child(8)  { --i: 7.333333; }  /* 2/3 pozicija - sudaro 3 stulpelius */
+.fp-grid-background-1 .fp-line:nth-child(9)  { --i: 8.25; }
+.fp-grid-background-1 .fp-line:nth-child(10) { --i: 9.166667; }
+.fp-grid-background-1 .fp-line:nth-child(11) { --i: 10.083333; }
+.fp-grid-background-1 .fp-line:nth-child(12) { --i: 11; }
 
 
 /* .fp-grid-background-1 .fp-line:nth-child(1) { left: calc(100% / 12 * 1); }

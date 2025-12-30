@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, memo } from "react";
 import styles from "./TestimonialsSection.module.css";
 
 // Swiper
@@ -40,7 +40,7 @@ const testimonials: Testimonial[] = [
 
 const MIN_DESKTOP = 992;
 
-export default function TestimonialsSection() {
+function TestimonialsSection() {
   const listRef = useRef<HTMLDivElement | null>(null);
   const intervalRef = useRef<number | null>(null);
 
@@ -181,3 +181,5 @@ export default function TestimonialsSection() {
     </section>
   );
 }
+
+export default memo(TestimonialsSection);

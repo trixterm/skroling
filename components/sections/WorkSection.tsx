@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import SwiperSlider from "@/components/SwiperSlider";
 import WorkSectionAnimations from "@/components/WorkSectionAnimations";
 import SliderNav from "@/components/SliderNav";
@@ -10,7 +10,7 @@ type SliderControls = {
     next: () => void;
 };
 
-export default function WorkSection() {
+function WorkSection() {
     const [controls, setControls] = useState<SliderControls | null>(null);
 
     return (
@@ -38,3 +38,5 @@ export default function WorkSection() {
         </section>
     );
 }
+
+export default memo(WorkSection);

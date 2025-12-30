@@ -3,6 +3,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useAnimationControls, type PanInfo } from "framer-motion";
+import { PROCESS_CONTENT, type ProcessCard as ProcessCardType } from "@/content/portfolio.content";
 
 const SliderNav = dynamic(() => import("@/components/SliderNav"), {
   ssr: false,
@@ -12,14 +13,7 @@ const ITEM_WIDTH = 300;
 const GAP = 15;
 const FULL_ITEM_WIDTH = ITEM_WIDTH + GAP;
 
-type CardData = {
-  number: string;
-  duration: string;
-  title: string;
-  description: string;
-};
-
-type ProcessedCard = CardData & {
+type ProcessedCard = ProcessCardType & {
   mainText: string;
   lastSentence: string;
 };
@@ -32,46 +26,7 @@ const splitLastSentence = (text: string): { main: string; last: string } => {
   return { main, last };
 };
 
-const RAW_CARDS: CardData[] = [
-  {
-    number: "01",
-    duration: "1-2 weeks",
-    title: "Discovery",
-    description: "The new website has completely transformed...",
-  },
-  {
-    number: "02",
-    duration: "2-3 weeks",
-    title: "Research",
-    description: "We analyzed user behavior extensively...",
-  },
-  {
-    number: "03",
-    duration: "3-4 weeks",
-    title: "Wireframe",
-    description: "We created a full structural blueprint...",
-  },
-  {
-    number: "04",
-    duration: "4-5 weeks",
-    title: "Build",
-    description: "The development process was executed...",
-  },
-  {
-    number: "05",
-    duration: "1-2 weeks",
-    title: "Animation",
-    description: "Micro-interactions were designed...",
-  },
-  {
-    number: "06",
-    duration: "2-3 weeks",
-    title: "Testing",
-    description: "Every feature underwent rigorous QA...",
-  },
-];
-
-const PROCESSED_CARDS: ProcessedCard[] = RAW_CARDS.map((c) => {
+const PROCESSED_CARDS: ProcessedCard[] = PROCESS_CONTENT.map((c) => {
   const { main, last } = splitLastSentence(c.description);
   return { ...c, mainText: main, lastSentence: last };
 });

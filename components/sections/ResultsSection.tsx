@@ -1,8 +1,9 @@
 "use client";
 
+import { memo } from "react";
 import ExpandResultsAnimation from "@/components/animations/ExpandResultsAnimation";
 
-export default function ResultsSection() {
+function ResultsSection() {
     return (
         <section className="fp-sec-results relative z-2 pt-12 pb-12 md:pb-32">
             <ExpandResultsAnimation />
@@ -68,3 +69,5 @@ export default function ResultsSection() {
         </section>
     );
 }
+
+export default memo(ResultsSection);

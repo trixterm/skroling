@@ -13,6 +13,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       touchMultiplier: 1.2,
     });
 
+    // Expose Lenis instance to window for ScrollTrigger integration
+    (window as any).__lenis = lenis;
+
     let frameId = 0;
     const raf = (time: number) => {
       lenis.raf(time);
@@ -36,6 +39,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       ro.disconnect();
       cancelAnimationFrame(frameId);
       lenis.destroy();
+      // Clean up window reference
+      delete (window as any).__lenis;
     };
   }, []);
 

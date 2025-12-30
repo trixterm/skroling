@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 import FaqSection from "@/components/sections/FaqSection";
 import ContactForm2 from '@/components/ContactForm2';
+import FooterSection2 from '@/components/sections/FooterSection2';
 
 let globalAudio: HTMLAudioElement | null = null;
 
@@ -203,7 +204,7 @@ export default function ContactPage() {
 
     return (
         <>
-            <section className="fp-sec-contact-1 pt-28 md:pt-44">
+            <section className="fp-sec-contact-1 pt-28 pb-32 md:pt-44">
                 <div className="container mx-auto px-3">
 
                     <div className="inner max-w-[580px] mx-auto">
@@ -275,6 +276,8 @@ export default function ContactPage() {
             </section>
 
             <FaqSection />
+
+            <FooterSection2 />
         </>
     );
 }

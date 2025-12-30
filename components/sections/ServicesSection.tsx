@@ -1,5 +1,5 @@
 "use client";
-import { lazy } from "react";
+import { lazy, memo } from "react";
 import ServicesReveal from "@/components/animations/ServicesReveal";
 import LineAnimation from "@/components/animations/LineAnimation";
 // import VideoExpandAnimation from "@/components/animations/VideosExpandAnimation";
@@ -13,7 +13,7 @@ const SERVICE_ITEMS = [
     "Integration & Functionality",
 ];
 
-export default function ServicesSection() {
+function ServicesSection() {
     return (
         <ServicesReveal className="fp-sec-services pt-10 pb-8 md:pb-24 relative z-2">
             <div className="container mx-auto">
@@ -49,3 +49,5 @@ export default function ServicesSection() {
         </ServicesReveal>
     );
 }
+
+export default memo(ServicesSection);

@@ -79,29 +79,24 @@ const VideoExpandAnimation2: React.FC<VideoExpandProps> = ({ children }) => {
 
                 if (isMobile) {
                     // --- MOBILE LOGIKA ---
-                    // Sekcijos aukštis turi būti toks, kad tilptų video po pasislinkimo (200px)
-                    
+                    // Video slenka žemyn 40px
                     const videoTopRelativeToSection = videoRect.top - sectionRect.top;
-                    const animationDistance = 120; // Jūsų nurodytas pasislinkimas
+                    const animationDistance = 40; // Pasislinkimas žemyn
 
                     // Aukštis = (kur video prasideda) + (kiek pasislenka) + (naujas aukštis) + (padding)
                     const totalHeightNeeded = videoTopRelativeToSection + animationDistance + finalHeight + paddingBottom;
-                    
+
                     section.style.height = `${totalHeightNeeded}px`;
 
                 } else {
-                    // --- DESKTOP LOGIKA (Originali) ---
-                    const endScrollPos = getEndScrollPosition();
-                    const currentScrollY = window.scrollY || window.pageYOffset;
+                    // --- DESKTOP LOGIKA ---
+                    // Video slenka žemyn 60px
+                    const videoTopRelativeToSection = videoRect.top - sectionRect.top;
+                    const animationDistance = 60; // Pasislinkimas žemyn
 
-                    const videoCenterTop = (window.innerHeight - finalHeight) / 2;
-                    const videoBottomInViewport = videoCenterTop + finalHeight;
-                    const videoBottomInDocument = videoBottomInViewport + endScrollPos;
+                    const totalHeightNeeded = videoTopRelativeToSection + animationDistance + finalHeight + paddingBottom;
 
-                    const sectionTopInDocument = sectionRect.top + currentScrollY;
-                    const sectionHeight = videoBottomInDocument - sectionTopInDocument + paddingBottom;
-
-                    section.style.height = `${sectionHeight}px`;
+                    section.style.height = `${totalHeightNeeded}px`;
                 }
             };
 
@@ -114,28 +109,12 @@ const VideoExpandAnimation2: React.FC<VideoExpandProps> = ({ children }) => {
                 const isMobile = window.innerWidth < 992;
 
                 if (isMobile) {
-                    // --- MOBILE LOGIKA ---
-                    // Tiksliai 200px žemyn
-                    return 120;
+                    // Mobile: slenka į apačią nedaug - 40px
+                    return 40;
                 }
 
-                // --- DESKTOP LOGIKA (Originali) ---
-                gsap.set(videoEl, { y: 0, zIndex: 3 });
-
-                const videoRect = videoEl.getBoundingClientRect();
-                const sectionRect = section.getBoundingClientRect();
-                const currentScrollY = window.scrollY || window.pageYOffset;
-                const sectionTopWhenAtEnd = sectionRect.top + currentScrollY - endScrollPosition;
-
-                const videoAspectRatio = videoRect.height / videoRect.width;
-                const finalWidth = window.innerWidth * 0.96;
-                const finalHeight = finalWidth * videoAspectRatio;
-
-                const videoTopRelativeToSection = videoRect.top - sectionRect.top;
-                const targetVideoTopInViewport = (window.innerHeight - finalHeight) / 2;
-                const targetVideoTopRelativeToSection = targetVideoTopInViewport - sectionTopWhenAtEnd;
-
-                return targetVideoTopRelativeToSection - videoTopRelativeToSection;
+                // Desktop: slenka į apačią dar mažiau - 60px
+                return 60;
             };
 
             const getInitialVideoWidth = () => {

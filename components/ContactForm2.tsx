@@ -6,11 +6,12 @@ import { submitContactForm } from '@/actions/contact';
 // (like services), we will handle that in the state initialization.
 import type { ContactFormData, FormErrors } from '@/types/contact';
 
-// Define the specific shape for this form's state, 
+// Define the specific shape for this form's state,
 // focusing only on the fields visible in the screenshot.
 interface MinimalFormData {
   email: string;
   projectDetails: string;
+  services: string[];
 }
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
@@ -21,7 +22,8 @@ const ContactForm2: React.FC = () => {
   // to satisfy the ContactFormData type required by the server action.
   const [formData, setFormData] = useState<MinimalFormData>({
     email: '',
-    projectDetails: ''
+    projectDetails: '',
+    services: []
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -47,6 +49,19 @@ const ContactForm2: React.FC = () => {
     setTouched(prev => new Set(prev).add(fieldName));
   };
 
+  // Handle service selection toggle
+  const handleServiceToggle = (service: string): void => {
+    setFormData(prev => {
+      const isSelected = prev.services.includes(service);
+      return {
+        ...prev,
+        services: isSelected
+          ? prev.services.filter(s => s !== service)
+          : [...prev.services, service]
+      };
+    });
+  };
+
   const handleSubmit = async (): Promise<void> => {
     // Mark all visible fields as touched to trigger validation UI if empty
     setTouched(new Set(['email', 'projectDetails']));
@@ -69,7 +84,7 @@ const ContactForm2: React.FC = () => {
         projectDetails: formData.projectDetails,
         nameSurname: 'Anonymous Web User', // Default or Hidden value
         company: '',                         // Optional in original
-        services: []                         // Empty array as per original type definition
+        services: formData.services          // Use actual selected services
       };
 
       const result = await submitContactForm(payload);
@@ -82,7 +97,8 @@ const ContactForm2: React.FC = () => {
         setTimeout(() => {
           setFormData({
             email: '',
-            projectDetails: ''
+            projectDetails: '',
+            services: []
           });
           setTouched(new Set());
           setStatus('idle');
@@ -156,6 +172,29 @@ const ContactForm2: React.FC = () => {
             className="w-full bg-transparent px-6 py-3.5 text-gray-800 placeholder-gray-500 outline-none resize-none"
             required
           />
+
+          {/* Services Selection Section */}
+          <div className="px-6 py-4">
+            <p className="text-[15px] font-medium mb-3">
+              Select what services do you need
+            </p>
+            <div className="flex flex-wrap gap-2 max-w-[400px]">
+              {['Development', 'Branding design', 'Full service', 'Help me decide', 'UX/UI Design'].map((service) => (
+                <button
+                  key={service}
+                  type="button"
+                  onClick={() => handleServiceToggle(service)}
+                  className={`px-3.5 py-1 rounded-full border text-[10px] font-semibold transition-all duration-200 cursor-pointer ${
+                    formData.services.includes(service)
+                      ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]'
+                      : 'bg-transparent'
+                  }`}
+                >
+                  {service}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* Submit Button - Positioned inside the container at bottom right */}
           <div className="flex justify-between items-end px-1 pb-2">

@@ -74,7 +74,7 @@ export default function GridAnimationHorizontal() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: triggerElement,
-            start: "top bottom",
+            start: "top 75%",
             end: "bottom 50%",
             scrub: 1,
             anticipatePin: 1,

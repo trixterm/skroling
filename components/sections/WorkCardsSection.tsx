@@ -32,7 +32,7 @@ const projects: readonly Project[] = [
 
 const sectionClassName = "mt-[100svh] relative";
 const wrapperClassName =
-  "min-h-[100svh] sticky top-0 flex items-center justify-center";
+  "min-h-[100svh] sticky top-[40px] flex items-center justify-center";
 const cardClassName =
   "relative h-[60svh] md:h-[550px] w-[92vw] md:w-[1300px] rounded-[24px] overflow-hidden origin-top bg-neutral-900";
 const linkClassName =

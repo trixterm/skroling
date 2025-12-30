@@ -2,14 +2,12 @@
 
 import React, { useEffect, useMemo, useRef } from "react";
 import styles from "./GridDigit.module.css";
+import { DigitContent, EXPERTISE_CONTENT } from "@/content/portfolio.content";
 
 type Corners = { tl: boolean; tr: boolean; br: boolean; bl: boolean };
 type CellTarget = ({ x: number; y: number } & Corners) | null;
 
-export type DigitContent = {
-  heading: string;
-  description: string;
-};
+export type { DigitContent };
 
 type DigitDefinition = DigitContent & {
   pattern: string[];
@@ -24,96 +22,86 @@ const ROWS = 12;
 
 export const DIGITS: Record<number, DigitDefinition> = {
   1: {
-    heading: "React & Next.js Front-End Engineering",
-    description:
-      "Developing fast, scalable, and maintainable front-end architectures with React and Next.js, optimized for performance and long-term growth.",
+    ...EXPERTISE_CONTENT[1],
     pattern: [
       ".....##.....",
       ".....##.....",
       ".....##.....",
       "..###.......",
-    "..###.......",
-    ".....##.....",
-    ".....##.....",
-    ".....##.....",
-    ".....##.....",
-    ".....##.....",
+      "..###.......",
+      ".....##.....",
+      ".....##.....",
+      ".....##.....",
+      ".....##.....",
+      ".....##.....",
       "..########..",
       "..########..",
     ],
   },
   2: {
-    heading: "Design Systems & UI Architecture",
-    description:
-      "Building resilient component systems, Storybook-driven libraries, and cohesive design languages that keep large products consistent.",
+    ...EXPERTISE_CONTENT[2],
     pattern: [
       "...#####....",
       "...#####....",
       "........##..",
-    "........##..",
-    "........##..",
-    "....####....",
-    "....####....",
-    "..##........",
-    "..##........",
-    "..##........",
+      "........##..",
+      "........##..",
+      "....####....",
+      "....####....",
+      "..##........",
+      "..##........",
+      "..##........",
       "....#####...",
       "....#####...",
     ],
   },
   3: {
-    heading: "TypeScript & API Contracts",
-    description:
-      "Creating strongly-typed client integrations, shared schemas, and developer tooling that surface bugs early and speed feature delivery.",
+    ...EXPERTISE_CONTENT[3],
     pattern: [
       "..######....",
       "..######....",
       "........##..",
-    "........##..",
-    "........##..",
-    "....####....",
-    "....####....",
-    "........##..",
-    "........##..",
-    "........##..",
+      "........##..",
+      "........##..",
+      "....####....",
+      "....####....",
+      "........##..",
+      "........##..",
+      "........##..",
       "..######....",
       "..######....",
     ],
   },
   4: {
-    heading: "Performance & Accessibility",
-    description:
-      "Profiling rendering paths, eliminating regressions, and baking WCAG-compliant patterns into the foundation of every interface.",
+    ...EXPERTISE_CONTENT[4],
     pattern: [
       "..##....##..",
       "..##....##..",
       "..##....##..",
-    "..##....##..",
-    "..##....##..",
-    "....######..",
-    "....######..",
-    "........##..",
-    "........##..",
-    "........##..",
+      "..##....##..",
+      "..##....##..",
+      "....######..",
+      "....######..",
+      "........##..",
+      "........##..",
+      "........##..",
       "........##..",
       "........##..",
     ],
   },
   5: {
-    heading: "Team Leadership & Delivery",
-    description:
-      "Leading multi-disciplinary squads, establishing delivery rituals, and mentoring engineers through complex front-end initiatives.",
+    ...EXPERTISE_CONTENT[5],
     pattern: [
       "....#####...",
       "....#####...",
       "..##........",
-    "..##........",
-    "..##........",
-    "....#####...",
-    "....#####...",
-    "........##..",
-    "........##..",
-    "........##..",
+      "..##........",
+      "..##........",
+      "....#####...",
+      "....#####...",
+      "........##..",
+      "........##..",
+      "........##..",
       "...#####....",
       "...#####....",
     ],

@@ -49,23 +49,22 @@ export default function GridAnimation() {
         // --- GROUPING LOGIC ---
 
         // Group 1: Lines flying completely OFF to the LEFT
-        // Indices: 1, 2, 4, 5 (Index 3 is fixed, Index 0 is container-aligned)
+        // Left half: indices 0-5 → half of them slide left
+        // Indices: 1, 2, 4, 5 (excluding fixed 0 and 3)
         const flyLeftLines = lines.filter((_, index) => {
           return [1, 2, 4, 5].includes(index);
         });
 
         // Group 2: Lines flying completely OFF to the RIGHT
-        // Indices: 6, 8, 9, 10 (Index 7 is fixed, Index 11 is container-aligned)
+        // Right half: indices 6-11 → half of them slide right
+        // Indices: 6, 8, 9, 10 (excluding fixed 7 and 11)
         const flyRightLines = lines.filter((_, index) => {
           return [6, 8, 9, 10].includes(index);
         });
 
-        // Group 3: Lines aligning to CONTAINER edges
-        const alignLeftLine = lines[0];  // First line
-        const alignRightLine = lines[11]; // Last line
-
-        // Group 4: Lines changing COLOR
-        // Fixed lines (3, 7) + Container lines (0, 11)
+        // Group 3: Lines changing COLOR
+        // Fixed lines (0, 3, 7, 11) - edges and dividers stay static
+        // Lines 4 (1/3) and 8 (2/3) are the column dividers
         const colorLines = [lines[0], lines[3], lines[7], lines[11]].filter(Boolean);
 
         // Store original background color for restoration
@@ -77,7 +76,7 @@ export default function GridAnimation() {
         const tlEnter = gsap.timeline({
           scrollTrigger: {
             trigger: ".fp-sec-services",
-            start: "top bottom", // Starts when top of section hits bottom of viewport
+            start: "top 75%", // Starts when top of section hits 75% of viewport (1/4 from bottom)
             end: "top center",   // Ends when top of section hits center of viewport
             scrub: 1,
             markers: false,
@@ -89,7 +88,7 @@ export default function GridAnimation() {
         tlEnter.to(
           flyLeftLines,
           {
-            x: (index, target) => {
+            x: (_index, target) => {
               const rect = target.getBoundingClientRect();
               return -(rect.right + 7.5);
             },
@@ -103,7 +102,7 @@ export default function GridAnimation() {
         tlEnter.to(
           flyRightLines,
           {
-            x: (index, target) => {
+            x: (_index, target) => {
               const rect = target.getBoundingClientRect();
               return (window.innerWidth - rect.left) + 7.5;
             },
@@ -113,40 +112,7 @@ export default function GridAnimation() {
           0
         );
 
-        // Konfigūracija
-        const padding = 15; 
-
-        // 3. Container Alignment - Left (Line 0)
-        if (container && alignLeftLine) {
-          tlEnter.to(alignLeftLine, {
-            x: () => {
-              const containerRect = container.getBoundingClientRect();
-              const lineRect = alignLeftLine.getBoundingClientRect();
-              
-              // Calculate delta to move line to container's left edge + 20px padding
-              return (containerRect.left - lineRect.left) + padding;
-            },
-            ease: "none",
-            duration: 1,
-          }, 0);
-        }
-
-        // 4. Container Alignment - Right (Line 11)
-        if (container && alignRightLine) {
-          tlEnter.to(alignRightLine, {
-            x: () => {
-              const containerRect = container.getBoundingClientRect();
-              const lineRect = alignRightLine.getBoundingClientRect();
-              
-              // Calculate delta to move line to container's right edge - 20px padding
-              return (containerRect.right - lineRect.right) - padding;
-            },
-            ease: "none",
-            duration: 1,
-          }, 0);
-        }
-
-        // 5. Color Animation (Fixed + Container Lines)
+        // 3. Color Animation (Fixed + Container Lines)
         tlEnter.to(
           colorLines,
           {
@@ -175,8 +141,6 @@ export default function GridAnimation() {
         // Return ALL lines to x: 0
         // We can target all subsets to ensure everything resets correctly
         const allMovingLines = [...flyLeftLines, ...flyRightLines];
-        if (alignLeftLine) allMovingLines.push(alignLeftLine);
-        if (alignRightLine) allMovingLines.push(alignRightLine);
 
         tlExit.to(
           allMovingLines,
