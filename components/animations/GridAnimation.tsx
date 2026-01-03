@@ -76,7 +76,7 @@ export default function GridAnimation() {
         const tlEnter = gsap.timeline({
           scrollTrigger: {
             trigger: ".fp-sec-services",
-            start: "top 75%", // Starts when top of section hits 75% of viewport (1/4 from bottom)
+            start: "top 70%", // Starts when top of section hits 75% of viewport (1/4 from bottom)
             end: "top center",   // Ends when top of section hits center of viewport
             scrub: 1,
             markers: false,

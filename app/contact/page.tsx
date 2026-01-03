@@ -21,6 +21,9 @@ export default function ContactPage() {
     
     // State
     const [pathData, setPathData] = useState('');
+    const [viewBoxDimensions, setViewBoxDimensions] = useState({ width: 0, height: 0 });
+    const [isReadyToAnimate, setIsReadyToAnimate] = useState(false);
+    const hasAnimatedRef = useRef(false);
 
     // 1. Calculate SVG Path based on container dimensions
     useEffect(() => {
@@ -31,26 +34,32 @@ export default function ContactPage() {
         const observer = new ResizeObserver(() => {
             const rect = el.getBoundingClientRect();
 
-            const padding = 18;
-            const r = 18;
+            const r = 16;
+            const offset = 0.5; // Half of stroke width to center the stroke
 
-            const w = rect.width;
-            const h = rect.height;
+            const w = rect.width - offset * 2;
+            const h = rect.height - offset * 2;
 
+            // Path with sharp bottom-left corner (matching rounded-bl-none)
             const path = `
-                M ${r},0
-                L ${w - r},0
-                Q ${w},0 ${w},${r}
-                L ${w},${h - r}
-                Q ${w},${h} ${w - r},${h}
-                L ${r},${h}
-                Q 0,${h} 0,${h - r}
-                L 0,${r}
-                Q 0,0 ${r},0
+                M ${r + offset},${offset}
+                L ${w - r + offset},${offset}
+                Q ${w + offset},${offset} ${w + offset},${r + offset}
+                L ${w + offset},${h - r + offset}
+                Q ${w + offset},${h + offset} ${w - r + offset},${h + offset}
+                L ${offset},${h + offset}
+                L ${offset},${r + offset}
+                Q ${offset},${offset} ${r + offset},${offset}
                 Z
             `;
 
             setPathData(path);
+            setViewBoxDimensions({ width: rect.width, height: rect.height });
+
+            // Trigger animation only on first path calculation
+            if (!hasAnimatedRef.current) {
+                setIsReadyToAnimate(true);
+            }
         });
 
         observer.observe(el);
@@ -58,10 +67,11 @@ export default function ContactPage() {
         return () => observer.disconnect();
     }, []);
 
-
-    // 2. Main Animation Timeline
+    // 2. Main Animation Timeline (runs only once)
     useEffect(() => {
-        if (!pathData) return;
+        if (!isReadyToAnimate || !pathData || hasAnimatedRef.current) return;
+
+        hasAnimatedRef.current = true;
 
         if (globalAudio) {
             globalAudio.pause();
@@ -191,7 +201,7 @@ export default function ContactPage() {
         });
 
         // Cleanup: Revert context kills all animations and clears props
-        return () => {            
+        return () => {
             ctx.revert();
             if (globalAudio === currentAudioInstance) {
                 currentAudioInstance.pause();
@@ -199,15 +209,15 @@ export default function ContactPage() {
                 globalAudio = null;
             }
         };
-
-    }, [pathData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isReadyToAnimate]);
 
     return (
         <>
-            <section className="fp-sec-contact-1 pt-28 pb-32 md:pt-44">
+            <section className="fp-sec-contact-1 pt-28 pb-32 md:pt-32">
                 <div className="container mx-auto px-3">
 
-                    <div className="inner max-w-[580px] mx-auto">
+                    <div className="inner max-w-[660px] mx-auto">
                         {/* <div className="text-[19px] font-medium mb-4">Leave a message</div> */}
                         
                         {/* Avatar & Chat Bubble Wrapper */}
@@ -225,36 +235,48 @@ export default function ContactPage() {
                                 </div>
                                 <div 
                                     ref={dotRef} 
-                                    className="fp-dot w-[8px] h-[8px] bg-[#15B754] rounded-full shadow-[0_0_0_2px_white]"
+                                    className="fp-dot w-2 h-2 bg-[#15B754] rounded-full shadow-[0_0_0_2px_white]"
                                 ></div>
                             </div>
 
                             {/* Chat Bubble & SVG Border */}
                             <div className="relative flex-1">
                                 <svg
-                                    className="absolute inset-0 w-full h-full pointer-events-none"
-                                    viewBox={`0 0 ${messageWindowRef.current?.offsetWidth || 0} ${messageWindowRef.current?.offsetHeight || 0}`}
+                                    className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
+                                    viewBox={`0 0 ${viewBoxDimensions.width} ${viewBoxDimensions.height}`}
                                     preserveAspectRatio="none"
+                                    overflow="visible"
                                 >
                                     {pathData && (
                                         <path
                                             ref={pathRef}
                                             d={pathData}
                                             fill="none"
-                                            stroke="#707070"
+                                            stroke="#ABACAC"
                                             strokeWidth="1"
+                                            strokeLinejoin="round"
+                                            strokeLinecap="round"
+                                            vectorEffect="non-scaling-stroke"
+                                            shapeRendering="geometricPrecision"
                                             opacity="0" // Handled by GSAP
                                         />
                                     )}
                                 </svg>
-                                <div 
+                                <div
                                     ref={messageWindowRef}
-                                    className="fp-message-window p-9 rounded-[18px] rounded-bl-none flex-1"
+                                    className="fp-message-window py-5 px-9 rounded-2xl rounded-bl-none flex-1"
                                 >
-                                    <div 
-                                        ref={textRef}
-                                        className="fp-text text-[16px] font-medium leading-[21px] text-[#707070] min-h-[42px]"
-                                    ></div>
+                                    <div className="relative">
+                                        {/* Invisible placeholder to set correct height from start */}
+                                        <div className="invisible text-[17px] font-medium leading-[23px]" aria-hidden="true">
+                                            Hi, how are you? Leave me a message and I will respond to you via email in a few days.
+                                        </div>
+                                        {/* Visible typing text */}
+                                        <div
+                                            ref={textRef}
+                                            className="fp-text text-[17px] font-medium leading-[23px] text-[#1A1A1A] absolute inset-0"
+                                        ></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -262,13 +284,14 @@ export default function ContactPage() {
                         {/* Timestamp */}
                         <div 
                             ref={sentTextRef}
-                            className="fp-sent-text text-[13px] font-medium text-[#5A5A5A] mt-1 text-right mr-2 opacity-0"
+                            className="fp-sent-text text-[13px] font-medium text-[#5f646f] mt-1 text-right mr-2 opacity-0"
                         >
                             sent just now
                         </div>
 
                         {/* Form Area */}
-                        <div ref={contactFormRef} className="opacity-0">
+                        <div ref={contactFormRef} className="opacity-0 mt-2">
+                            <div className="text-[20px] font-medium mb-1 pl-13">Leave a message</div>
                             <ContactForm2 />
                         </div>
                     </div>

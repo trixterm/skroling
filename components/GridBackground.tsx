@@ -1,14 +1,14 @@
 "use client";
 
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useId } from "react";
 
 type GridBackgroundProps = {
-  className?: string;
-  zIndexClassName?: string;
+    className?: string;
+    zIndexClassName?: string;
 };
 
 const BASE_CLASS_NAME =
-  "fixed inset-0 w-screen h-screen pointer-events-none";
+    "fixed inset-0 w-screen h-screen pointer-events-none";
 
 const DESKTOP_BACKGROUND_IMAGE = `
   repeating-linear-gradient(
@@ -41,34 +41,38 @@ const MOBILE_BACKGROUND_IMAGE = `
     transparent calc(100% / 6 - 1px),
     #d7d7d7 calc(100% / 6 - 1px),
     #d7d7d7 calc(100% / 6)
-  ) !important
+  )
 `;
 
 function GridBackground({
-  className = "",
-  zIndexClassName = "-z-10",
+    className = "",
+    zIndexClassName = "-z-10",
 }: GridBackgroundProps) {
-  const mergedClassName = useMemo(
-    () => [BASE_CLASS_NAME, zIndexClassName, className].join(" "),
-    [zIndexClassName, className]
-  );
+    const uniqueId = useId();
+    const gridId = `grid-bg-${uniqueId.replace(/:/g, "")}`;
 
-  const style = useMemo(
-    () => ({ backgroundImage: DESKTOP_BACKGROUND_IMAGE }),
-    []
-  );
+    const mergedClassName = useMemo(
+        () => [BASE_CLASS_NAME, zIndexClassName, className, gridId].join(" "),
+        [zIndexClassName, className, gridId]
+    );
 
-  return (
-    <div aria-hidden="true" className={mergedClassName} style={style}>
-      <style jsx>{`
-        @media (max-width: 1068px) {
-          div[aria-hidden="true"] {
-            background-image: ${MOBILE_BACKGROUND_IMAGE};
-          }
-        }
-      `}</style>
-    </div>
-  );
+    const cssString = `
+    .${gridId} {
+      background-image: ${DESKTOP_BACKGROUND_IMAGE};
+    }
+    @media (max-width: 1068px) {
+      .${gridId} {
+        background-image: ${MOBILE_BACKGROUND_IMAGE};
+      }
+    }
+  `;
+
+    return (
+        <>
+            <style dangerouslySetInnerHTML={{ __html: cssString }} />
+            <div aria-hidden="true" className={mergedClassName} />
+        </>
+    );
 }
 
 export default memo(GridBackground);

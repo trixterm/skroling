@@ -106,7 +106,7 @@ function TestimonialsSection() {
     <section className="fp-sec-testimonials py-8 pb-18 md:pb-26 relative z-2 overflow-hidden">
       <div className="container mx-auto">
         <div className="inner flex flex-col md:flex-row md:items-end gap-12 relative">
-          <h2 className="fp-heading text-[34px] md:text-[50px] lg:text-[58px] font-medium leading-[1.1] max-w-[250px] sm:max-w-full md:max-w-[400px]">
+          <h2 className="fp-heading text-[34px] md:text-[50px] lg:text-[58px] font-medium leading-[1.1] max-w-[250px] sm:max-w-full md:max-w-[400px] dark:text-[#f5f5f5]">
             What clients
             say about me
           </h2>
@@ -125,7 +125,7 @@ function TestimonialsSection() {
                 {testimonials.map((item, index) => (
                 <SwiperSlide key={index}>
                     <div
-                    className={`${styles.item} ${styles.isActive} w-3 h-3 rounded-2xl bg-[#1A1A1A] relative`}
+                    className={`${styles.item} ${styles.isActive} w-3 h-3 rounded-2xl bg-[#1A1A1A] dark:bg-[#f5f5f5] relative`}
                     >
                     <figure
                         className={`${styles["fp-meta"]} h-full flex flex-direction flex-col text-white z-2 px-6 py-8 text-center opacity-0 invisible`}
@@ -156,7 +156,7 @@ function TestimonialsSection() {
           {isDesktop && (
             <div ref={listRef} className={`${styles["fp-testimonials-list"]} flex gap-x-5 items-end`}>
               {testimonials.map((item, index) => (
-                <div key={index} className={`${styles.item} w-3 h-3 rounded-2xl bg-[#1A1A1A] relative`}>
+                <div key={index} className={`${styles.item} w-3 h-3 rounded-2xl bg-[#1A1A1A] dark:bg-[#f5f5f5] relative`}>
                   <figure
                     className={`${styles["fp-meta"]} h-full flex flex-direction flex-col text-white z-2 px-6 py-8 text-center opacity-0 invisible`}
                   >

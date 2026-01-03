@@ -22,6 +22,18 @@
     .dark .fp-section-heading {
         @apply text-[#f5f5f5];
     }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
 }
 
 :root {
@@ -153,6 +165,7 @@
 body {
     color: #000;
     background: #F5F5F5;
+    /* background: #000; */
     transition: background-color 1.2s ease;
     overflow-x: hidden;
     /* overflow: hidden; */
@@ -395,7 +408,7 @@ body.white-mode.flash-done #flash-overlay {
 
 /* Forms */
 .fp-input {
-    @apply w-full bg-transparent border-b border-[#A8A6A6] text-[13px] text-white placeholder-[#A8A6A6] placeholder:text-[12px] font-medium py-2 px-0 focus:outline-none focus:border-white transition-colors;
+    @apply w-full bg-transparent border-b border-[#A8A6A6] text-[13px] text-white placeholder-[#ffffff] placeholder:text-[12px] font-medium py-2 px-0 focus:outline-none focus:border-white transition-colors;
 }
 
 .fp-scroll-gallery .fp-scroll-container {

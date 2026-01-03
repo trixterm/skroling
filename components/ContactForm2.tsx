@@ -122,7 +122,7 @@ const ContactForm2: React.FC = () => {
   };
 
   return (
-    <div className="fp-form-message-wrapper mt-6">
+    <div className="fp-form-message-wrapper mt-3">
       <form
         className="flex flex-col gap-y-2"
         aria-label="Simplified contact form"
@@ -142,7 +142,7 @@ const ContactForm2: React.FC = () => {
             onChange={handleInputChange}
             onBlur={() => handleBlur('email')}
             placeholder="Enter your email"
-            className={`w-full bg-white rounded-[12px] px-8 py-4.5 text-[16px] font-medium text-[#5A5A5A] placeholder-gray-500 outline-none transition-shadow duration-300 ${
+            className={`w-full bg-white rounded-[12px] pl-13 py-5 text-[16px] font-medium text-[#1A1A1A] outline-none transition-shadow duration-300 ${
                 touched.has('email') && errors.email ? 'ring-2 ring-red-300' : ''
             }`}
             required
@@ -155,7 +155,7 @@ const ContactForm2: React.FC = () => {
         </div>
 
         {/* Message & Submit Container - Matches the bottom large white box in screenshot */}
-        <div className={`relative bg-white rounded-[12px] p-2 text-[16px] font-medium text-[#5A5A5A] transition-shadow duration-300 ${
+        <div className={`relative bg-white rounded-[12px] p-2 text-[16px] font-medium text-[#1A1A1A] transition-shadow duration-300 ${
              touched.has('projectDetails') && errors.projectDetails ? 'ring-2 ring-red-300' : ''
         }`}>
           <label htmlFor="projectDetails" className="sr-only">Type your message here</label>
@@ -169,55 +169,59 @@ const ContactForm2: React.FC = () => {
             onBlur={() => handleBlur('projectDetails')}
             placeholder="Type your message here"
             rows={2}
-            className="w-full bg-transparent px-6 py-3.5 text-gray-800 placeholder-gray-500 outline-none resize-none"
+            className="w-full bg-transparent pl-11 py-4 text-[#1A1A1A] outline-none resize-none"
             required
           />
 
           {/* Services Selection Section */}
-          <div className="px-6 py-4">
-            <p className="text-[15px] font-medium mb-3">
-              Select what services do you need
-            </p>
-            <div className="flex flex-wrap gap-2 max-w-[400px]">
-              {['Development', 'Branding design', 'Full service', 'Help me decide', 'UX/UI Design'].map((service) => (
+          <div className="fp-contact-btn-wrap flex pt-18 pl-11 pr-3 pb-3">
+            <div className="fp-select-services">
+                <p className="text-[15px] font-medium mb-2">
+                Select what services do you need
+                </p>
+                <div className="flex flex-wrap gap-2 max-w-[400px]">
+                {['Development', 'Branding design', 'Full service', 'Help me decide', 'UX/UI Design'].map((service) => (
+                    <button
+                    key={service}
+                    type="button"
+                    onClick={() => handleServiceToggle(service)}
+                    className={`px-3.5 py-1 rounded-full border text-[10px] font-semibold transition-all duration-200 cursor-pointer ${
+                        formData.services.includes(service)
+                        ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]'
+                        : 'bg-transparent'
+                    }`}
+                    >
+                    {service}
+                    </button>
+                ))}
+                </div>
+            </div>
+
+            {/* Submit Button - Positioned inside the container at bottom right */}
+            <div className="flex justify-between items-end flex-1">
+                
+                {/* Error Message Area (Left side of footer) */}
+                <div className="flex-1 pl-2">
+                    {status === 'error' && (
+                        <p className="text-red-500 text-sm animate-pulse">{statusMessage}</p>
+                    )}
+                    {status === 'success' && (
+                        <p className="text-green-500 text-sm">{statusMessage}</p>
+                    )}
+                </div>
+
+                {/* Submit Button (Right side of footer) */}
                 <button
-                  key={service}
-                  type="button"
-                  onClick={() => handleServiceToggle(service)}
-                  className={`px-3.5 py-1 rounded-full border text-[10px] font-semibold transition-all duration-200 cursor-pointer ${
-                    formData.services.includes(service)
-                      ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]'
-                      : 'bg-transparent'
-                  }`}
+                    type="submit"
+                    disabled={status === 'submitting' || status === 'success'}
+                    className="bg-[#1a1a1a] text-white rounded-[26px] px-8 py-3 text-[12px] font-medium cursor-pointer"
                 >
-                  {service}
+                    {status === 'submitting' ? 'Sending...' : 'Submit'}
                 </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Submit Button - Positioned inside the container at bottom right */}
-          <div className="flex justify-between items-end px-1 pb-2">
-            
-            {/* Error Message Area (Left side of footer) */}
-            <div className="flex-1 pl-2">
-                 {status === 'error' && (
-                    <p className="text-red-500 text-sm animate-pulse">{statusMessage}</p>
-                 )}
-                 {status === 'success' && (
-                    <p className="text-green-500 text-sm">{statusMessage}</p>
-                 )}
             </div>
 
-            {/* Submit Button (Right side of footer) */}
-            <button
-                type="submit"
-                disabled={status === 'submitting' || status === 'success'}
-                className="bg-[#1a1a1a] text-white rounded-[26px] px-8 py-3 text-[12px] font-medium cursor-pointer"
-            >
-                {status === 'submitting' ? 'Sending...' : 'Submit'}
-            </button>
           </div>
+
         </div>
 
       </form>

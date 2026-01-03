@@ -35,8 +35,8 @@ export default function SliderNav({
                     fp-arrow fp-arrow-left
                     ${disablePrev ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}
                     transition-opacity duration-200
+                    fill-black dark:fill-white
                 `}
-                fill="#000000"
                 width="11px"
                 height="11px"
                 viewBox="0 0 32 32"
@@ -53,8 +53,8 @@ export default function SliderNav({
                     fp-arrow fp-arrow-right
                     ${disableNext ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}
                     transition-opacity duration-200
+                    fill-black dark:fill-white
                 `}
-                fill="#000000"
                 width="11px"
                 height="11px"
                 viewBox="0 0 32 32"

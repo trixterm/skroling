@@ -38,27 +38,27 @@ function ResultsSection() {
                             "
                             >
 
-                            <article className="flex h-[210px] lg:h-[410px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] p-6 sm:pt-4 lg:pt-6">
+                            <article className="flex h-[210px] lg:h-[410px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] dark:bg-[#2A2A2A] p-6 sm:pt-4 lg:pt-6 dark:text-[#f5f5f5]">
                                 <div className="text-[65px] font-medium leading-none">23</div>
-                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.02sem]">
+                                <div className="border-t border-[#ABACAC] dark:border-[#4A4A4A] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.02sem]">
                                     Happy clients
                                 </div>
                             </article>
-                            <article className="flex self-end h-[210px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] p-6">
+                            <article className="flex self-end h-[210px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] dark:bg-[#2A2A2A] p-6 dark:text-[#f5f5f5]">
                                 <div className="text-[65px] font-medium leading-none">&infin;</div>
-                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.03em]">
+                                <div className="border-t border-[#ABACAC] dark:border-[#4A4A4A] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.03em]">
                                     Created micro-interactions
                                 </div>
                             </article>
-                            <article className="flex h-[210px] lg:h-[410px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] p-6 sm:pt-4 lg:pt-6">
+                            <article className="flex h-[210px] lg:h-[410px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] dark:bg-[#2A2A2A] p-6 sm:pt-4 lg:pt-6 dark:text-[#f5f5f5]">
                                 <div className="text-[65px] font-medium leading-none">5x</div>
-                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.03em]">
+                                <div className="border-t border-[#ABACAC] dark:border-[#4A4A4A] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.03em]">
                                     Speed update
                                 </div>
                             </article>
-                            <article className="flex h-[210px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] p-6 sm:pt-4 lg:pt-6">
+                            <article className="flex h-[210px] w-full flex-col justify-between rounded-[15px] md:rounded-[20px] bg-[#EAEAEA] dark:bg-[#2A2A2A] p-6 sm:pt-4 lg:pt-6 dark:text-[#f5f5f5]">
                                 <div className="text-[65px] font-medium leading-none">15</div>
-                                <div className="border-t border-[#ABACAC] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.03em]">
+                                <div className="border-t border-[#ABACAC] dark:border-[#4A4A4A] pt-3 text-[14px] font-medium leading-[1.25] uppercase tracking-[0.03em]">
                                     Years in development
                                 </div>
                             </article>

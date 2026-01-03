@@ -22,7 +22,7 @@ function ServicesSection() {
                     {SERVICE_ITEMS.map((item, index) => (
                         <LineAnimation
                             key={index}
-                            className="item mb-5 md:mb-10 fp-extra-font text-[21px] sm:text-[40px] md:text-[56px] lg:text-[58px] leading-snug font-medium cursor-pointer"
+                            className="item mb-5 md:mb-10 fp-extra-font text-[21px] sm:text-[40px] md:text-[56px] lg:text-[58px] leading-snug font-medium cursor-pointer dark:text-[#f5f5f5]"
                         >
                             {item}
                         </LineAnimation>
@@ -42,7 +42,7 @@ function ServicesSection() {
                 </video>
             </section>
             <div className="container">
-                <div className="fp-text-after-video text-[16px] md:text-[20px] font-regular leading-[30px] md:leading-[33px] max-w-[870px] mt-17 max-sm:px-4">
+                <div className="fp-text-after-video text-[16px] md:text-[20px] font-regular leading-[30px] md:leading-[33px] max-w-[870px] mt-17 max-sm:px-4 dark:text-[#f5f5f5]">
                     Behind every project is years of steady, hands-on experience and a commitment to doing the work with care and precision. I focus on consistency, clear communication, and delivering results that truly meet expectations. The numbers below reflect the reliability of my process and the level of quality I bring to every collaboration.
                 </div>
             </div>
