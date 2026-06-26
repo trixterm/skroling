@@ -30,7 +30,7 @@ export default function ClientLayoutWrapper({ children }: ClientLayoutWrapperPro
 
   return (
     // PageTransition at the ROOT level - outside any transform containers
-    <PageTransition transitionDuration={500}>
+    <PageTransition>
       <SmoothScroll>
         <AnimationProvider>
           <div id="flash-overlay" aria-hidden="true" />

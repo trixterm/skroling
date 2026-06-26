@@ -25,7 +25,8 @@ const GridLayer = memo(() => (
 ));
 GridLayer.displayName = "GridLayer";
 
-const PhotoBox = memo(({ href, alt, className, priority = false }) => (
+type PhotoBoxProps = { href: string; alt: string; className: string; priority?: boolean };
+const PhotoBox = memo(({ href, alt, className, priority = false }: PhotoBoxProps) => (
   <div className={`relative photo-box flex items-center justify-center bg-[#d8d8d8] text-[0.65rem] font-medium uppercase tracking-wide text-gray-700 ${className}`}>
     <Link className="link-photo-box block w-full h-full bg-[#d8d8d8]" href={href}>
       <Image

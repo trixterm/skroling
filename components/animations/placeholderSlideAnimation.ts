@@ -1,4 +1,5 @@
-import type { LottieAnimationData } from "./PageTransition";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type LottieAnimationData = Record<string, any>;
 
 /**
  * Horizontal slide transition animation.

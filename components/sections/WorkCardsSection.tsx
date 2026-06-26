@@ -4,7 +4,7 @@ import { ReactLenis } from "lenis/react";
 import { useScroll, useTransform, type MotionValue, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { memo, useRef } from "react";
+import { memo, useRef, type ReactElement } from "react";
 
 type Project = Readonly<{
   src: string;
@@ -40,7 +40,7 @@ const linkClassName =
 
 const STICKY_BASE_TOP_PX = 0;
 const CARD_OVERLAP_STEP_PX = 40;
-const SCROLL_OFFSET: readonly [any, any] = ["start start", "end end"];
+const SCROLL_OFFSET = ["start start", "end end"] as const;
 
 const projectCount = projects.length;
 const scrollSegment = projectCount > 0 ? 1 / projectCount : 1;
@@ -53,11 +53,11 @@ const cardConfig = projects.map((project, index) => {
   return { project, targetScale, range, top, isPriority };
 });
 
-export default function WorkCardsSection(): JSX.Element {
+export default function WorkCardsSection(): ReactElement {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: SCROLL_OFFSET,
+    offset: SCROLL_OFFSET as ["start start", "end end"],
   });
 
   const content = (
@@ -92,7 +92,7 @@ export default function WorkCardsSection(): JSX.Element {
 type CardProps = Readonly<{
   project: Project;
   progress: MotionValue<number>;
-  range: readonly [number, number];
+  range: [number, number];
   targetScale: number;
   top: number;
   isPriority: boolean;
@@ -105,7 +105,7 @@ const Card = memo(function Card({
   targetScale,
   top,
   isPriority,
-}: CardProps): JSX.Element {
+}: CardProps): ReactElement {
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (

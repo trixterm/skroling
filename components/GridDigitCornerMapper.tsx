@@ -1331,32 +1331,7 @@ export function CornerEditor({
   );
 }
 
-// ============================================================================
-// EXPORTS
-// ============================================================================
-
-export {
-  patternToTargets,
-  padToLength,
-  detectCornersFromPattern,
-  mergeCornerOverrides,
-  validateCornerInput,
-  validatePattern,
-  gridToPixel,
-  pixelToGrid,
-  snapToGrid,
-  transformPoint,
-  identityMatrix,
-  translationMatrix,
-  scaleMatrix,
-  rotationMatrix,
-  multiplyMatrices,
-  analyzeImage,
-  cellKey,
-  parseKey,
-  defaultCorners,
-  mergeCorners,
-};
+// All functions are already individually exported above — no re-export needed.
 
 // Default export: create a mapper with built-in digit overrides
 export default createCornerMapper();

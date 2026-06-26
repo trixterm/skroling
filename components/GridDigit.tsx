@@ -274,7 +274,7 @@ export default function ReassemblingDigits(props: {
   const transitionHold = props.transitionHold ?? 0.12;
   const moveDur = props.moveDur ?? 0.2;
   const cornerRadiusFactor = props.cornerRadiusFactor ?? 0.45;
-  const digitChangeRef = useRef<typeof props.onDigitChange>();
+  const digitChangeRef = useRef<typeof props.onDigitChange>(undefined);
   const activeStageRef = useRef<string | null>(null);
 
   useEffect(() => {

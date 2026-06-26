@@ -55,7 +55,7 @@ export default function MyExpertiseSection() {
         if (wait === 0) {
             show();
         } else {
-            fadeTimerRef.current = window.setTimeout(show, wait);
+            fadeTimerRef.current = setTimeout(show, wait);
         }
     };
 

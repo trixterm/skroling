@@ -19,9 +19,11 @@ export default function VideoMorphScrollAnimation() {
 
     if (!circle || !videoWrapper) return;
 
+    const wrapper = videoWrapper;
+
     // Dynamic target dimensions for responsive layouts
     function getTargetConfig() {
-      const rect = videoWrapper.getBoundingClientRect();
+      const rect = wrapper.getBoundingClientRect();
       return {
         x: rect.left + rect.width / 2 - window.innerWidth / 2,
         y: rect.top + rect.height / 2 - window.innerHeight / 2,

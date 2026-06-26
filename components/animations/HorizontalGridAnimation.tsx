@@ -65,7 +65,7 @@ export default function GridAnimationHorizontal() {
       const varTarget = triggerElement;
 
       ctx = gsap.context(() => {
-        const rows = gsap.utils.toArray<HTMLElement>(".fp-row", containerRef.current);
+        const rows = gsap.utils.toArray(".fp-row", containerRef.current) as HTMLElement[];
 
         const half = Math.ceil(rows.length / 2);
         const topRows = rows.slice(0, half);
