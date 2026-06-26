@@ -32,7 +32,9 @@ const nextConfig: NextConfig = {
   // Compression
   compress: true,
 
-  // Power-packed optimizations
+  // Turbopack config (Next.js 16 default bundler)
+  turbopack: {},
+
   experimental: {
     // Optimize package imports
     optimizePackageImports: [
@@ -41,9 +43,6 @@ const nextConfig: NextConfig = {
       "lucide-react",
       "@/components",
     ],
-    
-    // Reduce memory usage
-    webpackMemoryOptimizations: true,
   },
 
   // Headers for aggressive caching
@@ -76,71 +75,8 @@ const nextConfig: NextConfig = {
   // Disable x-powered-by header
   poweredByHeader: false,
 
-  // Bundle analyzer (conditional)
-  ...(process.env.ANALYZE === "true" && {
-    webpack: (config, { isServer }) => {
-      if (!isServer) {
-        const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-        config.plugins.push(
-          new BundleAnalyzerPlugin({
-            analyzerMode: "static",
-            openAnalyzer: false,
-          })
-        );
-      }
-      return config;
-    },
-  }),
-
-  // Webpack optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Production optimizations
-    if (!dev && !isServer) {
-      config.optimization = {
-        ...config.optimization,
-        moduleIds: "deterministic",
-        runtimeChunk: "single",
-        splitChunks: {
-          chunks: "all",
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            // Vendor chunk for node_modules
-            vendor: {
-              name: "vendor",
-              chunks: "all",
-              test: /node_modules/,
-              priority: 20,
-            },
-            // Common chunk for shared code
-            common: {
-              name: "common",
-              minChunks: 2,
-              chunks: "all",
-              priority: 10,
-              reuseExistingChunk: true,
-              enforce: true,
-            },
-            // Separate chunk for large libraries
-            gsap: {
-              test: /[\\/]node_modules[\\/](gsap)[\\/]/,
-              name: "gsap",
-              chunks: "all",
-              priority: 30,
-            },
-            swiper: {
-              test: /[\\/]node_modules[\\/](swiper)[\\/]/,
-              name: "swiper",
-              chunks: "all",
-              priority: 30,
-            },
-          },
-        },
-      };
-    }
-
-    return config;
-  },
+  // Webpack is only used when explicitly running with --webpack flag.
+  // Turbopack (default in Next.js 16) handles chunking automatically.
 };
 
 export default nextConfig;
