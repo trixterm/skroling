@@ -2,10 +2,11 @@
 
 import { memo, useCallback, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 import { siteConfig } from "@/config/site.config";
 
-const MobileHeader = () => {
+const MobileMenu = () => {
   const [open, setOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
@@ -36,6 +37,8 @@ const MobileHeader = () => {
             onClick={toggleMenu}
             className="fp-menu-burger-trigger relative w-[31px] h-2.5"
             aria-label={ariaLabel}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             <span className={topBarClass} />
             <span className={bottomBarClass} />
@@ -45,7 +48,7 @@ const MobileHeader = () => {
 
       {open && (
         <div className="fp-menu-mob-dropdown absolute top-16 left-0 right-0 w-[94%] mx-auto bg-white animate-fade-in rounded-[17px]">
-          <nav className="fp-nav-mobile text-[#1a1a1a] p-6 space-y-3.5 flex flex-col text-[15px] font-semibold">
+          <nav id="mobile-navigation" className="fp-nav-mobile text-[#1a1a1a] p-6 space-y-3.5 flex flex-col text-[15px] font-semibold">
             {siteConfig.navigation.map((item) => (
               <Link
                 key={item.href}
@@ -61,5 +64,8 @@ const MobileHeader = () => {
     </header>
   );
 };
+
+// Reset menu state when navigation completes, including animated route changes.
+const MobileHeader = () => <MobileMenu key={usePathname()} />;
 
 export default memo(MobileHeader);
