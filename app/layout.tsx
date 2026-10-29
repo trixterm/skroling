@@ -45,13 +45,13 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-const siteTitle = "Skroling - where performance meets perfection.";
-const siteDescription = "Skroling — where performance meets perfection.";
+const siteTitle = "Skroling — Creative Developer for Design Studios";
+const siteDescription = "Freelance creative development, WordPress integration and animation by Mantas.";
 
 const metadataBase =
   process.env.NEXT_PUBLIC_SITE_URL && process.env.NEXT_PUBLIC_SITE_URL.trim().length > 0
     ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-    : undefined;
+    : new URL("https://skroling.dev");
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   icons: {
     icon: [{ url: "/favicon.ico" }],
-    apple: [{ url: "/apple-touch-icon.png" }],
+
   },
   openGraph: {
     type: "website",

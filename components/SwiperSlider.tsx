@@ -5,6 +5,7 @@ import { Navigation } from "swiper/modules";
 import Image from "next/image";
 import type { Swiper as SwiperType } from "swiper";
 
+import { works } from "@/data/works";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -32,12 +33,13 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
 
   return (
     <div className={isHoverVideo ? "slide-inner group" : "slide-inner"}>
-      <a className="absolute inset-0 z-30" href={href}></a>
+      <div className="absolute bottom-4 left-4 right-4 z-20 bg-black/80 text-white rounded-xl p-3">{title}<span className="block text-xs mt-1">Development · View project ↗</span></div>
+      <a className="absolute inset-0 z-30" href={href} aria-label={`View ${title}`}></a>
 
       {isHoverVideo ? (
-        <div className="relative h-[380px] lg:h-[460px] bg-neutral-300 rounded-[20px] overflow-hidden">
+        <div className="relative h-[380px] lg:h-[460px] bg-neutral-900 rounded-[20px] overflow-hidden">
             <div className="fp-mask absolute inset-0 opacity-100 group-hover:opacity-0 transition-opacity duration-900">
-                <Image className="object-cover" src={image} alt={title} fill />
+                <Image className="object-contain" src={image} alt={title} fill />
             </div>
 
             {video && (
@@ -47,7 +49,7 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
                     muted
                     loop
                     playsInline
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                 >
                     <source src={video} type="video/mp4" />
                 </video>
@@ -55,10 +57,10 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
             )}
         </div>
       ) : (
-        <div className="relative h-[460px] bg-neutral-300 rounded-[20px] overflow-hidden flex p-7">
+        <div className="relative h-[460px] bg-neutral-900 rounded-[20px] overflow-hidden flex p-7">
             <div className="fp-mask absolute inset-0">
                 <Image
-                className="rounded-[20px] object-cover"
+                className="rounded-[20px] object-contain"
                 src={image}
                 alt={title}
                 fill
@@ -70,38 +72,14 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
   );
 }
 
-const slides: WorkSlideProps[] = [
-  {
-    title: "Website 1",
-    image: "/images/website-01.jpg",
-    video: "/videos/3571264-hd_1920_1080_30fps.mp4",
-    type: "hoverVideo",
-  },
-  {
-    title: "Website 2",
-    image: "/images/website-02.jpg",
-    video: "/videos/3571264-hd_1920_1080_30fps.mp4",
-    type: "hoverVideo",
-  },
-  {
-    title: "Website 3",
-    image: "/images/website-03.jpg",
-    video: "/videos/3571264-hd_1920_1080_30fps.mp4",
-    type: "hoverVideo",
-  },
-  {
-    title: "Website 4",
-    image: "/images/website-01.jpg",
-    type: "static",
-  },
-];
+const slides: WorkSlideProps[] = works.map(work => ({title: work.title, image: work.heroImage, type: "static", href: `/work/${work.slug}`}));
 
 export default function SwiperSlider({ onInitControls }: SwiperSliderProps) {
   return (
     <div className="relative cursor-none">
       <Swiper
         modules={[Navigation]}
-        loop={true}
+        loop={false}
         speed={700}
         spaceBetween={10}
         slidesPerView={1}

@@ -89,7 +89,7 @@ export default function ContactPage() {
             
             // Text Configuration
             const part1 = "Hi, how are you?";
-            const part2 = " Leave me a message and I will respond to you via email in a few days.";
+            const part2 = " Share your design, scope and timeline. I’ll get back to you by email.";
             const fullText = part1 + part2;
             
             // We animate this proxy object. 'value' represents the character index.
@@ -230,7 +230,7 @@ export default function ContactPage() {
                                         src="/images/monty.png" 
                                         className="object-cover rounded-full" 
                                         fill={true} 
-                                        alt="User Avatar" 
+                                        alt="Mantas"
                                     />
                                 </div>
                                 <div 
@@ -269,12 +269,12 @@ export default function ContactPage() {
                                     <div className="relative">
                                         {/* Invisible placeholder to set correct height from start */}
                                         <div className="invisible text-[17px] font-medium leading-[23px]" aria-hidden="true">
-                                            Hi, how are you? Leave me a message and I will respond to you via email in a few days.
+                                            Hi, how are you? Share your design, scope and timeline. I’ll get back to you by email.
                                         </div>
                                         {/* Visible typing text */}
                                         <div
                                             ref={textRef}
-                                            className="fp-text text-[17px] font-medium leading-[23px] text-[#1A1A1A] absolute inset-0"
+                                            className="fp-text text-[17px] font-medium leading-[23px] text-[#1A1A1A] dark:text-[#f5f5f5] absolute inset-0"
                                         ></div>
                                     </div>
                                 </div>
@@ -284,9 +284,9 @@ export default function ContactPage() {
                         {/* Timestamp */}
                         <div 
                             ref={sentTextRef}
-                            className="fp-sent-text text-[13px] font-medium text-[#5f646f] mt-1 text-right mr-2 opacity-0"
+                            className="fp-sent-text text-[13px] font-medium text-[#5f646f] dark:text-[#abacac] mt-1 text-right mr-2 opacity-0"
                         >
-                            sent just now
+                            Mantas · Skroling
                         </div>
 
                         {/* Form Area */}

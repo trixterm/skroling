@@ -41,20 +41,20 @@ function useDarkTheme() {
   return isDark;
 }
 
-export default function Logo() {
+export default function Logo({ forceLightBackground = false }: { forceLightBackground?: boolean }) {
   // 1. Integrate Theme Logic
   const isDark = useDarkTheme();
 
   // 2. Define Assets based on theme
   // Using useMemo prevents recalculation on every render, though strictly optional for simple strings
   const assets = useMemo(() => ({
-    mainLogo: isDark 
+    mainLogo: isDark && !forceLightBackground
       ? "/images/logo-skroling-light-2.svg" 
       : "/images/logo-skroling-3.svg",
-    letterLogo: isDark 
+    letterLogo: isDark && !forceLightBackground
       ? "/images/logo-skroling-letter-light.svg" 
       : "/images/logo-skroling-letter.svg"
-  }), [isDark]);
+  }), [isDark, forceLightBackground]);
 
   // --- Existing Logic ---
   const [isHidden, setIsHidden] = useState(false);

@@ -27,14 +27,14 @@ export default function HeroHomeSection() {
   // REFS
   // ---------------------
   const containerRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const charsRef = useRef<HTMLSpanElement[]>([]);
   const revealed = useRef<Set<number>>(new Set());
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ballPos = useRef({ x: 0, y: 0 });
 
-  const text = "Websites that move, react and engage your users";
+  const text = "Creative development for design studios";
   const chars = useMemo(() => text.split(""), [text]);
 
   // ---------------------
@@ -219,27 +219,21 @@ export default function HeroHomeSection() {
       />
 
       <div className="container mx-auto relative pointer-events-none">
-        <div className="inner max-w-[325px] sm:max-w-[690px] md:max-w-[820px] mx-auto text-center select-none">
-          <div
+        <div className="inner max-w-[345px] sm:max-w-[690px] md:max-w-[820px] mx-auto text-center select-none">
+          <h1
+            aria-label={text}
             ref={headingRef}
-            className="fp-extra-font text-[50px] sm:text-[54px] lg:text-[65px] font-medium leading-14 sm:leading-16 md:leading-tight will-change-opacity relative z-10"
+            className="fp-extra-font text-[40px] sm:text-[54px] lg:text-[65px] font-medium leading-14 sm:leading-16 md:leading-tight will-change-opacity relative z-10"
           >
-            {chars.map((char, i) => (
-              <span
-                key={i}
-                ref={(el) => {
-                  if (el) charsRef.current[i] = el;
-                }}
-                className={`char inline-block whitespace-pre transition-colors duration-300 ${
-                  isFinished
-                    ? "text-black dark:text-white"
-                    : "text-[#333]"
-                }`}
-              >
-                {char}
-              </span>
-            ))}
-          </div>
+            {text.split(" ").map((word, wordIndex) => {
+              const offset = text.split(" ").slice(0, wordIndex).join(" ").length + (wordIndex ? 1 : 0);
+              return <span key={wordIndex} className="inline-block whitespace-nowrap">
+                {[...word, ...(wordIndex < text.split(" ").length - 1 ? [" "] : [])].map((char, j) => (
+                  <span key={j} ref={el => { if(el) charsRef.current[offset+j]=el; }} className={`char inline-block whitespace-pre transition-colors duration-300 ${isFinished ? "text-black dark:text-white" : "text-[#AAAAAA]"}`}>{char}</span>
+                ))}
+              </span>;
+            })}
+          </h1>
         </div>
       </div>
     </section>

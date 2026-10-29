@@ -11,40 +11,24 @@ interface FaqSectionProps {
 
 const defaultFaqs: FaqItem[] = [
   {
-    question: "I'm interested in collaboration. Where do I start?",
-    answer: "Starting a collaboration is easy! Simply reach out through our contact form or email us directly. We'll schedule an initial consultation to discuss your project goals, timeline, and requirements. From there, we'll provide you with a detailed proposal outlining the scope, deliverables, and investment."
+    "question": "How can we start working together?",
+    "answer": "Send your design direction, project scope and intended timeline through the contact form or to hello@skroling.dev. I’ll review the brief and discuss the implementation with you."
   },
   {
-    question: "What exactly do you do?",
-    answer: "We specialize in creating custom web experiences through design and development. Our services include brand identity design, UI/UX design, responsive website development, web application development, and ongoing maintenance and support. We work with modern technologies to deliver high-performance, scalable solutions."
+    "question": "Do you work with design studios?",
+    "answer": "Yes. I work as an independent creative developer, implementing designs and developing the motion, interactions and WordPress integration they need."
   },
   {
-    question: "What is the process?",
-    answer: "Our process typically follows these phases: Discovery & Strategy (understanding your goals and requirements), Design (creating wireframes and visual designs), Development (building your solution), Testing (ensuring quality and performance), and Launch (deployment and handoff). Throughout each phase, we maintain clear communication and incorporate your feedback."
+    "question": "Who creates the design?",
+    "answer": "My focus is development. For Kaite and Lukdeira, I collaborated with Kaite, who created the designs. Natural Awakenings was designed by Agnes and implemented while I worked at Flip180 Media."
   },
   {
-    question: "Do you design and build websites?",
-    answer: "Yes, absolutely! We offer full-service design and development. This means we handle everything from initial concept and visual design through to full development and deployment. We ensure a seamless integration between design and functionality, creating websites that are both beautiful and performant."
+    "question": "Can you build a WordPress website?",
+    "answer": "Yes. WordPress integration is part of my work, including both the Kaite and Lukdeira websites."
   },
   {
-    question: "Can we edit the website when it's done?",
-    answer: "Yes, we build websites with content management systems (CMS) that allow you to easily update content, images, and other elements without technical knowledge. We also provide training and documentation to ensure you're comfortable managing your site. For more complex updates, we offer ongoing support packages."
-  },
-  {
-    question: "How long will it take to complete the project?",
-    answer: "Project timelines vary based on scope and complexity. A typical website project takes 6-12 weeks from kickoff to launch. This includes time for design, development, revisions, and testing. More complex applications may take 3-6 months. We'll provide a detailed timeline during the proposal phase and keep you updated throughout the project."
-  },
-  {
-    question: "What is the price?",
-    answer: "Pricing depends on the scope, complexity, and specific requirements of your project. Our website projects typically range from $5,000 to $50,000+. We offer transparent, fixed-price quotes based on clearly defined deliverables. During our initial consultation, we'll discuss your budget and create a solution that delivers maximum value."
-  },
-  {
-    question: "What is included in a round of revision?",
-    answer: "A revision round includes feedback on the presented work within the agreed scope. You can request changes to design elements, content adjustments, layout modifications, and refinements to better align with your vision. We typically include 2-3 revision rounds per project phase. Major scope changes or new features may require additional rounds or adjustments to the project plan."
-  },
-  {
-    question: "What do you require before starting a project?",
-    answer: "Before starting, we need: a signed contract outlining the project scope and terms, an initial deposit (typically 50%), access to relevant brand materials and assets, content or a content outline, and any technical requirements or integrations. We'll also need clear points of contact for decision-making to ensure smooth project flow."
+    "question": "How are budget and timing agreed?",
+    "answer": "These depend on the design, functionality and scope. Share the brief so we can discuss an appropriate plan before starting."
   }
 ];
 

@@ -48,14 +48,14 @@ export default function HeroWorkSingle({ heroImage, title = "Work" }: HeroWorkSi
 	}, []);
 
 	return (
-		<section ref={containerRef} className="relative w-full h-[400px] md:h-svh overflow-hidden max-md:px-[15px] max-md:mt-24">
+		<section ref={containerRef} className="relative w-full aspect-video md:aspect-auto md:h-svh overflow-hidden max-md:px-[15px] max-md:mt-24">
 			<div ref={imageWrapperRef} className="relative h-full flex items-center justify-center">
 				<div ref={imageRef} className="relative w-full h-full overflow-hidden">
 					<Image
 						src={heroImage}
 						alt={title}
 						fill
-						className="object-cover max-md:rounded-[16px]"
+						className="object-cover max-md:object-contain max-md:rounded-[16px]"
 						priority
 					/>
 				</div>

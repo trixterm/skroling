@@ -7,8 +7,9 @@ import HeroWorkSection from "@/components/sections/HeroWorkSection";
 import WorkCardsSection from "@/components/sections/WorkCardsSection";
 
 export const metadata = buildMetadata({
-    title: `Work | ${siteConfig.siteName}`,
-    description: 'Skroling',
+    title: "Work",
+    description: 'Creative development and WordPress integration by Mantas.',
+    alternates: { canonical: '/work' },
 });
 
 export default function WorkPage() {

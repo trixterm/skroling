@@ -9,11 +9,7 @@ type CopyrightSectionProps = {
     variant?: 'default' | 'contact';
 };
 
-const socialLinks: SocialLink[] = [
-    { name: 'Linkedin', url: '#' },
-    { name: 'Facebook', url: '#' },
-    { name: 'Instagram', url: '#' },
-];
+const socialLinks: SocialLink[] = [{ name: 'hello@skroling.dev', url: 'mailto:hello@skroling.dev' }];
 
 const CopyrightSection: React.FC<CopyrightSectionProps> = ({ variant = 'default' }) => {
     const year = new Date().getFullYear();
@@ -27,7 +23,7 @@ const CopyrightSection: React.FC<CopyrightSectionProps> = ({ variant = 'default'
             <div className="container mx-auto">
                 <div className="inner relative flex flex-col-reverse sm:flex-col sm:bottom-4 md:bottom-0 md:flex-row items-center sm:items-start md:items-center">
                     <div className="text-[11px] font-semibold max-sm:mt-7">
-                        © {year}. All rights reverved Skroling and Kaite.studio
+                        © {year}. Skroling. Design by Kaite. All rights reserved.
                     </div>
                     <ul className="fp-social-list flex gap-x-2 sm:mt-4 md:mt-0 md:ml-auto">
                         {socialLinks.map(({ name, url }) => (

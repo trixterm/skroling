@@ -57,10 +57,10 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   siteName: 'Skroling',
   domain: 'skroling.dev',
-  author: 'Monty',
-  description: 'Developer',
+  author: 'Mantas',
+  description: 'Freelance creative development for design studios',
   about:
-    'text text',
+    'Creative development, WordPress integration and animation by Mantas.',
     author_img: '',
     keywords: [
     ''
@@ -77,7 +77,7 @@ export const siteConfig: SiteConfig = {
     github: '',
     linkedin: '',
     tips: '',
-    email: '',
+    email: 'hello@skroling.dev',
   },
   social: [
     { label: 'GitHub', url: '', icon: 'github' },
@@ -96,7 +96,7 @@ export const siteConfig: SiteConfig = {
 
   seo: {
     title: 'Skroling',
-    description: 'Full Stack developer',
+    description: 'Mantas — freelance creative developer collaborating with design studios on websites, WordPress integration and animation.',
     keywords: [
       'Skroling',
       'Full Stack Developer',
@@ -105,10 +105,10 @@ export const siteConfig: SiteConfig = {
       'TypeScript',
       'TailwindCSS',
       'Framer Motion',
-      'Machine Learning',
+      'Creative Development',
     ],
     canonical: 'https://skroling.dev',
-    image: '/og.png',
+    image: '/images/projects/kaite-hero.jpg',
     imageAlt: "",
     locale: 'en-US',
     type: 'website',

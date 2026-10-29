@@ -46,22 +46,22 @@ export const EXPERTISE_CONTENT: Record<number, DigitContent> = {
   2: {
     heading: "Design Systems & UI Architecture",
     description:
-      "Building resilient component systems, Storybook-driven libraries, and cohesive design languages that keep large products consistent.",
+      "Implementing reusable interface components from a designer’s visual system.",
   },
   3: {
-    heading: "TypeScript & API Contracts",
+    heading: "Custom Functionality",
     description:
-      "Creating strongly-typed client integrations, shared schemas, and developer tooling that surface bugs early and speed feature delivery.",
+      "Building custom functionality, including searchable and filterable content directories.",
   },
   4: {
     heading: "Performance & Accessibility",
     description:
-      "Profiling rendering paths, eliminating regressions, and baking WCAG-compliant patterns into the foundation of every interface.",
+      "Reviewing loading performance, readability and interaction details during implementation.",
   },
   5: {
-    heading: "Team Leadership & Delivery",
+    heading: "Design Collaboration",
     description:
-      "Leading multi-disciplinary squads, establishing delivery rituals, and mentoring engineers through complex front-end initiatives.",
+      "Working with designers to coordinate development, animation and content integration.",
   },
 };
 
@@ -133,39 +133,39 @@ export const SERVICES_CONTENT: ServiceItem[] = [
 export const PROCESS_CONTENT: ProcessCard[] = [
   {
     number: "01",
-    duration: "1-2 weeks",
+    duration: "Scope-dependent",
     title: "Discovery",
-    description: "The new website has completely transformed...",
+    description: "Review the design, content and functionality together.",
   },
   {
     number: "02",
-    duration: "2-3 weeks",
+    duration: "Scope-dependent",
     title: "Research",
-    description: "We analyzed user behavior extensively...",
+    description: "Identify technical requirements and motion opportunities.",
   },
   {
     number: "03",
-    duration: "3-4 weeks",
-    title: "Wireframe",
-    description: "We created a full structural blueprint...",
+    duration: "Scope-dependent",
+    title: "Structure",
+    description: "Agree the implementation structure and interactions.",
   },
   {
     number: "04",
-    duration: "4-5 weeks",
+    duration: "Scope-dependent",
     title: "Build",
-    description: "The development process was executed...",
+    description: "Build the website and connect the content management system.",
   },
   {
     number: "05",
-    duration: "1-2 weeks",
+    duration: "Scope-dependent",
     title: "Animation",
-    description: "Micro-interactions were designed...",
+    description: "Coordinate animation timing and scroll-driven transitions.",
   },
   {
     number: "06",
-    duration: "2-3 weeks",
+    duration: "Scope-dependent",
     title: "Testing",
-    description: "Every feature underwent rigorous QA...",
+    description: "Review layouts, interactions and forms before handoff.",
   },
 ];
 

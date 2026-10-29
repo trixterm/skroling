@@ -250,15 +250,12 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/website-1.jpg"
+                                    data-image="/images/projects/kaite-services.jpg"
                                     data-w="800"
                                     data-h="1200"
                                 />
                                 <div className="fp-content w-[245px] text-[12px] font-medium pt-12">
-                                    Worked at flip180 media lead of the dev team. Worked at
-                                    flip180 media lead of the dev team. Worked at flip180 media
-                                    lead of the dev team. Worked at flip180 media lead of the dev
-                                    team.
+                                    I’m Mantas, a freelance creative developer working with design studios. I turn visual concepts into websites with considered motion and interaction.
                                 </div>
                             </div>
 
@@ -270,15 +267,12 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/website-2.jpg"
+                                    data-image="/images/projects/lukdeira-facts.jpg"
                                     data-w="1600"
                                     data-h="900"
                                 />
                                 <div className="fp-content w-[245px] text-[12px] font-medium pt-12">
-                                    Worked at flip180 media lead of the dev team. Worked at
-                                    flip180 media lead of the dev team. Worked at flip180 media
-                                    lead of the dev team. Worked at flip180 media lead of the dev
-                                    team.
+                                    My work combines programming, WordPress integration and animation. I collaborate directly with designers, with clear credit for each person’s contribution.
                                 </div>
                             </div>
 
@@ -290,15 +284,12 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/website-1.jpg"
+                                    data-image="/images/projects/kaite-services.jpg"
                                     data-w="1200"
                                     data-h="1200"
                                 />
                                 <div className="fp-content w-[245px] text-[12px] font-medium pt-12">
-                                    Worked at flip180 media lead of the dev team. Worked at
-                                    flip180 media lead of the dev team. Worked at flip180 media
-                                    lead of the dev team. Worked at flip180 media lead of the dev
-                                    team.
+                                    For Kaite, I built a synchronised services experience: the background imagery and card content move together as visitors scroll.
                                 </div>
                             </div>
 
@@ -310,15 +301,12 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/website-2.jpg"
+                                    data-image="/images/projects/lukdeira-facts.jpg"
                                     data-w="900"
                                     data-h="1400"
                                 />
                                 <div className="fp-content w-[245px] text-[12px] font-medium pt-12">
-                                    Worked at flip180 media lead of the dev team. Worked at
-                                    flip180 media lead of the dev team. Worked at flip180 media
-                                    lead of the dev team. Worked at flip180 media lead of the dev
-                                    team.
+                                    For Lukdeira, I connected the services and facts sections through a continuous scroll-driven transition. The design was created by Kaite.
                                 </div>
                             </div>
 
@@ -330,15 +318,12 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/website-1.jpg"
+                                    data-image="/images/projects/kaite-services.jpg"
                                     data-w="1600"
                                     data-h="1000"
                                 />
                                 <div className="fp-content w-[245px] text-[12px] font-medium pt-12">
-                                    Worked at flip180 media lead of the dev team. Worked at
-                                    flip180 media lead of the dev team. Worked at flip180 media
-                                    lead of the dev team. Worked at flip180 media lead of the dev
-                                    team.
+                                    While working at Flip180 Media, I implemented the Natural Awakenings website from Agnes’s design, including the magazine directory, search and filtering.
                                 </div>
                             </div>
 
@@ -350,15 +335,12 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/website-2.jpg"
+                                    data-image="/images/projects/lukdeira-facts.jpg"
                                     data-w="1000"
                                     data-h="1000"
                                 />
                                 <div className="fp-content w-[245px] text-[12px] font-medium pt-12">
-                                    Worked at flip180 media lead of the dev team. Worked at
-                                    flip180 media lead of the dev team. Worked at flip180 media
-                                    lead of the dev team. Worked at flip180 media lead of the dev
-                                    team.
+                                    With 15 years in development and work for 23 clients, I bring practical implementation experience to a design collaboration. Tell me what you are planning at hello@skroling.dev.
                                 </div>
                             </div>
                         </div>

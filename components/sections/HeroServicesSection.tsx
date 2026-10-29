@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { memo } from "react";
 import VideoExpandAnimation2 from "@/components/animations/VideoExpandAnimation2";
 
@@ -138,14 +139,11 @@ const HeroServicesSection = memo(function HeroServicesSection() {
             </div>
           </div>
 
-          <video
+          <Image
             className="fp-video-block-1 relative -top-21 md:-top-75 mx-auto w-20 md:w-[320px] aspect-video rounded-[4px] md:rounded-[10px] z-3"
             width={320}
             height={180}
-            src="/videos/3571264-hd_1920_1080_30fps.mp4"
-            loop
-            muted
-            autoPlay
+            src="/images/projects/lukdeira-facts.jpg" alt="Lukdeira — company facts section"
           />
         </div>
       </section>
