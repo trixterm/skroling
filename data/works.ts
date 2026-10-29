@@ -1,8 +1,10 @@
-export type Work = { slug: string; title: string; description: string; heroImage: string; detailImage: string; design: string; context: string; role: string; url: string | null; status: string; challenge: string; body: string; result?: string; };
+export type Work = { slug: string; title: string; description: string; heroImage: string; detailImage: string; design: string; context: string; role: string; url: string | null; status: string; challenge: string; body: string; result?: string; motionVideo?: string; motionCaption?: string; };
 
 export const works: Work[] = [
   {
     "slug": "kaite",
+    "motionVideo": "/videos/projects/kaite-services.mp4",
+    "motionCaption": "Scroll demonstration: service backgrounds and card content move in sync.",
     "title": "Kaite",
     "description": "A design studio website with synchronised scroll animations and WordPress integration.",
     "heroImage": "/images/projects/kaite-hero.jpg",
@@ -17,6 +19,8 @@ export const works: Work[] = [
   },
   {
     "slug": "lukdeira",
+    "motionVideo": "/videos/projects/lukdeira-services-facts.mp4",
+    "motionCaption": "Scroll demonstration: the services section transitions into company facts. Pre-launch recording.",
     "title": "Lukdeira",
     "description": "A WordPress website for concrete transport and logistics, with a scroll-driven transition from services to company facts.",
     "heroImage": "/images/projects/lukdeira-hero.jpg",
