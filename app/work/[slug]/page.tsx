@@ -30,7 +30,13 @@ export default async function WorkPage({params}: Props) {
  <p className="max-w-3xl text-lg leading-relaxed mb-8">{work.body}</p>
  {work.result && <p className="max-w-3xl text-base leading-relaxed mb-8">{work.result}</p>}
  {work.url && <a className="fp-btn fp-btn-filled-1 mb-10 inline-block" href={work.url} target="_blank" rel="noopener noreferrer">Visit website ↗</a>}
- <Image src={work.detailImage} alt={`${work.title} — ${work.challenge}`} width={1280} height={720} className="w-full h-auto rounded-2xl" sizes="(max-width: 768px) 100vw, 1200px"/>
+ {work.motionVideo ? <figure>
+ <video controls playsInline muted preload="none" poster={work.detailImage} width={1600} height={900} aria-label={`${work.title} — scroll animation demonstration`} aria-describedby={`${work.slug}-motion-caption`} className="w-full h-auto rounded-2xl bg-black">
+ <source src={work.motionVideo} type="video/mp4" />
+ <a href={work.motionVideo}>Watch the {work.title} animation demonstration</a>
+ </video>
+ <figcaption id={`${work.slug}-motion-caption`} className="mt-3 text-sm leading-relaxed">{work.motionCaption}</figcaption>
+ </figure> : <Image src={work.detailImage} alt={`${work.title} — ${work.challenge}`} width={1280} height={720} className="w-full h-auto rounded-2xl" sizes="(max-width: 768px) 100vw, 1200px"/>}
  {work.slug==='natural-awakenings' && <Image src="/images/projects/natural-awakenings-search.jpg" alt="Magazine directory search for Boston returns one location" width={1280} height={720} className="w-full h-auto rounded-2xl mt-8"/>}
  </section>
  <Link href={`/work/${next.slug}`} aria-label={`Next project: ${next.title}`}><CtaNextProject/></Link>
