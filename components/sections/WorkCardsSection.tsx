@@ -1,7 +1,8 @@
 "use client";
 
-import { ReactLenis } from "lenis/react";
+
 import { useScroll, useTransform, type MotionValue, motion } from "motion/react";
+import { works } from "@/data/works";
 import Image from "next/image";
 import Link from "next/link";
 import { memo, useRef, type ReactElement } from "react";
@@ -12,23 +13,7 @@ type Project = Readonly<{
   alt: string;
 }>;
 
-const projects: readonly Project[] = [
-  {
-    src: "/images/website-01.jpg",
-    link: "/website-1",
-    alt: "Website project 1 preview",
-  },
-  {
-    src: "/images/website-02.jpg",
-    link: "/website-2",
-    alt: "Website project 2 preview",
-  },
-  {
-    src: "/images/website-03.jpg",
-    link: "/website-3",
-    alt: "Website project 3 preview",
-  },
-];
+const projects: readonly Project[] = works.map(w => ({src:w.heroImage,link:`/work/${w.slug}`,alt:w.title}));
 
 const sectionClassName = "mt-[100svh] relative";
 const wrapperClassName =
@@ -83,7 +68,7 @@ export default function WorkCardsSection(): ReactElement {
   const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
 
   if (isDesktop) {
-    return <ReactLenis root>{content}</ReactLenis>;
+    return content;
   }
 
   return content;
@@ -122,11 +107,12 @@ const Card = memo(function Card({
           className={linkClassName}
           aria-label={`Open: ${project.alt}`}
         >
+          <span className="absolute z-10 bottom-5 left-5 bg-black/80 text-white px-5 py-3 rounded-xl">{project.alt} ↗</span>
           <Image
             fill
             src={project.src}
             alt={project.alt}
-            className="object-cover"
+            className="object-contain"
             sizes="(max-width: 768px) 92vw, 1300px"
             priority={isPriority}
           />

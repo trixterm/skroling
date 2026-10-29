@@ -30,7 +30,7 @@ const MobileHeader = () => {
     <header className="md:hidden fixed top-0 left-0 w-full z-9999 bg-[#f5f5f5]">
       <div className="container">
         <div className="flex justify-between items-center py-7 sm:px-5 lg:px-7">
-          <Logo />
+          <Logo forceLightBackground />
 
           <button
             onClick={toggleMenu}
@@ -45,7 +45,7 @@ const MobileHeader = () => {
 
       {open && (
         <div className="fp-menu-mob-dropdown absolute top-16 left-0 right-0 w-[94%] mx-auto bg-white animate-fade-in rounded-[17px]">
-          <nav className="fp-nav-mobile p-6 space-y-3.5 flex flex-col text-[15px] font-semibold">
+          <nav className="fp-nav-mobile text-[#1a1a1a] p-6 space-y-3.5 flex flex-col text-[15px] font-semibold">
             {siteConfig.navigation.map((item) => (
               <Link
                 key={item.href}

@@ -1,5 +1,6 @@
 "use client";
 
+import { works } from "@/data/works";
 import { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +32,7 @@ const PhotoBox = memo(({ href, alt, className, priority = false }: PhotoBoxProps
     <Link className="link-photo-box block w-full h-full bg-[#d8d8d8]" href={href}>
       <Image
         className="photo-box object-cover"
-        src="/images/img-box-1.jpg"
+        src={works.find(w => href.endsWith(w.slug))?.heroImage || works[0].heroImage}
         alt={alt}
         fill
         sizes="(max-width: 1024px) 50vw, 16vw"
@@ -46,25 +47,25 @@ const Letters = memo(() => (
   <div className="work-letters-wrapper contents">
     <div className="work-letter-w flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 lg:h-full col-start-1 row-start-2 lg:col-start-4 lg:row-start-3">
       <svg className="fp-letter relative top-10 left-[50px] md:-top-[33px] md:left-[33px] max-md:w-[147px] max-md:h-[123px]" width="551" height="472" viewBox="0 0 551 472" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d={PATH_W} fill="black" />
+        <path d={PATH_W} fill="currentColor" />
       </svg>
     </div>
     <div className="work-letter-o flex flex-col h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 col-start-3 row-start-3 lg:h-full lg:col-start-6 lg:row-start-3">
       <svg className="fp-letter fp-letter-o-1 lg:scale-190 transform-gpu relative top-10 md:-top-10 max-md:left-[50px]" width="407" height="416" viewBox="0 0 407 416" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d={PATH_O} fill="black" />
+        <path d={PATH_O} fill="currentColor" />
       </svg>
       <svg className="fp-letter fp-letter-o-2 scale-190 transform-gpu relative top-10 max-md:hidden" width="407" height="416" viewBox="0 0 407 416" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d={PATH_O} fill="black" />
+        <path d={PATH_O} fill="currentColor" />
       </svg>
     </div>
     <div className="work-letter-r flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 col-start-1 row-start-4 lg:h-full lg:col-start-8 lg:row-start-3">
       <svg className="fp-letter w-[78px] h-[105px] relative top-10 left-[53px] md:-top-10 md:-left-[60px]" width="293" height="402" viewBox="0 0 293 402" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d={PATH_R} fill="black" />
+        <path d={PATH_R} fill="currentColor" />
       </svg>
     </div>
     <div className="work-letter-k flex h-24 w-full items-center justify-center text-xs font-medium uppercase tracking-wide text-gray-700 col-start-3 row-start-5 lg:h-full lg:col-start-9 lg:row-start-3">
       <svg className="fp-letter w-[87px] h-[104px] relative top-[50px] left-[60px] md:top-[62px] md:-left-10" width="326" height="402" viewBox="0 0 326 402" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d={PATH_K} fill="black" />
+        <path d={PATH_K} fill="currentColor" />
       </svg>
     </div>
   </div>
@@ -95,28 +96,28 @@ const HeroWorkSection = () => {
             <GreyBoxes />
             <PhotoBox
               href="/work/lukdeira"
-              alt="Top left photo"
+              alt="Lukdeira"
               className="top-left-photo lg:h-full col-start-3 row-start-2 lg:col-start-2 lg:row-start-2"
               priority
             />
             <PhotoBox
-              href="/work/website-2"
-              alt="Top right photo"
+              href="/work/kaite"
+              alt="Kaite"
               className="top-right-photo col-start-1 row-start-6 lg:h-full lg:col-start-10 lg:row-start-2"
             />
             <PhotoBox
-              href="/work/website-3"
-              alt="Bottom center photo"
+              href="/work/natural-awakenings"
+              alt="Natural Awakenings"
               className="bottom-center-photo col-start-3 row-start-2 lg:h-full lg:col-start-7 lg:row-start-5"
             />
             <PhotoBox
-              href="/work/website-4"
-              alt="Bottom left photo"
+              href="/work/kaite"
+              alt="Kaite"
               className="bottom-left-photo h-28 w-full lg:h-full col-start-1 row-start-6 lg:col-start-4 max-md:hidden"
             />
             <PhotoBox
-              href="/work/website-5"
-              alt="Bottom right photo"
+              href="/work/lukdeira"
+              alt="Lukdeira"
               className="bottom-right-photo h-28 w-full lg:h-full col-start-3 row-start-7 lg:col-start-11 lg:row-start-5 max-md:hidden"
             />
           </div>

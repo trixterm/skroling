@@ -7,11 +7,11 @@ import HeroHomeSection from "@/components/sections/HeroHomeSection";
 import WorkSection from "@/components/sections/WorkSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import ResultsSection from "@/components/sections/ResultsSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
+
 
 export default function HomePage() {
     return (
-        <main>
+        <div>
             {/* <IntroSection /> */}
 
             <GridBackground />
@@ -20,7 +20,7 @@ export default function HomePage() {
             <WorkSection />
             <ServicesSection />
             <ResultsSection />
-            <TestimonialsSection />
-        </main>
+
+        </div>
     );
 }

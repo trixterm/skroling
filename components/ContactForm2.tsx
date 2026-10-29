@@ -180,7 +180,7 @@ const ContactForm2: React.FC = () => {
                 Select what services do you need
                 </p>
                 <div className="flex flex-wrap gap-2 max-w-[400px]">
-                {['Development', 'Branding design', 'Full service', 'Help me decide', 'UX/UI Design'].map((service) => (
+                {['Development', 'WordPress integration', 'Animation & interaction', 'Let’s discuss', 'Creative development'].map((service) => (
                     <button
                     key={service}
                     type="button"

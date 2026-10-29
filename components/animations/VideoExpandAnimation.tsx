@@ -22,7 +22,7 @@ export default function VideoExpandAnimation() {
 
                     mm.add("(min-width: 1069px)", () => {
                         gsap.fromTo(
-                            ".fp-video-services video",
+                            ".fp-video-services .fp-services-media",
                             {
                                 width: "0px",
                                 // borderRadius: "20px",

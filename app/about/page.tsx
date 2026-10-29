@@ -7,8 +7,9 @@ import ExperienceSection from "@/components/sections/ExperienceSection";
 import { buildMetadata, siteConfig } from '@/config/site.config';
 
 export const metadata = buildMetadata({
-    title: `About | ${siteConfig.siteName}`,
-    description: 'Skroling',
+    title: "About",
+    description: 'Creative development and WordPress integration by Mantas.',
+    alternates: { canonical: '/about' },
 });
 
 export default function AboutPage() {

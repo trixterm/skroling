@@ -5,11 +5,11 @@ import { submitContactForm } from '@/actions/contact';
 import type { ContactFormData, FormErrors } from '@/types/contact';
 
 const SERVICE_OPTIONS = [
-  'UX/UI Design',
+  'Creative development',
   'Development',
-  'Branding design',
-  'Full service',
-  'Help me decide'
+  'WordPress integration',
+  'Animation & interaction',
+  'Let’s discuss'
 ] as const;
 
 type ServiceOption = typeof SERVICE_OPTIONS[number];
@@ -115,9 +115,9 @@ const ContactForm: React.FC = () => {
           handleSubmit();
         }}
       >
-        {/* Name Surname Field */}
+        {/* Your name Field */}
         <div>
-          <label htmlFor="nameSurname" className="sr-only">Name Surname</label>
+          <label htmlFor="nameSurname" className="sr-only">Your name</label>
           <input
             id="nameSurname"
             name="nameSurname"
@@ -125,7 +125,7 @@ const ContactForm: React.FC = () => {
             value={formData.nameSurname}
             onChange={handleInputChange}
             onBlur={() => handleBlur('nameSurname')}
-            placeholder="Name Surname"
+            placeholder="Your name"
             className="fp-input"
             required
           />

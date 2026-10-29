@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { lazy, memo } from "react";
 import ServicesReveal from "@/components/animations/ServicesReveal";
 import LineAnimation from "@/components/animations/LineAnimation";
@@ -31,19 +32,11 @@ function ServicesSection() {
             </div>
             <section className="fp-video-services mt-10 md:mt-24 flex justify-center">
                 <VideoExpandAnimation />
-                <video
-                    className="max-w-[calc(100vw-30px)] h-[485px] md:h-svh object-cover rounded-[20px]"
-                    playsInline
-                    muted
-                    autoPlay
-                    loop
-                >
-                    <source src="/videos/3571264-hd_1920_1080_30fps.mp4" type="video/mp4" />
-                </video>
+                <Image src="/images/projects/kaite-services.jpg" alt="Kaite — synchronised services interaction" width={1280} height={720} className="fp-services-media max-w-[calc(100vw-30px)] h-auto md:h-svh object-contain rounded-[20px]" />
             </section>
             <div className="container">
                 <div className="fp-text-after-video text-[16px] md:text-[20px] font-regular leading-[30px] md:leading-[33px] max-w-[870px] mt-17 max-sm:px-4 dark:text-[#f5f5f5]">
-                    Behind every project is years of steady, hands-on experience and a commitment to doing the work with care and precision. I focus on consistency, clear communication, and delivering results that truly meet expectations. The numbers below reflect the reliability of my process and the level of quality I bring to every collaboration.
+                    I’m Mantas, a freelance creative developer with 15 years in development. I collaborate with design studios to build websites, integrate WordPress, and bring motion and interaction to their designs.
                 </div>
             </div>
         </ServicesReveal>
