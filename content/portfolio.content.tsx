@@ -175,33 +175,27 @@ export const PROCESS_CONTENT: ProcessCard[] = [
 
 export const EXPERIENCE_CONTENT: ExperienceItem[] = [
   {
-    title: "Digital Magazines",
-    description:
-      "More than a decade of experience developing content-driven digital products, working with large volumes of information and complex structures. This background brings clients well-organized, easy-to-navigate experiences where content flows naturally, engagement lasts longer, and information is understood quickly without effort.",
-  },
-  {
-    title: "Multimedia",
-    description:
-      "This period shaped a holistic approach to digital work—thinking beyond individual pages and focusing on the brand as a complete system, from initial idea to a fully functional website. For clients, this results in clear messaging, a consistent visual identity, and digital solutions that are not just visually polished, but purposeful and aligned with their goals.",
-  },
-  {
-    title: "Film & Editing \nFundamentals",
-    description:
-      "A strong foundation in visual storytelling, rhythm, and motion introduced a cinematic way of thinking that translates directly to the web. This allows clients to communicate emotion, build trust, and convey ideas clearly through movement and visual hierarchy, reducing the need for excessive text.",
-  },
-  {
     title: "Web Development",
-    description:
-      "Building complete web solutions independently—from concept through development to launch—made it possible to align UX logic, motion, and technical execution without compromise. Clients benefit from flexible collaboration, faster decisions, and websites that work exactly as intended, without unnecessary technical complexity.",
+    description: "I’m Mantas, a freelance creative developer with 15 years in development. I work with design studios to turn their designs into websites, with a focus on implementation, interaction and WordPress integration.",
   },
   {
-    title: "Web Experiences \nThat Drive Action",
-    description:
-      "Today, brand logic, UX structure, motion thinking, and performance come together to create websites built for clarity and impact. Clients receive experiences where key information is understood instantly, motion serves a clear purpose, and performance supports fast, confident user action.",
+    title: "Design Collaboration",
+    description: "For Kaite and Lukdeira, I worked independently with Kaite, who created the designs. My role covered programming, WordPress integration and animation.",
   },
   {
-    title: "Short-Form Video \n& Social Advertising",
-    description:
-      "Creating short, attention-driven video content refined the ability to communicate clearly within seconds. For clients, this means strong first impressions, direct messaging, and visuals designed to prompt immediate action in fast-moving digital environments.",
+    title: "Scroll Animation",
+    description: "For Kaite, I coordinated moving background images with service information inside an overlaid card. For Lukdeira, I built a continuous transition from services to company facts.",
+  },
+  {
+    title: "WordPress Integration",
+    description: "I integrated the Kaite and Lukdeira websites with WordPress, connecting the designed interfaces and their interactions to the content management system.",
+  },
+  {
+    title: "Publishing Websites",
+    description: "While working at Flip180 Media, I implemented the Natural Awakenings website from Agnes’s design. My work included the magazine directory, search and filtering.",
+  },
+  {
+    title: "Your Next Project",
+    description: "Have a design ready to build? Share the design, functionality and intended timeline at hello@skroling.dev so we can discuss the development work.",
   },
 ];
