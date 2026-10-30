@@ -28,13 +28,13 @@
 /* ---------------------------
    LEFT ARROW HOVER
 ---------------------------- */
-:global(.fp-nav-btn .fp-arrow-left:hover) ~ :global(.fp-line-1) {
+:global(.fp-nav-btn button:first-of-type:hover:not(:disabled)) ~ :global(.fp-line-1) {
     transform: translateX(-36px);
 }
 
 /* ---------------------------
    RIGHT ARROW HOVER
 ---------------------------- */
-:global(.fp-nav-btn .fp-arrow-right:hover) ~ :global(.fp-line-1) {
+:global(.fp-nav-btn button:last-of-type:hover:not(:disabled)) ~ :global(.fp-line-1) {
     transform: translateX(37px);
 }

@@ -194,9 +194,9 @@ export default function StorylineSection() {
     };
 
     return (
-        <section className="fp-sec-storyline pt-44 pb-12 relative z-2">
+        <section className={`${styles.story} fp-sec-storyline pt-44 pb-12 relative z-2`}>
             <div className="inner relative">
-                <header className="absolute w-[90%] mx-auto top-[237px] left-0 right-0 pb-4 flex items-end z-2">
+                <header className={`${styles.header} absolute w-[90%] mx-auto top-[237px] left-0 right-0 pb-4 flex items-end z-2`}>
                     <div className="text-[34px] fp-extra-font font-medium leading-none">
                         My Story
                     </div>
@@ -205,7 +205,7 @@ export default function StorylineSection() {
 
                     {/* DYNAMIC PREVIEW – width ir height smooth animacija */}
                     <div
-                        className="fp-slide-img-place absolute t-[50px] left-[650px] overflow-hidden"
+                        className={`${styles.preview} fp-slide-img-place absolute top-[50px] left-[650px] overflow-hidden`}
                         style={{
                             width: previewSize.width,
                             height: previewSize.height,
@@ -228,6 +228,8 @@ export default function StorylineSection() {
 
                     <SliderNav
                         className="fp-nav-swiper-work ml-auto dark:border-[#ffffff]"
+                        disablePrev={activeIndex === 0}
+                        disableNext={activeIndex === 5}
                         onPrev={() => handleArrow("prev")}
                         onNext={() => handleArrow("next")}
                     />
@@ -236,7 +238,7 @@ export default function StorylineSection() {
                 </header>
 
                 <div
-                    className={`${styles["fp-scroll-gallery"]} max-w-1/2 ml-auto`}
+                    className={`${styles["fp-scroll-gallery"]} md:max-w-1/2 md:ml-auto`}
                 >
                     <div ref={scrollRef} className={styles["fp-scroll-container"]}>
                         <div
