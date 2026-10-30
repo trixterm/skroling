@@ -28,7 +28,10 @@ export default function SliderNav({
                 dark:border-[#ffffff]
             `}
         >
+            <button type="button" aria-label="Previous slide" disabled={disablePrev} onClick={onPrev}
+                className="relative z-10 flex min-h-6 min-w-6 items-center justify-center disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2">
             <svg
+                aria-hidden="true"
                 className={`
                     ${styles["fp-arrow"]}
                     ${styles["fp-arrow-left"]}
@@ -41,13 +44,15 @@ export default function SliderNav({
                 height="11px"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
-                onClick={disablePrev ? undefined : onPrev}
-                style={{ pointerEvents: disablePrev ? 'none' : 'auto' }}
             >
                 <path d="M8.489 31.975c-0.271 0-0.549-0.107-0.757-0.316-0.417-0.417-0.417-1.098 0-1.515l14.258-14.264-14.050-14.050c-0.417-0.417-0.417-1.098 0-1.515s1.098-0.417 1.515 0l14.807 14.807c0.417 0.417 0.417 1.098 0 1.515l-15.015 15.022c-0.208 0.208-0.486 0.316-0.757 0.316z"></path>
             </svg>
+            </button>
 
+            <button type="button" aria-label="Next slide" disabled={disableNext} onClick={onNext}
+                className="relative z-10 flex min-h-6 min-w-6 items-center justify-center disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2">
             <svg
+                aria-hidden="true"
                 className={`
                     ${styles["fp-arrow"]}
                     fp-arrow fp-arrow-right
@@ -59,11 +64,10 @@ export default function SliderNav({
                 height="11px"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
-                onClick={disableNext ? undefined : onNext}
-                style={{ pointerEvents: disableNext ? 'none' : 'auto' }}
             >
                 <path d="M8.489 31.975c-0.271 0-0.549-0.107-0.757-0.316-0.417-0.417-0.417-1.098 0-1.515l14.258-14.264-14.050-14.050c-0.417-0.417-0.417-1.098 0-1.515s1.098-0.417 1.515 0l14.807 14.807c0.417 0.417 0.417 1.098 0 1.515l-15.015 15.022c-0.208 0.208-0.486 0.316-0.757 0.316z"></path>
             </svg>
+            </button>
 
             <div
                 className={`
