@@ -1,22 +1,5 @@
-import Reveal from "@/components/Reveal";
-import HeroHomeSection from "@/components/sections/HeroHomeSection";
-import WorkSection from "@/components/sections/WorkSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import ResultsSection from "@/components/sections/ResultsSection";
+import { permanentRedirect } from "next/navigation";
 
-
-export default function HomePage() {
-  return (
-    <main>
-        <HeroHomeSection />
-
-        <Reveal>
-            <WorkSection />
-        </Reveal>
-        
-        <ServicesSection />
-        <ResultsSection />
-
-    </main>
-  );
+export default function HomeAlias() {
+  permanentRedirect("/");
 }

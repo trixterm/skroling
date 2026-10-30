@@ -78,9 +78,11 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: "/",
+    images: [{ url: "/images/projects/kaite-hero.jpg", alt: "Kaite — development by Skroling" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/images/projects/kaite-hero.jpg"],
     title: siteTitle,
     description: siteDescription,
   },

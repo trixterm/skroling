@@ -121,6 +121,10 @@ export const siteConfig: SiteConfig = {
 export function buildMetadata(overrides: Partial<Metadata> = {}): Metadata {
   const { seo, siteName, domain } = siteConfig;
 
+  const pageTitle = typeof overrides.title === 'string' ? overrides.title : seo.title;
+  const description = overrides.description ?? seo.description;
+  const canonical = overrides.alternates?.canonical ?? seo.canonical ?? `https://${domain}`;
+
   const base: Metadata = {
     title: seo.title,
     description: seo.description,
@@ -129,9 +133,9 @@ export function buildMetadata(overrides: Partial<Metadata> = {}): Metadata {
     metadataBase: new URL(`https://${domain}`),
     alternates: { canonical: seo.canonical ?? `https://${domain}` },
     openGraph: {
-      title: seo.title,
-      description: seo.description,
-      url: seo.canonical ?? `https://${domain}`,
+      title: pageTitle,
+      description,
+      url: canonical,
       siteName,
       images: seo.image ? [seo.image] : [],
       type: seo.type ?? 'website',
@@ -139,20 +143,24 @@ export function buildMetadata(overrides: Partial<Metadata> = {}): Metadata {
     },
     twitter: {
       card: seo.twitterCard ?? 'summary_large_image',
-      title: seo.title,
-      description: seo.description,
+      title: pageTitle,
+      description,
       images: seo.image ? [seo.image] : [],
       site: siteConfig.twitterHandle,
       creator: siteConfig.twitterHandle,
     },
     other: {
-      robots: seo.robots,
       'theme-color': seo.themeColor,
       'og:image:alt': seo.imageAlt,
     },
   } as Metadata;
 
-  return { ...base, ...overrides };
+  return {
+    ...base,
+    ...overrides,
+    openGraph: { ...base.openGraph, ...overrides.openGraph },
+    twitter: { ...base.twitter, ...overrides.twitter },
+  };
 }
 
 export type { Metadata };

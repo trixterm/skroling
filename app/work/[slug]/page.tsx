@@ -10,7 +10,7 @@ type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() { return works.map(({slug}) => ({slug})); }
 export async function generateMetadata({params}: Props) {
  const {slug}=await params; const work=works.find(w=>w.slug===slug);
- return work ? buildMetadata({title: work.title, description: work.description, alternates:{canonical:`/work/${slug}`}}) : {};
+ return work ? buildMetadata({title: work.title, description: work.description, alternates:{canonical:`/work/${slug}`}, openGraph:{images:[{url:work.heroImage,alt:work.title}]}, twitter:{images:[work.heroImage]}}) : {};
 }
 export default async function WorkPage({params}: Props) {
  const {slug}=await params; const index=works.findIndex(w=>w.slug===slug);
