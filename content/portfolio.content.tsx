@@ -191,8 +191,8 @@ export const EXPERIENCE_CONTENT: ExperienceItem[] = [
     description: "I integrated the Kaite and Lukdeira websites with WordPress, connecting the designed interfaces and their interactions to the content management system.",
   },
   {
-    title: "Publishing Websites",
-    description: "While working at Flip180 Media, I implemented the Natural Awakenings website from Agnes’s design. My work included the magazine directory, search and filtering.",
+    title: "Location guides",
+    description: "Užtemimas 2027 pairs a globe with a list of viewing locations so visitors can choose where to watch the eclipse.",
   },
   {
     title: "Your Next Project",

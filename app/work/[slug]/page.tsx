@@ -21,11 +21,11 @@ export default async function WorkPage({params}: Props) {
  <p className="text-sm mb-4">{work.status}</p>
  <h1 className="text-4xl md:text-6xl mb-8">{work.title}</h1>
  <p className="text-xl max-w-3xl leading-relaxed mb-10">{work.description}</p>
- <dl className="grid md:grid-cols-3 gap-8 border-y border-neutral-400 py-8 mb-12">
- <div><dt className="text-sm mb-2">My role</dt><dd>{work.role}</dd></div>
- <div><dt className="text-sm mb-2">Design</dt><dd>{work.design}</dd></div>
- <div><dt className="text-sm mb-2">Collaboration</dt><dd>{work.context}</dd></div>
- </dl>
+ {(work.role || work.design || work.context) && <dl className="grid md:grid-cols-3 gap-8 border-y border-neutral-400 py-8 mb-12">
+ {work.role && <div><dt className="text-sm mb-2">My role</dt><dd>{work.role}</dd></div>}
+ {work.design && <div><dt className="text-sm mb-2">Design</dt><dd>{work.design}</dd></div>}
+ {work.context && <div><dt className="text-sm mb-2">Collaboration</dt><dd>{work.context}</dd></div>}
+ </dl>}
  <h2 className="text-2xl md:text-3xl mb-5">{work.challenge}</h2>
  <p className="max-w-3xl text-lg leading-relaxed mb-8">{work.body}</p>
  {work.result && <p className="max-w-3xl text-base leading-relaxed mb-8">{work.result}</p>}
@@ -37,7 +37,6 @@ export default async function WorkPage({params}: Props) {
  </video>
  <figcaption id={`${work.slug}-motion-caption`} className="mt-3 text-sm leading-relaxed">{work.motionCaption}</figcaption>
  </figure> : <Image src={work.detailImage} alt={`${work.title} — ${work.challenge}`} width={1280} height={720} className="w-full h-auto rounded-2xl" sizes="(max-width: 768px) 100vw, 1200px"/>}
- {work.slug==='natural-awakenings' && <Image src="/images/projects/natural-awakenings-search.jpg" alt="Magazine directory search for Boston returns one location" width={1280} height={720} className="w-full h-auto rounded-2xl mt-8"/>}
  </section>
  <Link href={`/work/${next.slug}`} aria-label={`Next project: ${next.title}`}><CtaNextProject/></Link>
  </article>;

@@ -20,7 +20,7 @@ const defaultFaqs: FaqItem[] = [
   },
   {
     "question": "Who creates the design?",
-    "answer": "My focus is development. For Kaite and Lukdeira, I collaborated with Kaite, who created the designs. Natural Awakenings was designed by Agnes and implemented while I worked at Flip180 Media."
+    "answer": "Kaite designed all three featured websites. I handled development for Kaite, Lukdeira and Užtemimas 2027."
   },
   {
     "question": "Can you build a WordPress website?",

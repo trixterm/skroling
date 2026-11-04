@@ -32,8 +32,8 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
   const isHoverVideo = type === "hoverVideo";
 
   return (
-    <div className={isHoverVideo ? "slide-inner group" : "slide-inner"}>
-      <div className="absolute bottom-4 left-4 right-4 z-20 bg-black/80 text-white rounded-xl p-3">{title}<span className="block text-xs mt-1">Development · View project ↗</span></div>
+    <div className="slide-inner group relative">
+      <div className="opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 absolute bottom-4 left-4 right-4 z-20 bg-black/80 text-white rounded-xl p-3">{title}<span className="block text-xs mt-1">View project ↗</span></div>
       <a className="absolute inset-0 z-30" href={href} aria-label={`View ${title}`}></a>
 
       {isHoverVideo ? (
@@ -57,10 +57,10 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
             )}
         </div>
       ) : (
-        <div className="relative h-[460px] bg-neutral-900 rounded-[20px] overflow-hidden flex p-7">
+        <div className="relative aspect-[0.91] bg-neutral-900 rounded-[20px] overflow-hidden">
             <div className="fp-mask absolute inset-0">
                 <Image
-                className="rounded-[20px] object-contain"
+                className="rounded-[20px] object-cover"
                 src={image}
                 alt={title}
                 fill
@@ -72,7 +72,7 @@ function WorkSlide({ title, image, video, type, href = "#" }: WorkSlideProps) {
   );
 }
 
-const slides: WorkSlideProps[] = works.map(work => ({title: work.title, image: work.heroImage, type: "static", href: `/work/${work.slug}`}));
+const slides: WorkSlideProps[] = works.map(work => ({title: work.title, image: work.cardImage, type: "static", href: `/work/${work.slug}`}));
 
 export default function SwiperSlider({ onInitControls }: SwiperSliderProps) {
   return (

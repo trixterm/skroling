@@ -108,7 +108,7 @@ export const siteConfig: SiteConfig = {
       'Creative Development',
     ],
     canonical: 'https://skroling.dev',
-    image: '/images/projects/kaite-hero.jpg',
+    image: '/images/projects/kaite-laptop.webp',
     imageAlt: "",
     locale: 'en-US',
     type: 'website',

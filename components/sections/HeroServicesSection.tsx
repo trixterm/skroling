@@ -143,7 +143,7 @@ const HeroServicesSection = memo(function HeroServicesSection() {
             className="fp-video-block-1 relative -top-21 md:-top-75 mx-auto w-20 md:w-[320px] aspect-video rounded-[4px] md:rounded-[10px] z-3"
             width={320}
             height={180}
-            src="/images/projects/lukdeira-facts.jpg" alt="Lukdeira — company facts section"
+            src="/images/projects/lukdeira-laptop.webp" alt="Lukdeira services on a laptop"
           />
         </div>
       </section>
