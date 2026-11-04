@@ -108,6 +108,7 @@ export default function VideoMorphScrollAnimation() {
           src="/video/sample.mp4"
           className="w-full h-full object-cover opacity-0"
           muted
+          loop
           playsInline
         />
       </div>

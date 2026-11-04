@@ -31,7 +31,7 @@ export default async function WorkPage({params}: Props) {
  {work.result && <p className="max-w-3xl text-base leading-relaxed mb-8">{work.result}</p>}
  {work.url && <a className="fp-btn fp-btn-filled-1 mb-10 inline-block" href={work.url} target="_blank" rel="noopener noreferrer">Visit website ↗</a>}
  {work.motionVideo ? <figure>
- <video controls playsInline muted preload="none" poster={work.detailImage} width={1600} height={900} aria-label={`${work.title} — scroll animation demonstration`} aria-describedby={`${work.slug}-motion-caption`} className="w-full h-auto rounded-2xl bg-black">
+ <video controls loop playsInline muted preload="none" poster={work.detailImage} width={1600} height={900} aria-label={`${work.title} — scroll animation demonstration`} aria-describedby={`${work.slug}-motion-caption`} className="w-full h-auto rounded-2xl bg-black">
  <source src={work.motionVideo} type="video/mp4" />
  <a href={work.motionVideo}>Watch the {work.title} animation demonstration</a>
  </video>
