@@ -1,56 +1,49 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function VideoExpandAnimation() {
-    const ctxRef = useRef<gsap.Context | null>(null);
-    const isInitializedRef = useRef(false);
-
     useEffect(() => {
-        const initializeAnimation = async () => {
-            const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        const section = document.querySelector(".fp-video-services");
+        const grid = document.querySelector(".fp-home-grid");
+        const video = section?.querySelector(".fp-services-media");
+        if (!section || !video) return;
 
-            if (!isInitializedRef.current) {
-                gsap.registerPlugin(ScrollTrigger);
-                isInitializedRef.current = true;
+        gsap.registerPlugin(ScrollTrigger);
+        const context = gsap.context(() => {
+            if (grid) {
+                const fade = gsap.timeline({
+                    defaults: { ease: "sine.inOut" },
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 0.25,
+                    },
+                });
+                fade.to(grid, { opacity: 0, duration: 0.25 }, 0);
+                fade.to(grid, { opacity: 1, duration: 0.25 }, 0.75);
             }
 
-            requestAnimationFrame(() => {
-                ctxRef.current = gsap.context(() => {
-                    const mm = gsap.matchMedia();
-
-                    mm.add("(min-width: 1069px)", () => {
-                        gsap.fromTo(
-                            ".fp-video-services .fp-services-media",
-                            {
-                                width: "0px",
-                                // borderRadius: "20px",
-                            },
-                            {
-                                width: "100vw",
-                                // borderRadius: "0px",
-                                ease: "none",
-                                scrollTrigger: {
-                                    trigger: ".fp-video-services",
-                                    start: "top 99%",
-                                    end: "top top",
-                                    scrub: true,
-                                },
-                            }
-                        );
-                    });
-
-                    return () => mm.revert();
+            const media = gsap.matchMedia();
+            media.add("(min-width: 1069px)", () => {
+                gsap.fromTo(video, { width: "0px" }, {
+                    width: "100vw",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 99%",
+                        end: "top top",
+                        scrub: true,
+                    },
                 });
             });
-        };
+            return () => media.revert();
+        });
 
-        initializeAnimation();
-
-        return () => {
-            ctxRef.current?.revert();
-        };
+        return () => context.revert();
     }, []);
 
     return null;

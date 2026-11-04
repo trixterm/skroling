@@ -41,7 +41,6 @@ function ServicesSection() {
                     muted
                     playsInline
                     loop
-                    controls
                 />
             </section>
             <div className="container">
