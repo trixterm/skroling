@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { lazy, memo } from "react";
 import ServicesReveal from "@/components/animations/ServicesReveal";
 import LineAnimation from "@/components/animations/LineAnimation";
@@ -32,7 +31,18 @@ function ServicesSection() {
             </div>
             <section className="fp-video-services mt-10 md:mt-24 flex justify-center">
                 <VideoExpandAnimation />
-                <Image src="/images/projects/kaite-phone.webp" alt="Kaite services on a phone" width={1280} height={720} className="fp-services-media max-w-[calc(100vw-30px)] h-auto md:h-svh object-contain rounded-[20px]" />
+                <video
+                    className="fp-services-media max-w-[calc(100vw-30px)] h-auto md:h-svh object-contain rounded-[20px]"
+                    src="/videos/skroling-showreel-v2.mp4"
+                    aria-label="Skroling showreel"
+                    width={1920}
+                    height={1080}
+                    autoPlay
+                    muted
+                    playsInline
+                    loop
+                    controls
+                />
             </section>
             <div className="container">
                 <div className="fp-text-after-video text-[16px] md:text-[20px] font-regular leading-[30px] md:leading-[33px] max-w-[870px] mt-17 max-sm:px-4 dark:text-[#f5f5f5]">
