@@ -14,7 +14,7 @@ export default function HomePage() {
         <div>
             {/* <IntroSection /> */}
 
-            <GridBackground />
+            <GridBackground className="fp-home-grid" />
 
             <HeroHomeSection />
             <WorkSection />
