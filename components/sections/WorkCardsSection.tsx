@@ -13,7 +13,7 @@ type Project = Readonly<{
   alt: string;
 }>;
 
-const projects: readonly Project[] = works.map(w => ({src:w.heroImage,link:`/work/${w.slug}`,alt:w.title}));
+const projects: readonly Project[] = works.map(w => ({src:w.cardImage,link:`/work/${w.slug}`,alt:w.title}));
 
 const sectionClassName = "mt-[100svh] relative";
 const wrapperClassName =

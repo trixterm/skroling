@@ -106,8 +106,8 @@ const HeroWorkSection = () => {
               className="top-right-photo col-start-1 row-start-6 lg:h-full lg:col-start-10 lg:row-start-2"
             />
             <PhotoBox
-              href="/work/natural-awakenings"
-              alt="Natural Awakenings"
+              href="/work/uztemimas-2027"
+              alt="Užtemimas 2027"
               className="bottom-center-photo col-start-3 row-start-2 lg:h-full lg:col-start-7 lg:row-start-5"
             />
             <PhotoBox

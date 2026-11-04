@@ -252,7 +252,7 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/projects/kaite-services.jpg"
+                                    data-image="/images/projects/kaite-laptop.webp"
                                     data-w="800"
                                     data-h="1200"
                                 />
@@ -269,7 +269,7 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/projects/lukdeira-facts.jpg"
+                                    data-image="/images/projects/lukdeira-card.webp"
                                     data-w="1600"
                                     data-h="900"
                                 />
@@ -286,7 +286,7 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/projects/kaite-services.jpg"
+                                    data-image="/images/projects/kaite-phone.webp"
                                     data-w="1200"
                                     data-h="1200"
                                 />
@@ -303,7 +303,7 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/projects/lukdeira-facts.jpg"
+                                    data-image="/images/projects/lukdeira-laptop.webp"
                                     data-w="900"
                                     data-h="1400"
                                 />
@@ -320,12 +320,12 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/projects/kaite-services.jpg"
+                                    data-image="/images/projects/uztemimas-tablet.webp"
                                     data-w="1600"
                                     data-h="1000"
                                 />
                                 <div className="fp-content w-[245px] text-[12px] font-medium pt-12">
-                                    While working at Flip180 Media, I implemented the Natural Awakenings website from Agnes’s design, including the magazine directory, search and filtering.
+                                    Užtemimas 2027 takes visitors from a globe of eclipse viewing locations to a map of their chosen site.
                                 </div>
                             </div>
 
@@ -337,7 +337,7 @@ export default function StorylineSection() {
                             >
                                 <div
                                     className={`${styles["fp-mask"]} w-[200px] h-[265px] relative`}
-                                    data-image="/images/projects/lukdeira-facts.jpg"
+                                    data-image="/images/projects/uztemimas-laptop.webp"
                                     data-w="1000"
                                     data-h="1000"
                                 />
