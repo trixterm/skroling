@@ -43,6 +43,8 @@ export const works: Work[] = [
     "cardImage": "/images/projects/uztemimas-tablet.webp",
     "heroImage": "/images/projects/uztemimas-laptop.webp",
     "detailImage": "/images/projects/uztemimas-tablet.webp",
+    "role": "Development",
+    "design": "Kaite",
     "url": "https://uztemimas2027.lt/",
     "status": "Live",
     "challenge": "Choosing a viewing location",
